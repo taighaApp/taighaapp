@@ -1,37 +1,177 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Button } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
+import PropertyListView from '@/components/common/PropertyListView';
+import Checkbox from 'expo-checkbox';
+import CustomBottomSheet from '@/components/common/CustomBottomSheet';
+import BottomSheet from '@gorhom/bottom-sheet';
+import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+// Placeholder screen components
+function DashboardScreen() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <View style={styles.screenContainer}>
+    <Text>dashboard Screen</Text>
+    </View>
   );
 }
+function SearchScreen() {
+  return (
+    <View style={styles.screenContainer}>
+      <HomeSearchMap/>
+    </View>
+  );
+}
+function FavoritesScreen() {
+  return (
+    <View style={styles.screenContainer}>
+      <HomeSearchCardview/>
+    </View>
+  );
+}
+function TicketsScreen() {
+
+  return (
+    <ScrollView style={{flex:1}}>
+      <PropertyListView/>
+      <PropertyListView/>
+      <PropertyListView/>
+      <PropertyListView/>
+    </ScrollView>
+  );
+}
+function MoreScreen() {
+  const [isChecked, setChecked] = useState(false);
+  const toggleCheckbox = () => setChecked(!isChecked);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  
+  return (
+    <View style={{flex:1}}>
+   {/* <Pressable style={styles.checkboxWrapper} onPress={toggleCheckbox}>
+                  <Checkbox 
+                  style={styles.checkbox}
+                  value={isChecked} 
+                  color={isChecked ? '#3366cc' : ''}
+                  onValueChange={setChecked} />
+                    <Text style={{}}>Selected</Text>
+              </Pressable> */}
+      <CustomBottomSheet/>
+    </View>
+  );
+}
+const Tab = createBottomTabNavigator();
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Tab.Navigator
+        initialRouteName="Dashboard"
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            let imageSource;
+            switch (route.name) {
+              case 'Dashboard':
+                imageSource = require('../../assets/images/homesearch/icon/dashboard.png');
+                break;
+                case 'Search':
+                imageSource = require('../../assets/images/homesearch/icon/homesearch.png');
+                break;
+              case 'Favorites':
+                imageSource = require('../../assets/images/homesearch/icon/favorite.png');
+                break;
+              case 'Tickets':
+                imageSource = require('../../assets/images/homesearch/icon/tickets.png');
+                break;
+              case 'More':
+                imageSource = require('../../assets/images/homesearch/icon/more.png');
+                break;
+            }
+            return (
+              <View style={styles.tabscontainer}>
+                <Image
+                source={imageSource}
+                style={{
+                  width: 20,
+                  height: 20,
+                //   borderWidth:1,
+                  tintColor: '#6A6A6A',
+                }}
+              />
+              </View>
+            );
+          },
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontSize: 12,
+                // borderWidth:1,
+                fontWeight: '800',
+                // paddingTop:2,
+                color: focused ? '#3366CC' : '#000000',
+              }}
+            >
+              {route.name}
+            </Text>
+          ),
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '800',
+            color:'#000000',
+          },
+          tabBarActiveTintColor: '#3366CC',
+          tabBarInactiveTintColor: '#3366CC',
+          fontSize:15,
+          tabBarStyle: {
+            height: 65,
+            width:'100%',
+            borderTopWidth: 1,
+            borderTopColor: '#ddd',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius:20,
+            backgroundColor:'#fff',
+          },
+          headerShown: false,
+          // tabBarActiveBackgroundColor: "red",
+
+        })}
+      >
+        <Tab.Screen name="Dashboard" component={DashboardScreen} />
+        <Tab.Screen name="Search" component={SearchScreen}   />
+        <Tab.Screen name="Favorites" component={FavoritesScreen}  />
+        <Tab.Screen name="Tickets" component={TicketsScreen}   />
+        <Tab.Screen name="More" component={MoreScreen}   />
+      </Tab.Navigator>
+      </View>
+  );
+}
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor:'#fff'
+  },
+  container:{
+    flex: 1,
+  },
+  tabscontainer:{
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  checkboxWrapper:{
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 20,
+},
+checkbox:{
+  width: 19,
+  height: 19,
+  marginRight: 8,
+  borderRadius:5,
+  borderColor:'#AFAFAF',
+  borderWidth:0.5,
+  marginTop:3
+},
+});
