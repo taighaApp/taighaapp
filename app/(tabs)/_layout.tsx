@@ -1,13 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import PropertyListView from '@/components/common/PropertyListView';
-import Checkbox from 'expo-checkbox';
-import CustomBottomSheet from '@/components/common/CustomBottomSheet';
-import BottomSheet from '@gorhom/bottom-sheet';
 import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
+import BatchActionModel from '@/components/HomeSearch/BatchActionModel';
 
 // Placeholder screen components
 function DashboardScreen() {
@@ -58,7 +55,9 @@ function MoreScreen() {
                   onValueChange={setChecked} />
                     <Text style={{}}>Selected</Text>
               </Pressable> */}
-      <CustomBottomSheet/>
+      {/* <CustomBottomSheet/> */}
+      <BatchActionModel/>
+      {/* <Model/> */}
     </View>
   );
 }
