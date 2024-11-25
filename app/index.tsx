@@ -1,15 +1,11 @@
-import { Image, StyleSheet,Text, Platform } from 'react-native';
-
-import Home from '../app/Home'
+import { StyleSheet } from 'react-native';
 import HomeSearch from './HomeSearch';
-import Model from '@/components/common/Model';
 
 export default function HomeScreen() {
   return (
    <>
      {/* <Home/> */}
-     {/* <HomeSearch/> */}
-     <Model/>
+     <HomeSearch/>
    </>
   );
 }

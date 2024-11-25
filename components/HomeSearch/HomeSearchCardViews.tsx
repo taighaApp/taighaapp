@@ -7,19 +7,15 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from 'react-native-reanimated';
-
-// This is the default configuration
+import HomeAccessories from "./HomeAccessories";
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
-  strict: false, // Reanimated runs in strict mode by default
+  strict: false,
 });
-
 const { width } = Dimensions.get('window');
-
 export default function PropertyCard() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-
   // Image data for slider
   const imageData = [
     { id: '1', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
@@ -27,9 +23,7 @@ export default function PropertyCard() {
     { id: '3', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
     { id: '4', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
     { id: '5', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
-    { id: '6', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
   ];
-
   // Function to handle sharing property details
   const handleShare = async () => {
     try {
@@ -40,7 +34,6 @@ export default function PropertyCard() {
                  "$6,000,000\n" +
                  "5 Beds | 5 Baths | 6887 sqft",
       });
-
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           Alert.alert("Shared via", result.activityType);
@@ -54,35 +47,26 @@ export default function PropertyCard() {
       // Alert.alert("Error", error.message);
     }
   };
-
   return (
-    <ScrollView  showsVerticalScrollIndicator={false}>
-    <View style={styles.container}>
+    <ScrollView  showsVerticalScrollIndicator={false} style={styles.container}>
       <View style={styles.card}>
         {/* Favorite and Share Icons */}
         <View style={styles.iconContainer}>
-          <Pressable
-            style={styles.icon}
-            // onPress={() => setIsFavorite((prev) => !prev)}
-          >
-            <FontAwesome
-              name={isFavorite ? "heart" : "heart-o"}
-              size={20}
-              color={isFavorite ? "red" : "#555"}
-            />
+          <Pressable style={styles.icon}>
+            <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
           </Pressable>
+
           <Pressable style={styles.icon} onPress={handleShare}>
-            <Feather name="share-2" size={20} color="#555" />
+            <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/icon-share.png')}/>
           </Pressable>
         </View>
-
         {/* Image Slider */}
-        <View style={styles.imageContainer}>
+        <View style={[styles.imageContainer,{width: width-60}]}>
           <Carousel
+          style={{borderRadius:5,}}
             loop
-            width={width}
-            height={200}
-            autoPlay={false}  
+            width={width-60}
+            autoPlay={false}
             data={imageData}
             scrollAnimationDuration={1000}
             onSnapToItem={(index) => setActiveIndex(index)}
@@ -92,7 +76,6 @@ export default function PropertyCard() {
               </View>
             )}
           />
-
           {/* Virtual Tour Label */}
           <View style={styles.virtualTourBadge}>
             <View style={styles.virtualTourContent}>
@@ -103,7 +86,6 @@ export default function PropertyCard() {
               />
             </View>
           </View>
-
           {/* Pagination Dots */}
           <View style={styles.pagination}>
             {imageData.map((_, index) => (
@@ -117,48 +99,40 @@ export default function PropertyCard() {
             ))}
           </View>
         </View>
-
         {/* Property Details */}
         <View style={styles.detailsContainer}>
-
-        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'100%',}}>
+        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'100%',marginBottom:10}}>
             <View>
-            <Text style={styles.cardPropertyName}>6220 NW SKYLINE BLVD</Text>
-            <Text style={styles.cardPropertyaddres}>Portland, OR 97229</Text>
+              <Text style={styles.cardPropertyName}>6220 NW SKYLINE BLVD</Text>
+              <Text style={styles.cardPropertyaddres}>Portland, OR 97229</Text>
             </View>
-        
           <View>
-            <Text>$6,000,000</Text>
+            <Text style={styles.cardPropertyPrice}>$6,000,000</Text>
           </View>
-          
         </View>
-
+          {/* Home Accessories Component */}
+          <HomeAccessories/>
         </View>
       </View>
-    </View>
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#f5f5f5",
-    alignItems: "center",
-    paddingVertical: 20,
   },
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
-    width: 350,
+    width: width-40,
     height:290,
-    padding: 10,
     marginVertical: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 1,
-    elevation:0,
+    shadowRadius: 5,
+    elevation:5,
+    alignItems:'center',
   },
   iconContainer: {
     flexDirection: "row",
@@ -166,32 +140,33 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     width: "100%",
-    paddingTop: 20,
+    paddingTop: 15,
+    right:15,
   },
   icon: {
-    marginHorizontal: 8,
-    backgroundColor: "rgba(233, 233, 233, 0.7)", // Light gray with 70% opacity
+    backgroundColor: "rgba(233, 233, 233, 0.7)",
     padding: 6,
-    borderRadius: 15,
-    elevation: 3,
+    marginLeft:5,
+    borderRadius: 50,
+  },
+  mapMedia:{
+    width:15,
+    height:15
   },
   imageContainer: {
-    width: "100%",
-    height: 181,
+    height: 180,
     borderRadius: 8,
-    overflow: "hidden",
-    backgroundColor: "#f0f0f0",
-    position: "relative",
+    marginTop:10,
   },
   slide: {
-    justifyContent: "center",
-    alignItems: "center",
+    borderRadius:8,
   },
   image: {
     width: "100%",
     height: "100%",
-    // resizeMode: "cover",
+    borderRadius:8,
     objectFit:'cover',
+    overflow:'hidden',
   },
   pagination: {
     flexDirection: "row",
@@ -206,15 +181,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: '85%',
     right: 10,
-    backgroundColor: "rgba(51, 102, 204, 0.7)", 
-    borderRadius: 3, 
-   justifyContent: "center", 
-   alignItems: "center", 
+    backgroundColor: "rgba(51, 102, 204, 0.7)",
+    borderRadius: 3,
+   justifyContent: "center",
+   alignItems: "center",
   },
   virtualTourContent: {
-    flexDirection: "row", 
-    alignItems: "center", 
-    justifyContent: "center", 
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   virtualTourText: {
     color: "#FFFFFF",
@@ -223,7 +198,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   virtualTourImage: {
-    width: 15, 
+    width: 15,
     height: 15,
   },
   dot: {
@@ -244,10 +219,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   detailscontent:{
-    flexDirection: 'row', // Align elements horizontally
-  justifyContent: 'flex-start', // Align content to the left
-  width: '100%',
-  alignItems: 'center', 
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    alignItems: 'center',
   },
   title: {
     fontSize: 16,
@@ -267,10 +242,11 @@ const styles = StyleSheet.create({
   cardPropertyaddres:{
     fontSize: 14,
     color: "#6A6A6A",
-
   },
-  cardPropertyprice: {
-fontSize:12,
+  cardPropertyPrice:{
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#000000",
   },
   featuresRow: {
     flexDirection: "row",

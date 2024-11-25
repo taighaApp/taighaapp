@@ -16,8 +16,9 @@ const PropertyListView = () => {
   
   const data = [
     { id: '1', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '2', image: require('../../assets/images/google.png') },
-    { id: '3', image: require('../../assets/images/facebook.png') },
+    { id: '2', image: require('../../assets/images/dummyCardImage.png') },
+    { id: '3', image: require('../../assets/images/dummyCardImage.png') },
+    
   ];
 
   const onScroll = (event: { nativeEvent: { contentOffset: { x: number; }; }; }) => {
@@ -49,6 +50,7 @@ const active = ()=>{
           </View>
          
           <Carousel
+            style={{borderRadius:8}}
             loop
             width={120}
             height={120}
@@ -92,9 +94,9 @@ const active = ()=>{
                     <Image style={styles.mapMedia} source={require('../../assets/images/chat-bubble--com.png')}/>
                 </View> */}
 
-                <View style={styles.mapMediaWrapper}>
+                <Pressable style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
-                </View>
+                </Pressable>
 
                 {/* <View style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/icon-share.png')}/>
@@ -173,15 +175,14 @@ const styles =StyleSheet.create({
       fontSize:16,
     },
     mapMedia:{
-      width:12,
-      height:12
+      width:15,
+      height:15
     },
     slide: {
       width:120,
       height:120,
       alignItems:'center',
       justifyContent:'center',
-      // borderWidth: 1,
     },
     pagination: {
       flexDirection: 'row',
