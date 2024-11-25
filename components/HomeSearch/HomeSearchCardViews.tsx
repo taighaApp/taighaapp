@@ -124,15 +124,16 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
-    width: width-40,
-    height:290,
+    width: width - 40,
+    height: 290,
     marginVertical: 10,
+    marginHorizontal:10,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 2 }, // Balanced shadow offset
     shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation:5,
-    alignItems:'center',
+    shadowRadius: 4, 
+    elevation: 5,
+    alignItems: 'center',
   },
   iconContainer: {
     flexDirection: "row",

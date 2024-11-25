@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 import HomeSearch from './HomeSearch';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HomeScreen() {
   return (
    <>
+      <StatusBar style="dark" />
      {/* <Home/> */}
      <HomeSearch/>
    </>
