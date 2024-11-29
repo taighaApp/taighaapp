@@ -13,9 +13,9 @@ export default function Home(){
       const signUp = () => {
         router.push('/Signup');
       };
-      const model = () => {
-        router.push('/Model');
-      };
+    //   const model = () => {
+    //     router.push('/Model');
+    //   };
 
     return(
     <View style={styles.container}>

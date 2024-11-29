@@ -47,9 +47,37 @@ export default function PropertyCard() {
       // Alert.alert("Error", error.message);
     }
   };
+
+  const cardData = [
+    {
+      id:'1',
+      VirtualTourLabel:'Virtual Tour',
+      cardStreetName:'6220 NW SKYLINE BLVD',
+      CardPropertyPrice:'$6,000,000',
+      cardAddress:'Portland, OR 97229',
+    },
+    {
+      id:'2',
+      VirtualTourLabel:'Virtual Tour',
+      cardStreetName:'6220 NW SKYLINE BLVD',
+      CardPropertyPrice:'$6,000,000',
+      cardAddress:'Portland, OR 97229',
+    },
+    {
+      id:'3',
+      VirtualTourLabel:'Virtual Tour',
+      cardStreetName:'6220 NW SKYLINE BLVD',
+      CardPropertyPrice:'$6,000,000',
+      cardAddress:'Portland, OR 97229',
+    },
+  ];
+
   return (
     <ScrollView  showsVerticalScrollIndicator={false} style={styles.container}>
-      <View style={styles.card}>
+      {cardData.map((items)=>(
+
+      
+      <View key={items.id} style={styles.card}>
         {/* Favorite and Share Icons */}
         <View style={styles.iconContainer}>
           <Pressable style={styles.icon}>
@@ -79,7 +107,7 @@ export default function PropertyCard() {
           {/* Virtual Tour Label */}
           <View style={styles.virtualTourBadge}>
             <View style={styles.virtualTourContent}>
-              <Text style={styles.virtualTourText}>Virtual Tour</Text>
+              <Text style={styles.virtualTourText}>{items.VirtualTourLabel}</Text>
               <Image
                 source={require("../../assets/images/homesearch/icon/360-degrees.png")} // Replace with your image path
                 style={styles.virtualTourImage}
@@ -103,17 +131,18 @@ export default function PropertyCard() {
         <View style={styles.detailsContainer}>
         <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'100%',marginBottom:10}}>
             <View>
-              <Text style={styles.cardPropertyName}>6220 NW SKYLINE BLVD</Text>
-              <Text style={styles.cardPropertyaddres}>Portland, OR 97229</Text>
+              <Text style={styles.cardPropertyName}>{items.cardStreetName}</Text>
+              <Text style={styles.cardPropertyaddres}>{items.cardAddress}</Text>
             </View>
           <View>
-            <Text style={styles.cardPropertyPrice}>$6,000,000</Text>
+            <Text style={styles.cardPropertyPrice}>{items.CardPropertyPrice}</Text>
           </View>
         </View>
           {/* Home Accessories Component */}
           <HomeAccessories/>
         </View>
       </View>
+      ))}
     </ScrollView>
   );
 }
