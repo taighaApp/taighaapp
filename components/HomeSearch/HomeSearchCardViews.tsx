@@ -53,11 +53,11 @@ export default function PropertyCard() {
         {/* Favorite and Share Icons */}
         <View style={styles.iconContainer}>
           <Pressable style={styles.icon}>
-            <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
+            <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-fav.png')}/>
           </Pressable>
 
           <Pressable style={styles.icon} onPress={handleShare}>
-            <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/icon-share.png')}/>
+            <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share.png')}/>
           </Pressable>
         </View>
         {/* Image Slider */}

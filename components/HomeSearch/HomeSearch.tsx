@@ -19,7 +19,7 @@ export default function Header() {
           placeholderTextColor="#999"
         />
         <TouchableOpacity style={styles.filterButton}>
-          <Link href={'/Login'}>
+          <Link href={'/Propertiesdetails'}>
             <Image
               source={require('../../assets/images/homesearch/icon/filtericon.png')}
               style={{

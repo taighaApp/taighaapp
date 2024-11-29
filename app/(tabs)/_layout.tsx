@@ -5,6 +5,7 @@ import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import PropertyListView from '@/components/common/PropertyListView';
 import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
 import BatchActionModel from '@/components/HomeSearch/BatchActionModel';
+import PropertiesDetails from '@/components/HomeSearch/PropertiesDetails';
 
 // Placeholder screen components
 function DashboardScreen() {
@@ -56,8 +57,9 @@ function MoreScreen() {
                     <Text style={{}}>Selected</Text>
               </Pressable> */}
       {/* <CustomBottomSheet/> */}
-      <BatchActionModel/>
+      {/* <BatchActionModel/> */}
       {/* <Model/> */}
+      {/* <PropertiesDetails/> */}
     </View>
   );
 }
