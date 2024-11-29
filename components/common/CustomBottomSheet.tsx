@@ -17,17 +17,6 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
   const snapPoints = useMemo(() => ['10%','80%','100%'], []);
   // render
 
-//   const renderBackdrop = useCallback(
-//     (props_: BottomSheetBackdropProps) => (
-//       <BottomSheetBackdrop
-//         {...props_}
-//         pressBehavior="close"
-//         opacity={0.5}
-//         disappearsOnIndex={-1}
-//       />
-//     ),
-//     []
-// )
 
   return (
     // <GestureHandlerRootView style={styles.container}>
@@ -48,7 +37,6 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
         keyboardBlurBehavior="restore"
         detached={true}
         handleIndicatorStyle={{backgroundColor:'#E2E2E2'}}
-            // backdropComponent={renderBackdrop}
       >
             <BottomSheetView>
                   {/* Render the children here */}
@@ -58,5 +46,62 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
     // </GestureHandlerRootView>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  animContainer:{
+    flex: 1,
+  },
+  form:{
+    marginHorizontal:20,
+  },
+
+  bottomSheet: {
+    flex: 1,
+    position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
+    borderRadius: 50,
+    zIndex:9999
+  },
+  bottomSheetView: {
+    flex: 1,
+    backgroundColor: 'white',
+    // minHeight: SCREEN_HEIGHT * 0.3,
+  },
+  bottomSheetContainer:{
+    alignItems:'center',
+    marginHorizontal:15,
+  },
+  searchText: {
+    color: '#6A6A6A',
+    fontSize: 15,
+    fontWeight:'light',
+    marginBottom: 20,
+    letterSpacing:1,
+  },
+  containerStyles:{
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
+    borderColor: '#AFAFAF',
+    borderRadius: 5,
+    height:47,
+  },
+  labelStyles:{
+    backgroundColor: '#fff',
+    paddingHorizontal: 5,
+    fontSize:17,
+  },
+  inputStyles:{
+    color: '#6E6E6E',
+    paddingHorizontal: 10,
+  },
+});
+
 
 export default CustomBottomSheet;

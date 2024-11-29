@@ -47,7 +47,7 @@ export default function Header() {
         )} */}
         {/* </View> */}
         <TouchableOpacity style={styles.filterButton}>
-          <Link href={'/Dummy'}>
+          <Link href={'/Propertiesdetails'}>
             <Image
               source={require('../../assets/images/homesearch/icon/filtericon.png')}
               style={{

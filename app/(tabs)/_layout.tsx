@@ -4,10 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import PropertyListView from '@/components/common/PropertyListView';
 import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
-import BatchActionModel from '@/components/HomeSearch/BatchActionModel';
-import CustomBottomSheet from '@/components/common/CustomBottomSheet';
 import FindProperties from '@/components/HomeSearch/FindProperties';
-import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
+
 
 // Placeholder screen components
 function DashboardScreen() {
@@ -47,7 +45,22 @@ function MoreScreen() {
   
   return (
     <View style={{flex:1}}>
+<<<<<<< HEAD
       <FindProperties/>
+=======
+   {/* <Pressable style={styles.checkboxWrapper} onPress={toggleCheckbox}>
+                  <Checkbox 
+                  style={styles.checkbox}
+                  value={isChecked} 
+                  color={isChecked ? '#3366cc' : ''}
+                  onValueChange={setChecked} />
+                    <Text style={{}}>Selected</Text>
+              </Pressable> */}
+      {/* <CustomBottomSheet/> */}
+      {/* <BatchActionModel/> */}
+      {/* <Model/> */}
+      {/* <PropertiesDetails/> */}
+>>>>>>> c15aef56ecd953da56accc1278be09b157ab44d2
     </View>
   );
 }
