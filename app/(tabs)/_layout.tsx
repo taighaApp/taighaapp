@@ -5,6 +5,9 @@ import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import PropertyListView from '@/components/common/PropertyListView';
 import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
 import BatchActionModel from '@/components/HomeSearch/BatchActionModel';
+import CustomBottomSheet from '@/components/common/CustomBottomSheet';
+import FindProperties from '@/components/HomeSearch/FindProperties';
+import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 
 // Placeholder screen components
 function DashboardScreen() {
@@ -33,9 +36,6 @@ function TicketsScreen() {
   return (
     <ScrollView style={{flex:1}}>
       <PropertyListView/>
-      <PropertyListView/>
-      <PropertyListView/>
-      <PropertyListView/>
     </ScrollView>
   );
 }
@@ -47,17 +47,7 @@ function MoreScreen() {
   
   return (
     <View style={{flex:1}}>
-   {/* <Pressable style={styles.checkboxWrapper} onPress={toggleCheckbox}>
-                  <Checkbox 
-                  style={styles.checkbox}
-                  value={isChecked} 
-                  color={isChecked ? '#3366cc' : ''}
-                  onValueChange={setChecked} />
-                    <Text style={{}}>Selected</Text>
-              </Pressable> */}
-      {/* <CustomBottomSheet/> */}
-      <BatchActionModel/>
-      {/* <Model/> */}
+      <FindProperties/>
     </View>
   );
 }

@@ -17,6 +17,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^5.0.5",
+    "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-navigation/bottom-tabs": "^7.0.6",
     "@react-navigation/native": "^7.0.0",
     "@react-navigation/stack": "^7.0.5",
@@ -38,6 +39,8 @@
     "react-native-gesture-handler": "~2.20.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-maps": "1.18.0",
+    "react-native-paper": "^5.12.5",
+    "react-native-range-slider": "^0.1.2",
     "react-native-reanimated": "^3.16.2",
     "react-native-reanimated-carousel": "^3.5.1",
     "react-native-safe-area-context": "4.12.0",

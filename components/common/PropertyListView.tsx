@@ -29,8 +29,49 @@ const PropertyListView = () => {
 const active = ()=>{
   setActive(false)
 }
+
+const listData = [
+  {
+    id:'1',
+    isActiveText:'Active',
+    propertyPrice:'$6,000,000',
+    propertyStreet:'6220 NW SKYLINE BLVD',
+    propertyAddress:'Portland, OR 97229'
+  },
+  {
+    id:'2',
+    isActiveText:'Active',
+    propertyPrice:'$6,000,000',
+    propertyStreet:'6220 NW SKYLINE BLVD',
+    propertyAddress:'Portland, OR 97229'
+  },
+  {
+    id:'3',
+    isActiveText:'Active',
+    propertyPrice:'$6,000,000',
+    propertyStreet:'6220 NW SKYLINE BLVD',
+    propertyAddress:'Portland, OR 97229'
+  },
+  {
+    id:'4',
+    isActiveText:'Active',
+    propertyPrice:'$6,000,000',
+    propertyStreet:'6220 NW SKYLINE BLVD',
+    propertyAddress:'Portland, OR 97229'
+  },
+  {
+    id:'5',
+    isActiveText:'Active',
+    propertyPrice:'$6,000,000',
+    propertyStreet:'6220 NW SKYLINE BLVD',
+    propertyAddress:'Portland, OR 97229'
+  },
+]
   return (
-    <View style={styles.propertyListContainer}>
+    <View>
+    {listData.map((item)=>(
+
+    <View key={item.id} style={styles.propertyListContainer}>
         <View style={{ flex: 1 }}>
 
           <View style={styles.checkboxWrapper}>
@@ -41,10 +82,9 @@ const active = ()=>{
                 color={isChecked ? '#3366cc' : ''}
                 onValueChange={setChecked} />
             </Pressable>
-
                 {isActive ?
                 <Pressable style={styles.activeButton} onPress={active}>
-                  <Text style={styles.activeText}>Active</Text>
+                  <Text style={styles.activeText}>{item.isActiveText}</Text>
               </Pressable>
             :''}
           </View>
@@ -79,35 +119,25 @@ const active = ()=>{
               </View>
         </View>
 
-      {/* <Image source={require('../../assets/images/dummyCardImage.png')} /> */}
-
       <View style={{flex:2, flexDirection:'column',justifyContent:'space-between',marginLeft:15,marginBottom:5}}>
 
         <View>
            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
               <View>
-                  <Text style={styles.propertyValue}>$6,000,000</Text>
+                  <Text style={styles.propertyValue}>{item.propertyPrice}</Text>
               </View>
 
               <View style={styles.mapMediaContainer}>
-                {/* <View style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/chat-bubble--com.png')}/>
-                </View> */}
-
                 <Pressable style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
-
-                {/* <View style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/icon-share.png')}/>
-                </View> */}
                 
               </View>
            </View>
 
             <View style={styles.addressContainer}>
-              <Text style={styles.propertyAddress}> 6220 NW SKYLINE BLVD</Text>
-              <Text style={styles.propertyAddress}>Portland, OR 97229</Text>
+              <Text style={styles.propertyAddress}>{item.propertyStreet}</Text>
+              <Text style={styles.propertyAddress}>{item.propertyAddress}</Text>
             </View>
         </View>
 
@@ -117,6 +147,8 @@ const active = ()=>{
       </View>
       
     </View>
+  ))}
+  </View>
   )
 }
 
@@ -143,7 +175,7 @@ const styles =StyleSheet.create({
     propertyImage:{
         width: 120,
         height:120,
-        borderRadius:8,
+        // borderRadius:8,
         // borderWidth:1,
     },
     mapMediaContainer:{

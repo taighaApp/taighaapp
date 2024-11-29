@@ -5,6 +5,24 @@ import { Link } from 'expo-router';
 
 export default function Header() {
   const [selectedTab, setSelectedTab] = useState('House');
+  const [showSecondInput, setShowSecondInput] = useState(false);
+  const [firstInputValue, setFirstInputValue] = useState(""); // State for the first input
+  const [secondInputValue, setSecondInputValue] = useState(""); // State for the second input
+
+
+  const handleAppendText = () => {
+    if (secondInputValue.trim() !== "") {
+      setFirstInputValue((prev) => `${prev} ${secondInputValue}`.trim()); // Append to first input
+      setSecondInputValue(""); // Clear second input
+    }
+  };
+
+  const clearFirstInput = () => {
+    setFirstInputValue(""); // Clear the first input value
+    setSecondInputValue(""); // Reset second input
+    setShowSecondInput(false); // Hide the second input
+  };
+
 
   return (
     <View style={styles.headerContainer}>
@@ -13,13 +31,23 @@ export default function Header() {
         <TouchableOpacity style={styles.menuButton}>
           <Ionicons name="menu" size={28} color="#FFFF" />
         </TouchableOpacity>
+        {/* <View style={{width}}> */}
         <TextInput
           style={styles.searchInput}
           placeholder="Enter City, Zip or School"
           placeholderTextColor="#999"
+          value={firstInputValue}
+          onChangeText={setFirstInputValue} // Update state for first input
+          onFocus={() => setShowSecondInput(true)} // Show the second input on focus
         />
+           {/* {firstInputValue.length > 0 && (
+          <TouchableOpacity style={styles.clearIconContainer} onPress={clearFirstInput}>
+            <Text style={styles.clearIcon}>×</Text>
+          </TouchableOpacity>
+        )} */}
+        {/* </View> */}
         <TouchableOpacity style={styles.filterButton}>
-          <Link href={'/Login'}>
+          <Link href={'/Dummy'}>
             <Image
               source={require('../../assets/images/homesearch/icon/filtericon.png')}
               style={{
@@ -31,6 +59,21 @@ export default function Header() {
           </Link>
         </TouchableOpacity>
       </View>
+      {/* Display appended texts as chips */}
+
+      {/* Second TextInput */}
+      {showSecondInput && (
+        <View>
+        <TextInput
+          // style={styles.searchInput}
+          value={secondInputValue}
+          onChangeText={setSecondInputValue} // Update state for second input
+          onEndEditing={handleAppendText} // Append value when editing ends
+          placeholder="Additional Search"
+          placeholderTextColor="#999"
+        />
+      </View>
+      )}
 
       {/* Navigation Tabs */}
       <ScrollView
@@ -101,6 +144,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     color: '#333',
   },
+  clearIconContainer: {
+    position: "absolute",
+    right: 10,
+    padding: 5,
+  },
+  clearIcon: {
+    fontSize: 18,
+    color: "#999",
+  },
   filterButton: {
     padding: 10,
     borderWidth: 1,
@@ -134,5 +186,27 @@ const styles = StyleSheet.create({
     height: 3,
     width: '50%',
     backgroundColor: '#000000',
+  },
+  chipsContainer: {
+    flexDirection: "row",
+    marginVertical: 10,
+  },
+  chip: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#e0e0e0",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginRight: 10,
+  },
+  chipText: {
+    fontSize: 14,
+    color: "#333",
+  },
+  closeIcon: {
+    fontSize: 18,
+    color: "#333",
+    marginLeft: 5,
   },
 });
