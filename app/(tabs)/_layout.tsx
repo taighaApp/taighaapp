@@ -45,22 +45,7 @@ function MoreScreen() {
   
   return (
     <View style={{flex:1}}>
-<<<<<<< HEAD
       <FindProperties/>
-=======
-   {/* <Pressable style={styles.checkboxWrapper} onPress={toggleCheckbox}>
-                  <Checkbox 
-                  style={styles.checkbox}
-                  value={isChecked} 
-                  color={isChecked ? '#3366cc' : ''}
-                  onValueChange={setChecked} />
-                    <Text style={{}}>Selected</Text>
-              </Pressable> */}
-      {/* <CustomBottomSheet/> */}
-      {/* <BatchActionModel/> */}
-      {/* <Model/> */}
-      {/* <PropertiesDetails/> */}
->>>>>>> c15aef56ecd953da56accc1278be09b157ab44d2
     </View>
   );
 }
