@@ -11,6 +11,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
+import PropertiesAccessories from "./PropertiesAccessories";
+import MapView, { Marker } from 'react-native-maps';
 
 
 const PropertiesDetails = () => {
@@ -18,7 +20,7 @@ const PropertiesDetails = () => {
 
 const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
-  
+// const [expandedSections, setExpandedSections] = React.useState(new Set());
     const sections = [
         { title: "General Information", key: "general" },
         { title: "Residence Information", key: "residence" },
@@ -29,6 +31,76 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
         { title: "History", key: "history" },
       ];
     
+      const sectionData = {
+        general: [
+          { id: '1', Label: "MLS#", value: "24395515" },
+          { id: '2', Label: "Type", value: "SingleFamilyResidence" },
+          { id: '3', Label: "Days on Market", value: "203 DOM" },
+          { id: '4', Label: "Lot Size", value: "9.76 acres" },
+          { id: '5', Label: "Baths", value: "0" },
+          { id: '6', Label: "SqFt", value: "-" },
+          { id: '7', Label: "Year built", value: "-" },
+          { id: '8', Label: "County", value: "Multnomah" },
+          { id: '9', Label: "Tax ID", value: "R324437" },
+          { id: '10', Label: "Elem", value: "Forest Park" }, 
+          { id: '11', Label: "Middle", value: "West Sylvan" }, 
+
+        ],
+        residence: [
+          { id: '1', Label: "Upper Sqft", value: "0" },
+          { id: '2', Label: "Main Sqft", value: "12345" },
+          { id: '3', Label: "LowerSqft", value: "1254" },
+          { id: '4', Label: "Total Sqft", value: "2365" },
+          { id: '5', Label: "SFSrc", value: "Trio" },
+          { id: '6', Label: "TotUp/Mn", value: "1478" },
+          { id: '7', Label: "Fireplaces", value: "2/Gas" },
+          { id: '8', Label: "Bdrms", value: "5" },
+          { id: '9', Label: "Full Bath", value: "3" },
+          { id: '10', Label: "Partial Bath", value: "3" },
+        ],
+        features: [
+          { id: '1', Label: "Living", value: "Ceiling Fan, Fireplace, Hard woodFloors" },
+          { id: '2', Label: "Kitchen", value: "BuiltinRange, Cooktop, Dis hwasher, FreeStanding Ref rigerator, Range Hood, Soli dSurfaceCountertop, Stain lessS" },
+          { id: '3', Label: "Interior", value: "Ceiling Fan, Hardwood Floo rs, Laundry, WalltoWallCar pet, WasherDryer" },
+          { id: '4', Label: "Exterior", value: "Deck, Fenced, Porch, Raised Beds, Yard" },
+          { id: '5', Label: "Accessibility", value: "Walkin Shower" },
+          { id: '6', Label: "Cool", value: "CentralAir" },
+          { id: '7', Label: "Water", value: "Electricity" },
+          { id: '8', Label: "Heat", value: "ForcedAir" },
+          { id: '9', Label: "Sewer", value: "PublicSewer" },
+          { id: '10', Label: "Hot Water", value: "Electricity" },
+        ],
+        financial: [
+          { id: '1', Label: "PTax/Yr", value: "6758.04" },
+          { id: '2', Label: "HOA", value: "0" },
+          { id: '3', Label: "HOA Incl", value: "-" },
+          { id: '4', Label: "HOA fee", value: "-/-" },
+          { id: '5', Label: "Other Dues", value: "-" },
+          { id: '6', Label: "Terms Considered", value: "Cash,Conventional,FHA" },
+          { id: '7', Label: "List Date", value: "11-20-2024" },
+          { id: '8', Label: "Rent(If Rented)", value: "-" },
+          { id: '9', Label: "Bank Owned/REO", value: "No" },
+          { id: '10', Label: "Short Sale", value: "No" },
+        ],
+        comparable: [
+          { id: '1', Label: "Pending Date", value: "-" },
+          { id: '2', Label: "DOM", value: "2 DOM" },
+          { id: '3', Label: "CDOM", value: "3 DOM" },
+          { id: '4', Label: "Sold date", value: "-" },
+          { id: '5', Label: "Terms", value: "Cash,Conventional,FHA" },
+          { id: '6', Label: "Original Price", value: "$699,727" },
+          { id: '7', Label: "List Price", value: "$699,727" },
+          { id: '8', Label: "Sold Price", value: "-" },
+          { id: '9', Label: "Last Modified", value: "Nov 30,-0001 00:00" },
+        ],
+        schools: [
+          { id: '1', Label: "Elementary:Terra Linda", value: "5/10 Ratings" },
+          { id: '2', Label: "Middle:Tumwater", value: "N/A Ratings" },
+          { id: '3', Label: "High:Sunset", value: "5/10 Ratings" },
+        ],
+        history: [], // You can keep custom logic for history if required.
+      };
+      
       // Function to handle sharing property details
   const handleShare = async () => {
     try {
@@ -60,188 +132,60 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
     }
   });
   
-  const toggleSection = (key: string) => {
-    const newExpandedSections = new Set(expandedSections);
-    
-    if (newExpandedSections.has(key)) {
-      newExpandedSections.delete(key);
-    } else {
-      newExpandedSections.add(key);
-    }
-    
-    setExpandedSections(newExpandedSections);
-  };
+ 
+const toggleSection = (key:string) => {
+  const updatedSections = new Set(expandedSections);
+  if (updatedSections.has(key)) {
+    updatedSections.delete(key); // Collapse the section
+  } else {
+    updatedSections.add(key); // Expand the section
+  }
+  setExpandedSections(updatedSections); // Update state
+};
 
-  const renderSectionContent = (key: string) => {
-    switch(key) {
-      case "general":
-        return (
-          <View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>MLS#</Text>
-              <Text style={styles.infoValue}>24395515</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Type</Text>
-              <Text style={styles.infoValue}>SingleFamilyResidence</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Days on Market</Text>
-              <Text style={styles.infoValue}>203 DOM</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Beds</Text>
-              <Text style={styles.infoValue}>0</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Lot Size</Text>
-              <Text style={styles.infoValue}>9.76 acres</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Baths</Text>
-              <Text style={styles.infoValue}>0</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>SqFt</Text>
-              <Text style={styles.infoValue}>-</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Year built</Text>
-              <Text style={styles.infoValue}>-</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>County</Text>
-              <Text style={styles.infoValue}>Multnomah</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Tax ID</Text>
-              <Text style={styles.infoValue}>R324437</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Elem</Text>
-              <Text style={styles.infoValue}>Forest Park</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Middle</Text>
-              <Text style={styles.infoValue}>West Sylvan</Text>
-            </View>
-          </View>
-        );
-      case "residence":
-        return (
-          <View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Residence Details</Text>
-              <Text style={styles.infoValue}>More Information</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Residence Details</Text>
-              <Text style={styles.infoValue}>More Information</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Residence Details</Text>
-              <Text style={styles.infoValue}>More Information</Text>
-            </View>
-          </View>
-        );
-      case "features":
-        return (
-          <View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Features</Text>
-              <Text style={styles.infoValue}>Property Features</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Features</Text>
-              <Text style={styles.infoValue}>Property Features</Text>
-            </View>
-          </View>
-        );
-      case "financial":
-        return (
-          <View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Financial Details</Text>
-              <Text style={styles.infoValue}>Pricing Information</Text>
-            </View>
-          </View>
-        );
-      case "comparable":
-        return (
-          <View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Comparable Properties</Text>
-              <Text style={styles.infoValue}>Nearby Listings</Text>
-            </View>
-          </View>
-        );
-      case "schools":
-        return (
-          <View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Nearby Schools</Text>
-              <Text style={styles.infoValue}>School District</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Nearby Schools</Text>
-              <Text style={styles.infoValue}>School District</Text>
-            </View>
-          </View>
-        );
-      case "history":
-        return (
-          <View>
-                {/* Table Section */}
-                <View style={styles.table}>
-                    {/* Table Header */}
-                    <View style={styles.tableHeader}>
-                    <Text style={[styles.tableText, styles.headerText, styles.dates]}>Dates</Text>
-                    <Text style={[styles.tableText, styles.headerText, styles.event]}>Event & Source</Text>
-                    <Text style={[styles.tableText, styles.headerText, styles.accordainprice]}>Price</Text>
-                    </View>
 
-                    {/* Row 1 */}
-                    <View style={styles.tableRow}>
-                    <Text style={[styles.tableText, styles.dates]}>10-23-2024</Text>
-                    <Text style={[styles.tableText, styles.event]}>
-                        Active (Price Changed) MLS #24395515
-                    </Text>
-                    <Text style={[styles.tableText, styles.accordainprice]}>$625,000</Text>
-                    </View>
-
-                    {/* Row 2 */}
-                    <View style={styles.tableRow}>
-                    <Text style={[styles.tableText, styles.dates]}>10-23-2024</Text>
-                    <Text style={[styles.tableText, styles.event]}>
-                        Active (Price Changed) MLS #24395515
-                    </Text>
-                    <Text style={[styles.tableText, styles.accordainprice]}>$625,000</Text>
-                    </View>
-
-                    {/* Row 3 */}
-                    <View style={styles.tableRow}>
-                    <Text style={[styles.tableText, styles.dates]}>10-23-2024</Text>
-                    <Text style={[styles.tableText, styles.event]}>
-                        Active (Price Changed) MLS #24395515
-                    </Text>
-                    <Text style={[styles.tableText, styles.accordainprice]}>$625,000</Text>
-                    </View>
-
-                    {/* Row 4 */}
-                    <View style={styles.tableRow}>
-                    <Text style={[styles.tableText, styles.dates]}>10-23-2024</Text>
-                    <Text style={[styles.tableText, styles.event]}>
-                        Active (Price Changed) MLS #24395515
-                    </Text>
-                    <Text style={[styles.tableText, styles.accordainprice]}>$625,000</Text>
-                    </View>
-                </View>
+const renderSectionContent = (key: string) => {
+  const data = sectionData[key];
+  if (data && data.length > 0) {
+    return (
+      <View>
+        {/* {data.map((item:any) => ( */}
+        {data.map((item: any, index: number) => (
+          <View key={item.id}
+          style={[
+            styles.infoRow,
+            index === data.length - 1 && { borderBottomWidth: 0 }, // Remove border for the last item
+          ]}>
+            <Text style={styles.infoLabel}>{item.Label}</Text>
+            <Text style={styles.infoValue}>{item.value}</Text>
           </View>
-        );
-      default:
-        return null;
-    }
-  };
+        ))}
+      </View>
+    );
+  }
+
+  // Custom case for "history" or other sections
+  if (key === "history") {
+    return (
+      <View>
+        <View style={styles.table}>
+          <View style={styles.tableHeader}>
+            <Text style={[styles.tableText, styles.headerText, styles.dates]}>Dates</Text>
+            <Text style={[styles.tableText, styles.headerText, styles.event]}>Event & Source</Text>
+            <Text style={[styles.tableText, styles.headerText, styles.accordainprice]}>Price</Text>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={[styles.tableText, styles.dates]}>10-23-2024</Text>
+            <Text style={[styles.tableText, styles.event]}>Active (Price Changed) MLS #24395515</Text>
+            <Text style={[styles.tableText, styles.accordainprice]}>$625,000</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  return null; // Default fallback for unsupported sections
+};
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -256,10 +200,10 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
             
             <View style={styles.iconback}>
               <Pressable style={styles.iconfav}>
-                {/* <Link href={'/HomeSearch'}> */}
+                <Link href={'/HomeSearch'}>
                     {/* <AntDesign name="arrowleft" size={24} color="black" /> */}
                     <Image style={{width:20,height:20}} source={require('../../assets/images/PropertiesImage/properties-backarrow.png')}/>
-                {/* </Link> */}
+                </Link>
               </Pressable>
             </View>
 
@@ -294,20 +238,35 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
 
         <Text style={styles.price}>$1,250,000</Text>
 
-            <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom:14, }}>
+            <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom:14}}>
 
                 <View style={styles.Propertiescontent}>
                     <Text style={styles.address}>9007 NW BARTHOLOMEW DR</Text>
                     <Text style={styles.pincode}>Portland, OR, 97229</Text>
                 </View>
-                <View style={styles.maps}>
-                    <Text>Maps</Text>
+                <View style={styles.MapContainer}>
+                  <MapView
+                    style={styles.maps}
+                    initialRegion={{
+                      latitude: 45.5122, 
+                      longitude: -122.6587, 
+                      latitudeDelta: 0.0922,
+                      longitudeDelta: 0.0421,
+                    }}
+                  >
+                    <Marker
+                      coordinate={{ latitude: 45.5122, longitude: -122.6587 }}
+                      title="Portland"
+                      description="This is a marker for Portland"
+                    />
+                  </MapView>
                 </View>
             </View>
             {/* here insert the homeaccessories component */}
             
             <View>
-              <HomeAccessories/>
+              <PropertiesAccessories/>
+              {/* <Proper/> */}
             </View>
 
             <View style={styles.homeaccessoriesline}></View>
@@ -360,7 +319,7 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
                             source={require('../../assets/images/gmail-icon.png')}
                         />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.iconWrapper}>
+                        <TouchableOpacity style={styles.iconWrapper_linkedin}>
                         <Image
                             style={styles.linkedinicon}
                             source={require('../../assets/images/linkedin.png')}
@@ -388,11 +347,12 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
                     key={section.key}
                     style={[
                         styles.accordionSection,
-                        { backgroundColor: expandedSections.has(section.key) ? '#3366CC' : '#F6F6F6' },
                     ]}
                     >                
                     <TouchableOpacity
-                  style={styles.accordionHeader}
+                  style={[styles.accordionHeader,
+                    { backgroundColor: expandedSections.has(section.key) ? '#3366CC' : '#F6F6F6' },
+                  ]}
                   onPress={() => toggleSection(section.key)}
                 >
                 <Text
@@ -404,13 +364,12 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
                     {section.title}
                 </Text>
 
-                {!expandedSections.has(section.key) && (
-                <MaterialIcons
-                    name="add"
-                    size={24}
-                    color="#007BFF"
-                />
-                )}
+                 {/* Render "add" or "remove" icon based on expanded state */}
+                 <MaterialIcons
+                    name={expandedSections.has(section.key) ? "remove" : "add"}
+                    size={20}
+                    color={expandedSections.has(section.key) ? "#fff" : "#007BFF"} // White for "remove", blue for "add"
+                  />
                 </TouchableOpacity>
 
                 {expandedSections.has(section.key) && (
@@ -430,9 +389,9 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
                 </View>
 
                 <View style={styles.listingContent}>
-                    
-                    <Text style={styles.listingContent_text}>
-                    <Image source={require('../../assets/images/homesearch/icon/rmls-logo.png')} style={styles.listingContent_image} />
+                <Image source={require('../../assets/images/homesearch/icon/rmls-logo.png')} style={styles.listingContent_image} />
+
+                    <Text style={styles.listingContent_text}>{'         \t'}
                     The content relating to real estate for sale on this site comes in part from the IDX program of the RMLS of Portland, Oregon. 
                     Real Estate listings held by brokerage firms other than this firm are marked with the RMLS logo, and detailed information about these properties include the name of the listing's broker. 
                     Listing content is copyright © 2019 RMLS of Portland, Oregon. 
@@ -509,7 +468,9 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   bottomContainer: {
-    padding: 20,
+    // padding: 15,
+
+    marginHorizontal:20,
   },
   homeaccessoriesline:{
     borderBottomWidth:1,
@@ -517,17 +478,26 @@ const styles = StyleSheet.create({
     marginTop:25,
   },
   maps:{
-    borderWidth:1,
     flex: 0.5,
-    // width:100,
-    height:50,
-    borderRadius:5,
+    width:110,
+    height:60,
     alignItems:'center',
+  },
+  MapContainer:{
+    // borderWidth:1,
+    borderRadius:10,
+    overflow: 'hidden',
+    shadowColor:'#8C8C8C',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: 4,
+
   },
   price:{
     fontSize:25,
     fontWeight:500,
-    marginBottom:19,
+    // marginBottom:19,
   },
   address:{
     fontSize:15,
@@ -536,6 +506,7 @@ const styles = StyleSheet.create({
   pincode:{
     color:'#6F6F6F',
     fontSize:15,
+    fontWeight:500,
     // marginBottom:21,
   },
   landdetails:{
@@ -543,6 +514,8 @@ const styles = StyleSheet.create({
     lineHeight:25,
     paddingTop:16,
     paddingBottom:17,
+    textAlign:'justify',
+    fontFamily:'interRegular',
     // maxWidth:320,
   },
   landcontent:{
@@ -560,8 +533,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     // padding: 15,
     marginTop: 20,
-    elevation: 3,
-    shadowColor: '#000',
+    elevation: 5,
+    shadowColor: '#8C8C8C',
     shadowOpacity: 0.1,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -583,9 +556,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    // borderRadius: 10,
+    borderRadius: 10,
     // padding: 15,
-    width:140,
+    width:130,
     height:130,
     // borderWidth:1,
     objectFit:'cover',
@@ -598,7 +571,7 @@ const styles = StyleSheet.create({
     height: 96,
     borderRadius: 50,
     marginRight: 15,
-    marginLeft:30,
+    marginLeft:21,
     borderWidth:3,
     borderColor:'#FFFFFF',
     // borderra
@@ -618,13 +591,14 @@ const styles = StyleSheet.create({
   profileTitleline:{
     width:30,
     backgroundColor:'#3366CC',
-    height:1,
+    height:1.5,
+    borderRadius:9,
   },
   profileContact: {
     fontSize: 14,
     marginTop: 10,
     marginBottom:10,
-    fontWeight: 'bold',
+    fontWeight: 'medium',
 
   },
   profileIcons: {
@@ -635,23 +609,41 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 2,
     borderColor: "#E9E9E9",
-    padding: 6,
+    padding: 3,
     backgroundColor: "#fff",
+    // width:20,
+    // height:20,
   },
   icon: {
-    width: 24,
-    height: 24,
+    width: 17,
+    height: 17,
+    // padding:6,
   },
+  iconWrapper_linkedin:{
+    marginHorizontal: 5,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "#E9E9E9",
+    paddingHorizontal: 6,
+    paddingVertical:5,
+    backgroundColor: "#fff",
+    // height:20,
+    // width:24,
+    },
   linkedinicon:{
-    width: 24,
-    height: 21,
+    width: 9,
+    height: 8,
     resizeMode:'cover',
+    // borderWidth:1,
+    padding:6,
   },
 
   accordionSection: {
-    marginBottom: 8,
+    marginBottom: 15,
     backgroundColor: "#fff",
-    borderRadius: 6,
+    borderRadius: 5,
+    // paddingBottom:10,
+    // overflow:''
   },
   accordionHeader: {
     flexDirection: "row",
@@ -659,6 +651,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     paddingHorizontal:15,
+    borderTopRightRadius:4,
+    borderTopLeftRadius:4,
+
+    // borderWidth:1,
     // paddingLeft:15,
     // borderWidth:1,
     // borderBottomWidth: 1,
@@ -666,39 +662,53 @@ const styles = StyleSheet.create({
   },
   accordionTitle: {
     fontSize: 16,
-    fontWeight: 400,
-    color: "#333",
-
+    fontWeight:'medium',
+    fontFamily:'interMedium',
+    color: "#4C4C4C",
+    letterSpacing:.3,
   },
   accordionContent: {
-    padding: 16,
+    // paddingTop:5,
+    // paddingHorizontal:10,
     backgroundColor: "#FBFBFB",
     borderWidth:1,
     borderColor:'#ECECEC',
-    borderRadius:4,
+    // borderRadius:4,
+    borderBottomRightRadius:4,
+    borderBottomLeftRadius:4,
+
   },
   infoRow: {
     flexDirection: "row",
     justifyContent:"flex-start",
     alignItems:'flex-start',
-    marginBottom: 8,
+    // marginBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: "#ECECEC",
     // paddingBottom: 4,
     padding:10,
+    // marginLeft:10,
+    marginHorizontal:5,
   },
   infoLabel: {
-    fontSize: 14,
-    color: "#555",
+    fontSize: 15,
+    color: "#6F6F6F",
     fontWeight: "500",
-    width:'42%',
+    width:'40%',
+    fontFamily:'interRegular',
+    letterSpacing:.3,
+    marginRight:10,
+
   },
   infoValue: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#000",
+    fontWeight: "medium",
+    color: "#00000",
     flex:1,
     flexWrap:'wrap',
+    fontFamily:'interMedium',
+    letterSpacing:.1,
+
   },
   header: {
     fontSize: 20,
@@ -708,28 +718,31 @@ const styles = StyleSheet.create({
   },
   table: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#ECECEC",
     borderRadius: 5,
-  },
+    marginHorizontal:10,
+    marginVertical:10,
+    },
   tableHeader: {
     flexDirection: "row",
-    backgroundColor: "#e5e5e5",
+    backgroundColor: "#F1F1F1",
     padding: 10,
   },
   tableRow: {
     flexDirection: "row",
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#ccc",
   },
   tableText: {
     flex: 1,
     fontSize: 12,
     color: "#000",
+    fontFamily:'interRegular',
   },
   headerText: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: "medium",
   },
   dates: {
     flex: 1,
@@ -768,16 +781,22 @@ const styles = StyleSheet.create({
   listingContent_image:{
     width:48,
     height:18,
+    resizeMode:'contain',
+    position:'absolute',
+    top:5,
+    left:0,
+    
   },
   listingContent_text:{
     fontSize: 15,
-    fontWeight:'regular',
-    marginBottom:10,
+    color:'#000000',
+    fontFamily:'interRegular',
+    // marginBottom:10,/
     // maxWidth:332,
     lineHeight:28,
     letterSpacing:1,
-    
     // gap:10,
+    // textAlign:'justify',
   },
   listingContent_line:{
     backgroundColor:'#ECECEC',
