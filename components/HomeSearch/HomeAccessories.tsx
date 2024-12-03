@@ -24,7 +24,7 @@ const HomeAccessories = () => {
             <Text style={styles.infoCounts}>88D</Text>
         </View>
 
-        <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/>
+        {/* <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/> */}
     </View> 
   )
 }

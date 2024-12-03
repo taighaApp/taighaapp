@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, SafeAreaView, Platform, UIManager, LayoutAnimation } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import CustomBottomsheetModel from '../common/CustomBottomsheetModel';
+import FilterProperty from './FilterProperty';
+import { Dimensions } from 'react-native';
 
+const {width:SCREEN_WIDTH,height:SCREEN_HEIGHT} = Dimensions.get('window');
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+  ) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+  
 export default function Header() {
   const [selectedTab, setSelectedTab] = useState('House');
   const [showSecondInput, setShowSecondInput] = useState(false);
   const [firstInputValue, setFirstInputValue] = useState(""); // State for the first input
   const [secondInputValue, setSecondInputValue] = useState(""); // State for the second input
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-
+ const headerMenu = [
+  { name: 'House', icon: require('../../assets/images/homesearch/icon/house.png') },
+  { name: 'Townhomes', icon: require('../../assets/images/homesearch/icon/townhomes.png') },
+  { name: 'Condos', icon: require('../../assets/images/homesearch/icon/Condos.png') },
+  { name: 'Multi-family', icon: require('../../assets/images/homesearch/icon/multi-family.png') },
+  { name: 'Lots/Land', icon: require('../../assets/images/homesearch/icon/land.png') },
+]
   const handleAppendText = () => {
     if (secondInputValue.trim() !== "") {
-      setFirstInputValue((prev) => `${prev} ${secondInputValue}`.trim()); // Append to first input
-      setSecondInputValue(""); // Clear second input
+      setFirstInputValue((prev) => `${prev} ${secondInputValue}`.trim());
+      setSecondInputValue("");
     }
   };
 
@@ -23,41 +42,51 @@ export default function Header() {
     setShowSecondInput(false); // Hide the second input
   };
 
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+    console.log('Bottom sheet opened');
+  }, []);
 
   return (
-    <View style={styles.headerContainer}>
+    <SafeAreaView style={styles.headerContainer}>
       {/* Search and Filter Section */}
       <View style={styles.searchContainer}>
-        <TouchableOpacity style={styles.menuButton}>
-          <Ionicons name="menu" size={28} color="#FFFF" />
-        </TouchableOpacity>
-        {/* <View style={{width}}> */}
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Enter City, Zip or School"
-          placeholderTextColor="#999"
-          value={firstInputValue}
-          onChangeText={setFirstInputValue} // Update state for first input
-          onFocus={() => setShowSecondInput(true)} // Show the second input on focus
-        />
-           {/* {firstInputValue.length > 0 && (
+        <View>
+          <TouchableOpacity style={styles.menuButton}>
+            <Ionicons name="menu" size={30} color="#FFFF" />
+          </TouchableOpacity>
+        </View>
+        <View style={{ marginHorizontal:13,}}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Enter City, Zip or School"
+            placeholderTextColor="#999"
+            value={firstInputValue}
+            onChangeText={setFirstInputValue} // Update state for first input
+            onFocus={() => setShowSecondInput(true)} // Show the second input on focus
+          />
+            {/* {firstInputValue.length > 0 && (
           <TouchableOpacity style={styles.clearIconContainer} onPress={clearFirstInput}>
             <Text style={styles.clearIcon}>×</Text>
           </TouchableOpacity>
         )} */}
-        {/* </View> */}
-        <TouchableOpacity style={styles.filterButton}>
-          <Link href={'/Propertiesdetails'}>
+        </View>
+       <View>
+       <TouchableOpacity style={styles.filterButton} onPress={handlePresentModalPress} >
             <Image
               source={require('../../assets/images/homesearch/icon/filtericon.png')}
               style={{
-                width: 28,
-                height: 28,
+                width: 30,
+                height: 30,
                 tintColor: '#3478F6',
               }}
             />
-          </Link>
         </TouchableOpacity>
+       </View>
+        <CustomBottomsheetModel 
+        bottomSheetRef={bottomSheetModalRef}>
+          <FilterProperty/>
+        </CustomBottomsheetModel>
       </View>
       {/* Display appended texts as chips */}
 
@@ -81,13 +110,7 @@ export default function Header() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.tabsContainer}
       >
-        {[
-          { name: 'House', icon: require('../../assets/images/homesearch/icon/house.png') },
-          { name: 'Townhomes', icon: require('../../assets/images/homesearch/icon/townhomes.png') },
-          { name: 'Condos', icon: require('../../assets/images/homesearch/icon/Condos.png') },
-          { name: 'Multi-family', icon: require('../../assets/images/homesearch/icon/multi-family.png') },
-          { name: 'Lots/Land', icon: require('../../assets/images/homesearch/icon/land.png') },
-        ].map((tab, index) => (
+        {headerMenu.map((tab, index) => (
           <TouchableOpacity
             key={index}
             style={styles.tabButton}
@@ -97,7 +120,7 @@ export default function Header() {
               source={tab.icon}
               style={[
                 styles.tabIcon,
-                { tintColor: selectedTab === tab.name ? '#6F6F6F' : '#999' },
+                { tintColor: selectedTab === tab.name ? '#000000' : '#6F6F6F' },
               ]}
             />
             <Text
@@ -109,7 +132,7 @@ export default function Header() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -117,31 +140,35 @@ const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#fff',
     paddingTop: 40,
-    paddingHorizontal: 10,
     borderBottomColor: '#ddd',
   },
   searchContainer: {
+    width: SCREEN_WIDTH,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent:'space-between',
     marginBottom: 17,
+    paddingHorizontal:20,
   },
   menuButton: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#3366CC',
+    width:40,
+    height:40,
+    alignItems:'center',
+    justifyContent:'center',
     borderRadius: 8,
     backgroundColor: '#3366CC',
+    // borderWidth:1
   },
   searchInput: {
-    flex: 1,
-    height: 50,
+    //20+40+15+20+40+15= 150
+    width: SCREEN_WIDTH - 150,
+    height: 40,
     backgroundColor: '#FFF',
     borderWidth: 1,
     borderColor: '#EAEAEA',
     borderRadius: 8,
     paddingVertical: 9,
     paddingHorizontal: 12,
-    marginHorizontal: 5,
     color: '#333',
   },
   clearIconContainer: {
@@ -154,10 +181,13 @@ const styles = StyleSheet.create({
     color: "#999",
   },
   filterButton: {
-    padding: 10,
+    width:40,
+    height:40,
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: '#EAEAEA',
-    borderRadius: 8,
   },
   tabsContainer: {
     flexDirection: 'row',
@@ -170,8 +200,9 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 12,
-    color: '#999',
+    color: '#6F6F6F',
     textAlign: 'center',
+    fontFamily:'interRegular'
   },
   activeTabText: {
     color: '#000000',

@@ -1,13 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import PropertyListView from '@/components/common/PropertyListView';
 import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
-import BatchActionModel from '@/components/HomeSearch/BatchActionModel';
-import CustomBottomSheet from '@/components/common/CustomBottomSheet';
-import FindProperties from '@/components/HomeSearch/FindProperties';
-import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
+import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
+
 
 // Placeholder screen components
 function DashboardScreen() {
@@ -20,7 +17,13 @@ function DashboardScreen() {
 function SearchScreen() {
   return (
     <View style={styles.screenContainer}>
-      <HomeSearchMap/>
+      <HomeSearchMap
+        isActive={''}
+        street={''}
+        address={''}
+        price={0}
+        showCheckbox={false} images={''}      
+          />
     </View>
   );
 }
@@ -47,7 +50,6 @@ function MoreScreen() {
   
   return (
     <View style={{flex:1}}>
-      <FindProperties/>
     </View>
   );
 }
