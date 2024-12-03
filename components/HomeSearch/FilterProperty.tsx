@@ -14,7 +14,7 @@ import Svg, { Circle, Path } from 'react-native-svg';
 
 const {height:SCREEN_HEIGHT,width:SCREEN_WIDTH} = Dimensions.get('window');
 
-const FindProperties = () => {
+const FilterProperty = () => {
   const [number, onChangeNumber] = React.useState('');
   const [isChecked, setChecked] = useState(false);
   const [isStatusChecked, setStatusChecked] = useState(false);
@@ -33,7 +33,6 @@ const FindProperties = () => {
   const [inputText, setInputText] = useState('');
   const scalePoints = [50000, 2000000, 4000000, 6000000, 8000000, 10000000];
   const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
 
    // checkbox labels
@@ -225,31 +224,14 @@ alert('clear')
     setSchools(schools.filter((s) => s !== school));
   };
 
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-    alert(SCREEN_HEIGHT);
-  }, []);
-
-
   return (
-    // <KeyboardAvoidingView >
-<View style={styles.container}>
-<ScrollView>
-<Button 
-      title="Open Bottom Sheet" 
-      onPress={handlePresentModalPress} 
-          />
-        {/* Your scrollable content */}
-        {[...Array(80)].map((_, index) => (
-          <Text key={index}>psd</Text>
-        ))}
-      </ScrollView>
-
-      <CustomBottomsheetModel bottomSheetRef={bottomSheetModalRef}>
-            <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row',width:'100%',margin:'auto',paddingBottom:20}}>
-              <Text style={styles.headerText}>Refine Your Search: Find the Perfect Property</Text>
-            </View>
-          <ScrollView>
+<View>
+    <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row',width:'100%',margin:'auto',paddingBottom:20}}>
+      <Text style={styles.headerText}>Refine Your Search: Find the Perfect Property</Text>
+    </View>
+          <ScrollView 
+            showsVerticalScrollIndicator={false}
+          >
             <View style={{marginHorizontal:20,}}>
             <View style={styles.optionWrapper}>
                 <Text style={styles.optionHeadings}>Price</Text>
@@ -273,7 +255,7 @@ alert('clear')
                           />
                   </View>
                   <MultiSlider
-                    containerStyle={{height:40,}}
+                    containerStyle={{height:40,marginTop:15,}}
                     values={[minPrice, maxPrice]}
                     sliderLength={SCREEN_WIDTH - 40}
                     onValuesChange={handleSliderChange}
@@ -776,15 +758,14 @@ alert('clear')
                   onPress={seeHomesPress}
                 />
           </View>
-        </CustomBottomsheetModel>
       </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-  },
+  // container:{
+  //   flex:1,
+  // },
   headerText:{
     color: '#6A6A6A',
     fontSize: 15,
@@ -990,4 +971,4 @@ text: {
   },
 
 });
-export default FindProperties
+export default FilterProperty;

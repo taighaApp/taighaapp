@@ -2,20 +2,19 @@ import { View, Image, StyleSheet, Text, FlatList, Dimensions, Pressable, Button 
 import React, { useState } from 'react'
 import Carousel from 'react-native-reanimated-carousel';
 import Checkbox from 'expo-checkbox';
-import Buttons from './Buttons';
 import HomeAccessories from '../HomeSearch/HomeAccessories';
-const { width } = Dimensions.get('window');
+
+const { width } = Dimensions.get('window'); // Get the device's screen width
 
 const PropertyListView = ({listData}:any) => {
+  
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChecked, setChecked] =  useState(false);
-  const [isActive, setActive] =  useState(false);
+  const [isActive, setActive] =  useState(true);
   const toggleCheckbox = () => setChecked(!isChecked);
   
   const data = [
     { id: '1', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '2', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '3', image: require('../../assets/images/dummyCardImage.png') },
   ];
 
   const onScroll = (event: { nativeEvent: { contentOffset: { x: number; }; }; }) => {
@@ -28,54 +27,12 @@ const active = ()=>{
 }
 
   return (
-    <View>
-    {listData.map((item:any)=>(
-    <View key={item.id} style={styles.propertyListContainer}>
-        <View style={{ flex: 1 }}>
-
-          <View style={styles.checkboxWrapper}>
-            <Pressable onPress={toggleCheckbox}>
-              <Checkbox 
-                style={styles.checkbox}
-                value={isChecked} 
-                color={isChecked ? '#3366cc' : ''}
-                onValueChange={setChecked} />
-            </Pressable>
-                {isActive ?
-                <Pressable style={styles.activeButton} onPress={active}>
-                  <Text style={styles.activeText}>{item.isActiveText}</Text>
-              </Pressable>
-            :''}
-          </View>
-         
-          <Carousel
-            style={{borderRadius:8}}
-            loop
-            width={120}
-            height={120}
-            autoPlay={false}
-            data={data}
-            scrollAnimationDuration={1000}
-            onSnapToItem={(index) => setActiveIndex(index)}
-            renderItem={({ item }) => (
-                <View>
-                  <Image source={item.image} style={styles.propertyImage} />
-                </View>
-            )}
-          />
-
-              {/* Pagination Dots */}
-              <View style={styles.pagination}>
-                {data.map((_, index) => (
-                  <View
-                    key={index}
-                    style={[
-                      styles.dot,
-                      activeIndex === index ? styles.activeDot : styles.inactiveDot,
-                    ]}
-                  />
-                ))}
-              </View>
+      <View>
+        {listData.map((item:any)=>(   
+                                 
+    <View style={styles.propertyListContainer} key={item.id}>
+        <View style={{ flex: 1,width:120,height:120,}}>
+            <Image source={item.images[0]} style={styles.propertyImage} />
         </View>
 
       <View style={{flex:2, flexDirection:'column',justifyContent:'space-between',marginLeft:15,marginBottom:5}}>
@@ -88,14 +45,15 @@ const active = ()=>{
 
               <View style={styles.mapMediaContainer}>
                 <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
+                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/chat-bubble--com.png')}/>
                 </Pressable>
                 <Pressable style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
                 <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
+                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/share-icon.png')}/>
                 </Pressable>
+           
               </View>
            </View>
 
@@ -109,9 +67,8 @@ const active = ()=>{
        <HomeAccessories/>
 
       </View>
-      
     </View>
-  ))}
+        ))}
   </View>
   )
 }
@@ -137,9 +94,10 @@ const styles =StyleSheet.create({
       elevation: 5, // Adjust elevation
     },
     propertyImage:{
-        width: 120,
-        height:120,
-        // borderRadius:8,
+        width: '100%',
+        height:'100%',
+        objectFit:'cover',
+        borderRadius:8,
         // borderWidth:1,
     },
     mapMediaContainer:{

@@ -269,12 +269,11 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
             </Pressable>
 
             <Pressable style={styles.iconfav} onPress={handleShare}>
-              <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share.png')}/>
+              <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/>
             </Pressable>
             </View>
  
           </View>
-
 
             <ScrollView >
                 <Image style={styles.image} source={require('../../assets/images/PropertiesImage/property-image.png')} />

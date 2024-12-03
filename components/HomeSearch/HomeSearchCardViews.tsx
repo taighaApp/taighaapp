@@ -85,7 +85,7 @@ export default function PropertyCard() {
           </Pressable>
 
           <Pressable style={styles.icon} onPress={handleShare}>
-            <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share.png')}/>
+            <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/>
           </Pressable>
         </View>
         {/* Image Slider */}
