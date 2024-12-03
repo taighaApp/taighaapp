@@ -14,8 +14,7 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
   // hooks
   const sheetRef = useRef<BottomSheet>(null);
   // variables
-  const snapPoints = useMemo(() => ['10%','80%','100%'], []);
-  // render
+  const snapPoints = useMemo(() => ['20%', '50%','92%'], []);
 
 
   return (
@@ -24,8 +23,6 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
         ref={sheetRef}
         snapPoints={snapPoints}
         index={0}
-        // onChange={handleSheetChange}
-        // handleComponent={null}
         // style={styles.bottomSheet}
         enableOverDrag={false}
         enableContentPanningGesture={true}
