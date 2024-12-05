@@ -6,7 +6,7 @@ import Buttons from './Buttons';
 import HomeAccessories from '../HomeSearch/HomeAccessories';
 const { width } = Dimensions.get('window');
 
-const PropertyListView = ({listData}:any) => {
+const PropertyListView = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChecked, setChecked] =  useState(false);
   const [isActive, setActive] =  useState(false);
@@ -26,10 +26,32 @@ const PropertyListView = ({listData}:any) => {
 const active = ()=>{
   setActive(false)
 }
-
+const listViewData = [
+  {
+    id:1,
+    isActive:'Active',
+    propertyValue: '$6,00,000',
+    propertyAddress: '6220 NW SKYLINE BLVD',
+    propertyLocation: 'Portland, OR 97229',
+  },
+  {
+    id:2,
+    isActive:'Active',
+    propertyValue: '$6,00,000',
+    propertyAddress: '6220 NW SKYLINE BLVD',
+    propertyLocation: 'Portland, OR 97229',
+  },
+  {
+    id:3,
+    isActive:'Active',
+    propertyValue: '$6,00,000',
+    propertyAddress: '6220 NW SKYLINE BLVD',
+    propertyLocation: 'Portland, OR 97229',
+  }
+];
   return (
     <View>
-    {listData.map((item:any)=>(
+    {listViewData.map((item:any)=>(
     <View key={item.id} style={styles.propertyListContainer}>
         <View style={{ flex: 1 }}>
 
@@ -43,7 +65,7 @@ const active = ()=>{
             </Pressable>
                 {isActive ?
                 <Pressable style={styles.activeButton} onPress={active}>
-                  <Text style={styles.activeText}>{item.isActiveText}</Text>
+                  <Text style={styles.activeText}>{item.isActive}</Text>
               </Pressable>
             :''}
           </View>
@@ -83,16 +105,10 @@ const active = ()=>{
         <View>
            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
               <View>
-                  <Text style={styles.propertyValue}>{item.propertyPrice}</Text>
+                  <Text style={styles.propertyValue}>{item.propertyValue}</Text>
               </View>
 
               <View style={styles.mapMediaContainer}>
-                <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
-                </Pressable>
-                <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
-                </Pressable>
                 <Pressable style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
@@ -100,8 +116,8 @@ const active = ()=>{
            </View>
 
             <View style={styles.addressContainer}>
-              <Text style={styles.propertyAddress}>{item.propertyStreet}</Text>
               <Text style={styles.propertyAddress}>{item.propertyAddress}</Text>
+              <Text style={styles.propertyAddress}>{item.propertyLocation}</Text>
             </View>
         </View>
 
@@ -109,9 +125,8 @@ const active = ()=>{
        <HomeAccessories/>
 
       </View>
-      
     </View>
-  ))}
+   ))}
   </View>
   )
 }
@@ -122,7 +137,7 @@ const styles =StyleSheet.create({
       flexDirection:'row',
       height:140,
       width:'auto',
-      marginHorizontal:20,
+      // marginHorizontal:20,
       padding:10,
       borderRadius:8,
       // borderWidth:1,
