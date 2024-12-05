@@ -259,7 +259,7 @@ const renderSectionContent = (key: string) => {
             </Pressable>
 
             <Pressable style={styles.iconfav} onPress={handleShare}>
-              <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/>
+              {/* <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/> */}
             </Pressable>
             </View>
  
@@ -317,10 +317,6 @@ const renderSectionContent = (key: string) => {
             </ScrollView>
         </SafeAreaView>
         </View>
-
-
-
-        
 
       <CustomBottomSheet>
         <ScrollView contentContainerStyle={styles.bottomContainer} showsVerticalScrollIndicator={false}>

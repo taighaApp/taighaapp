@@ -33,6 +33,7 @@ const FilterProperty = () => {
   const [inputText, setInputText] = useState('');
   const scalePoints = [50000, 2000000, 4000000, 6000000, 8000000, 10000000];
   const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
 
    // checkbox labels
@@ -223,6 +224,12 @@ alert('clear')
   const removeSchool = (school: string) => {
     setSchools(schools.filter((s) => s !== school));
   };
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+    console.log('Bottom sheet opened');
+    setIsVisible(!isVisible);
+  }, []);
 
   return (
 <View>
@@ -424,12 +431,12 @@ alert('clear')
                     >
                       {checkedState[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked.png')}
+                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck.png')}
+                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -470,12 +477,12 @@ alert('clear')
 
                     {VirtualTour ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked.png')}
+                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck.png')}
+                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -487,16 +494,28 @@ alert('clear')
               <View style={styles.optionWrapper}>
                 <Text style={styles.optionHeadings}>Price Change</Text>
                 <View style={{paddingBottom:25}}>
-                  <Pressable style={styles.dropdownButton} onPress={ handleSelect }>
+                  <Pressable style={styles.dropdownButton} onPress={ handlePresentModalPress }>
                     <Text style={styles.buttonText}>{priceSelectedOption}</Text>
                     <Text style={styles.arrow}>▼</Text>
                   </Pressable>
                   {/* Half-Screen Modal */}
-                  <BatchActionModel isVisible={isVisible} onClose={() => setIsVisible(false)} >
+                  {/* <BatchActionModel isVisible={isVisible} onClose={() => setIsVisible(false)} >
                     <Text>Last day</Text>
                     <Text>Last 30 days</Text>
                     <Text>More then 30 day</Text>
-                    </BatchActionModel>
+                    </BatchActionModel> */}
+
+<CustomBottomsheetModel 
+        bottomSheetRef={bottomSheetModalRef}
+        snapPoints={['10%', '37%']}
+        showHandleIndicator={false}
+        >
+          <View style={{}}>
+            <View style={{backgroundColor:'#3366cc',alignItems:'center',justifyContent:'center',paddingVertical:15,}}>
+                <Text style={{color:'#fff',fontSize:16,}}>Batch Actions</Text>
+            </View>
+      </View>
+      </CustomBottomsheetModel>
                   </View>
               </View>
 
@@ -653,12 +672,12 @@ alert('clear')
                     >
                       {fovAndFeature[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked.png')}
+                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck.png')}
+                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -684,12 +703,12 @@ alert('clear')
                     >
                       {newOrModify[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked.png')}
+                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck.png')}
+                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -715,12 +734,12 @@ alert('clear')
                     >
                       {propertyCatagry[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked.png')}
+                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck.png')}
+                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}

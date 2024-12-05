@@ -9,6 +9,10 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import PropertiesDetails from './Propertiesdetails';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Dashboard from './Admin/Dashboard';
+import Tabs from './(tabs)/_layout';
+const Drawer = createDrawerNavigator();
 
 // const Stack = createStackNavigator();
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -40,18 +44,25 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack 
-            screenOptions={{ 
-              headerShown: false 
-            }}
-          >
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="Home" />
-            <Stack.Screen name="Signup"/>
-            <Stack.Screen name="+not-found" />
-            <Stack.Screen name="Propertiesdetails" />
-            <Stack.Screen name="HomeSearchMap"  />
-          </Stack>
+          
+           <Drawer.Navigator
+          initialRouteName="Tabs"
+          screenOptions={{
+            drawerStyle: { width: 240 },
+            drawerActiveTintColor: '#e91e63',
+          }}
+        >
+          <Drawer.Screen
+            name="Tabs"
+            component={Tabs} 
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{ title: "Dashboard Screen" }}
+          />
+        </Drawer.Navigator>
         </ThemeProvider>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

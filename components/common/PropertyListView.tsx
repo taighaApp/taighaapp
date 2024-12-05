@@ -102,12 +102,6 @@ const listViewData = [
                 <Pressable style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
-                <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
-                </Pressable>
-                <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
-                </Pressable>
               </View>
            </View>
             <View style={styles.addressContainer}>
@@ -129,7 +123,7 @@ const styles =StyleSheet.create({
       flexDirection:'row',
       height:140,
       width:'auto',
-      marginHorizontal:20,
+      // marginHorizontal:20,
       padding:10,
       borderRadius:8,
       // borderWidth:1,
