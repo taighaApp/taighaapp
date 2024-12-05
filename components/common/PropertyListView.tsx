@@ -5,10 +5,6 @@ import Checkbox from 'expo-checkbox';
 import Buttons from './Buttons';
 import HomeAccessories from '../HomeSearch/HomeAccessories';
 const { width } = Dimensions.get('window');
-<<<<<<< HEAD
-
-=======
->>>>>>> 0130124563664790d3d369e502a24dc6344255bf
 const PropertyListView = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChecked, setChecked] =  useState(false);
