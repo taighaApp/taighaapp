@@ -119,7 +119,7 @@ const scaleAnimation = useRef(new Animated.Value(0)).current; // Initial scale v
         require('../../assets/images/PropertiesImage/properties-inside.png'),
       ];
 
-      const openModal = (index) => {
+      const openModal = (index:any) => {
     setSelectedIndex(index);
     setModalVisible(true);
 

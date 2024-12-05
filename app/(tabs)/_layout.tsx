@@ -10,6 +10,7 @@ import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { RadioButton } from 'react-native-paper';
 import DashboardScreen from '../Admin/Dashboard';
+import { StatusBar } from 'expo-status-bar';
 
 function SearchScreen() {
   return (
@@ -184,6 +185,8 @@ const Tab = createBottomTabNavigator();
 export default function Tabs() {
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" />
+
       <HomeSearch />
 
       <Tab.Navigator

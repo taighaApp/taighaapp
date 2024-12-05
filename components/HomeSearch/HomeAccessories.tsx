@@ -12,34 +12,7 @@ const HomeAccessories = () => {
   ];
   const logo = require('../../assets/images/homesearch/icon/rmls-logo.png');
   return (
-    
-    // <Link href='/Propertiesdetails' style={{borderWidth:1}}>
-
-    // <View style={styles.infoContainer}>
-
-    //     <View style={styles.info}>
-    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/bed-single-hotel.png')}/>
-    //         <Text style={styles.infoCounts}>5</Text>
-    //     </View>
-
-    //     <View style={styles.info}>
-    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/bath.png')}/>
-    //         <Text style={styles.infoCounts}>5</Text>
-    //     </View>
-
-    //     <View style={styles.info}>
-    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/square-measument.png')}/>
-    //         <Text style={styles.infoCounts}>6887</Text>
-    //     </View>
-
-    //     <View style={styles.info}>
-    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/time-clock-date-time-icon.png')}/>
-    //         <Text style={styles.infoCounts}>88D</Text>
-    //     </View>
-
-    //     {/* <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/> */}
-    // </View> 
-    // </Link>
+  
      <View style={styles.infoContainer}>
       {/* <View style={styles.info}> */}
     {propertyDetails.map((detail: { type: any; icon: ImageSourcePropType | undefined; count: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
