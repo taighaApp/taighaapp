@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, Image, Dimensions, TouchableOpacity, ImageBackground ,FlatList,
-    Animated,Pressable,Share, Alert,SafeAreaView} from "react-native";
+    Animated,Pressable,Share, Alert,SafeAreaView,Modal,
+    Easing} from "react-native";
 import React, { useRef ,useState} from 'react';
 import { List } from "react-native-paper";
 import CustomBottomSheet from '../common/CustomBottomSheet';
@@ -12,7 +13,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
 import PropertiesAccessories from "./PropertiesAccessories";
+import HomeSearchMap from "./HomeSearchMap";
 import MapView, { Marker } from 'react-native-maps';
+
+const { width } = Dimensions.get('window'); // Get screen width for slider
 
 
 const PropertiesDetails = () => {
@@ -20,6 +24,12 @@ const PropertiesDetails = () => {
 
 const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
+// properties image 
+const [modalVisible, setModalVisible] = useState(false);
+const [selectedIndex, setSelectedIndex] = useState(0);
+const scaleAnimation = useRef(new Animated.Value(0)).current; // Initial scale value
+  const flatListRef = useRef<FlatList>(null);
+
 // const [expandedSections, setExpandedSections] = React.useState(new Set());
     const sections = [
         { title: "General Information", key: "general" },
@@ -100,7 +110,43 @@ const sectionRefs = useRef<{ [key: string]: React.RefObject<View> }>({});
         ],
         history: [], // You can keep custom logic for history if required.
       };
-      
+
+      const images = [
+        require('../../assets/images/PropertiesImage/property-image.png'),
+        require('../../assets/images/PropertiesImage/properties-inside.png'),
+        // require('../../assets/images/PropertiesImage/homeimage.jpg'),
+        require('../../assets/images/PropertiesImage/property-image.png'),
+        require('../../assets/images/PropertiesImage/properties-inside.png'),
+      ];
+
+      const openModal = (index) => {
+    setSelectedIndex(index);
+    setModalVisible(true);
+
+    // Start zoom-in animation
+    Animated.timing(scaleAnimation, {
+      toValue: 1, // Final scale
+      duration: 300, // Animation duration
+      easing: Easing.ease,
+      useNativeDriver: true, // Use native animations
+    }).start(() => {
+      // Ensure FlatList scrolls immediately to the selected index
+      flatListRef.current?.scrollToIndex({ index, animated: true });
+    });
+  };
+
+    
+  const closeModal = () => {
+    // Start zoom-out animation
+    Animated.timing(scaleAnimation, {
+      toValue: 0, // Back to initial scale
+      duration: 300, // Animation duration
+      easing: Easing.ease,
+      useNativeDriver: true,
+    }).start(() => {
+      setModalVisible(false); // Close the modal after animation
+    });
+  };  
       // Function to handle sharing property details
   const handleShare = async () => {
     try {
@@ -219,12 +265,55 @@ const renderSectionContent = (key: string) => {
  
           </View>
 
-            <ScrollView >
+            {/* <ScrollView >
                 <Image style={styles.image} source={require('../../assets/images/PropertiesImage/property-image.png')} />
                 <Image style={styles.image} source={require('../../assets/images/PropertiesImage/properties-inside.png')} />
                 <Image style={styles.image} source={require('../../assets/images/PropertiesImage/properties-showcase.png')} />
                 <Image style={styles.image} source={require('../../assets/images/PropertiesImage/property-image.png')} />
                 <Image style={styles.image} source={require('../../assets/images/PropertiesImage/properties-inside.png')} />
+            </ScrollView> */}
+
+            <ScrollView>
+              {images.map((image, index) => (
+                <TouchableOpacity key={index} onPress={() => openModal(index)}>
+                  <Image style={styles.image} source={image} />
+                </TouchableOpacity>
+              ))}
+              {modalVisible && (
+                <Modal transparent={true} visible={modalVisible} animationType="none">
+                <View style={styles.modalContainer}>
+                  <Animated.View
+                    style={[
+                      styles.animatedModalContent,
+                      { transform: [{ scale: scaleAnimation }] },
+                    ]}
+                  >
+                    <FlatList
+                      ref={flatListRef}
+                      data={images}
+                      keyExtractor={(item, index) => index.toString()}
+                      horizontal
+                      pagingEnabled
+                      showsHorizontalScrollIndicator={false}
+                      initialScrollIndex={selectedIndex}
+                      getItemLayout={(data, index) => ({
+                        length: width,
+                        offset: width * index,
+                        index,
+                      })}
+                      renderItem={({ item }) => (
+                        <View style={styles.imageWrapper}>
+                          <Image style={styles.modalImage} source={item} />
+                        </View>
+                      )}
+                    />
+                    <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+                      <Ionicons name="close" size={24} color="#fff" />
+                    </TouchableOpacity>
+                  </Animated.View>
+                </View>
+              </Modal>
+              )}
             </ScrollView>
         </SafeAreaView>
         </View>
@@ -244,23 +333,26 @@ const renderSectionContent = (key: string) => {
                     <Text style={styles.address}>9007 NW BARTHOLOMEW DR</Text>
                     <Text style={styles.pincode}>Portland, OR, 97229</Text>
                 </View>
-                <View style={styles.MapContainer}>
-                  <MapView
-                    style={styles.maps}
-                    initialRegion={{
-                      latitude: 45.5122, 
-                      longitude: -122.6587, 
-                      latitudeDelta: 0.0922,
-                      longitudeDelta: 0.0421,
-                    }}
-                  >
-                    <Marker
-                      coordinate={{ latitude: 45.5122, longitude: -122.6587 }}
-                      title="Portland"
-                      description="This is a marker for Portland"
-                    />
-                  </MapView>
-                </View>
+
+                {/* <Link href={'/HomeSearch'}> */}
+                  <View style={styles.MapContainer}>
+                    <MapView
+                      style={styles.maps}
+                      initialRegion={{
+                        latitude: 45.5122, 
+                        longitude: -122.6587, 
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                      }}
+                    >
+                      <Marker
+                        coordinate={{ latitude: 45.5122, longitude: -122.6587 }}
+                        title="Portland"
+                        description="This is a marker for Portland"
+                      />
+                    </MapView>
+                  </View>
+                {/* </Link> */}
             </View>
             {/* here insert the homeaccessories component */}
             
@@ -482,9 +574,11 @@ const styles = StyleSheet.create({
     width:110,
     height:60,
     alignItems:'center',
+    borderWidth:1,
+
   },
   MapContainer:{
-    // borderWidth:1,
+    borderWidth:1,
     borderRadius:10,
     overflow: 'hidden',
     shadowColor:'#8C8C8C',
@@ -809,6 +903,58 @@ const styles = StyleSheet.create({
     fontSize:18,
     fontWeight:800,
     marginBottom:8,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // height:'100%',
+    // borderWidth:1,
+    borderColor:'#fff',
+  },
+  imageWrapper: {
+    width, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:80,
+  },
+  animatedModalContent: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  // image: {
+  //   width: 300,
+  //   height: 200,
+  //   margin: 10,
+  //   resizeMode: 'cover',
+  // },
+  modalImage: {
+    width: '100%',
+    height: '50%',
+    resizeMode: 'contain',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 30, // Adjust based on your modal's design
+    right: 30,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#000', // Dark background for the button
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 5, // Add elevation for Android shadow
+  },
+  closeButtonText: {
+    color: '#000',
+    fontSize: 16,
   },
 });
 

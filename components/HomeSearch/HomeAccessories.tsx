@@ -1,64 +1,99 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ImageSourcePropType } from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 
 const HomeAccessories = () => {
+  const propertyDetails = [
+    { type: 'bedrooms', count: 5, icon: require('../../assets/images/homesearch/icon/bed-single-hotel.png') },
+    { type: 'bathrooms', count: 5, icon: require('../../assets/images/homesearch/icon/bath.png') },
+    { type: 'area', count: 6887, icon: require('../../assets/images/homesearch/icon/square-measument.png') },
+    { type: 'time', count: '88D', icon: require('../../assets/images/homesearch/icon/time-clock-date-time-icon.png') },
+//  <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/> 
+  ];
+  const logo = require('../../assets/images/homesearch/icon/rmls-logo.png');
   return (
-    <View style={styles.infoContainer}>
-        <View style={styles.info}>
-            <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/bed-single-hotel.png')}/>
-            <Text style={styles.infoCounts}>5</Text>
-        </View>
+    
+    // <Link href='/Propertiesdetails' style={{borderWidth:1}}>
 
-        <View style={styles.info}>
-            <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/bath.png')}/>
-            <Text style={styles.infoCounts}>5</Text>
-        </View>
+    // <View style={styles.infoContainer}>
 
-        <View style={styles.info}>
-            <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/square-measument.png')}/>
-            <Text style={styles.infoCounts}>6887</Text>
-        </View>
+    //     <View style={styles.info}>
+    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/bed-single-hotel.png')}/>
+    //         <Text style={styles.infoCounts}>5</Text>
+    //     </View>
 
-        <View style={styles.info}>
-            <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/time-clock-date-time-icon.png')}/>
-            <Text style={styles.infoCounts}>88D</Text>
-        </View>
+    //     <View style={styles.info}>
+    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/bath.png')}/>
+    //         <Text style={styles.infoCounts}>5</Text>
+    //     </View>
 
-        {/* <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/> */}
-    </View> 
+    //     <View style={styles.info}>
+    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/square-measument.png')}/>
+    //         <Text style={styles.infoCounts}>6887</Text>
+    //     </View>
+
+    //     <View style={styles.info}>
+    //         <Image style={styles.infoImage} source={require('../../assets/images/homesearch/icon/time-clock-date-time-icon.png')}/>
+    //         <Text style={styles.infoCounts}>88D</Text>
+    //     </View>
+
+    //     {/* <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/> */}
+    // </View> 
+    // </Link>
+     <View style={styles.infoContainer}>
+      {/* <View style={styles.info}> */}
+    {propertyDetails.map((detail: { type: any; icon: ImageSourcePropType | undefined; count: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
+      <Link href={`/Propertiesdetails?type=${detail.type}`}  key={index} style={styles.info}>
+        <Image style={styles.infoImage} source={detail.icon} />
+        <Text style={styles.infoCounts}>{detail.count}</Text>
+      </Link>
+    ))}
+         {/* Display the logo separately */}
+         <Image style={styles.logo} source={logo} />
+    </View>
   )
 }
 
 const  styles = StyleSheet.create({
     infoContainer:{
-        display:'flex',
+        // display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
         // borderWidth:1,
-        marginRight:5,
+        // marginRight:15,
+        // width:'100%',
       },
       info:{
-        flexDirection:'row',
+        // borderWidth:1,
+        borderColor:'#DBDBDB',
+        paddingHorizontal:10,
+        paddingVertical:5,
+        // height:25,
+        // minWidth:40,
+        borderRadius:50,
+        marginRight:15,
         alignItems:'center',
         justifyContent:'center',
-        minWidth:35,
-        height:'auto',
-        padding:5,
-        borderRadius:50,
-        borderWidth:1,
-        borderColor:'#DBDBDB',
-      },
+        },
       infoImage:{
-        width:12,
-        height:12,
-        objectFit:'contain'
+        width:14,
+        height:16,
+        objectFit:'contain',
+        // borderWidth:1,
       },
       infoCounts:{
         paddingLeft:3,
         color:'#8C8C8C',
         fontSize:12,
-        fontWeight:'regular'
+        fontWeight:'regular',
+        // padding:5,
+      },
+      logo: {
+        width: 48,
+        height: 18,
+        resizeMode: 'cover', // Adjust to fit the logo properly
+        marginLeft: 10,
       },
 })
 

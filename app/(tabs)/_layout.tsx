@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import PropertyListView from '@/components/common/PropertyListView';
 import HomeSearchCardview from '@/components/HomeSearch/HomeSearchCardViews';
 import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
+import PropertiesDetails from '@/components/HomeSearch/PropertiesDetails';
 
 
 // Placeholder screen components
@@ -39,6 +40,7 @@ function TicketsScreen() {
   return (
     <ScrollView style={{flex:1}}>
       <PropertyListView/>
+      {/* <PropertiesDetails/> */}
     </ScrollView>
   );
 }

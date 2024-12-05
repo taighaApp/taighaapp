@@ -8,7 +8,9 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import PropertiesDetails from './Propertiesdetails';
 
+// const Stack = createStackNavigator();
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -47,7 +49,8 @@ export default function RootLayout() {
             <Stack.Screen name="Home" />
             <Stack.Screen name="Signup"/>
             <Stack.Screen name="+not-found" />
-            <Stack.Screen name="Dummy" />
+            <Stack.Screen name="Propertiesdetails" />
+            <Stack.Screen name="HomeSearchMap"  />
           </Stack>
         </ThemeProvider>
       </BottomSheetModalProvider>

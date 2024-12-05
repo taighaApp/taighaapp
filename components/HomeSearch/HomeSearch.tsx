@@ -5,6 +5,10 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import CustomBottomsheetModel from '../common/CustomBottomsheetModel';
 import FilterProperty from './FilterProperty';
 import { Dimensions } from 'react-native';
+import {  useWindowDimensions } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
+
+
 
 const {width:SCREEN_WIDTH,height:SCREEN_HEIGHT} = Dimensions.get('window');
 

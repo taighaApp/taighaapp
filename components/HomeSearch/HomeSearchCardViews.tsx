@@ -12,8 +12,12 @@ configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
   strict: false,
 });
+import { Link } from 'expo-router';
+// import HomeAccessories from './HomeAccessories';
 const { width } = Dimensions.get('window');
-export default function PropertyCard() {
+
+export default function PropertyCard({ navigation }:any){
+
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   // Image data for slider
@@ -76,72 +80,74 @@ export default function PropertyCard() {
     <ScrollView  showsVerticalScrollIndicator={false} style={styles.container}>
       {cardData.map((items)=>(
 
-      
-      <View key={items.id} style={styles.card}>
-        {/* Favorite and Share Icons */}
-        <View style={styles.iconContainer}>
-          <Pressable style={styles.icon}>
-            <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-fav.png')}/>
-          </Pressable>
 
-          <Pressable style={styles.icon} onPress={handleShare}>
-            <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/>
-          </Pressable>
-        </View>
-        {/* Image Slider */}
-        <View style={[styles.imageContainer,{width: width-60}]}>
-          <Carousel
-          style={{borderRadius:5,}}
-            loop
-            width={width-60}
-            autoPlay={false}
-            data={imageData}
-            scrollAnimationDuration={1000}
-            onSnapToItem={(index) => setActiveIndex(index)}
-            renderItem={({ item }) => (
-              <View style={styles.slide}>
-                <Image source={item.image} style={styles.image} />
+          <View key={items.id} style={styles.card}>
+            {/* Favorite and Share Icons */}
+            <View style={styles.iconContainer}>
+              <Pressable style={styles.icon} >
+                <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-fav.png')}/>
+              </Pressable>
+
+              <Pressable style={styles.icon} onPress={handleShare}>
+                <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/>
+              </Pressable>
+            </View>
+            {/* Image Slider */}
+            <View style={[styles.imageContainer,{width: width-60}]}>
+              <Carousel
+              style={{borderRadius:5,}}
+                loop
+                width={width-60}
+                autoPlay={false}
+                data={imageData}
+                scrollAnimationDuration={1000}
+                onSnapToItem={(index) => setActiveIndex(index)}
+                renderItem={({ item }) => (
+                  <View style={styles.slide}>
+                    <Link href='/Propertiesdetails'>
+                      <Image source={item.image} style={styles.image} />
+                    </Link>
+                  </View>
+                )}
+              />
+              {/* Virtual Tour Label */}
+              <View style={styles.virtualTourBadge}>
+                <View style={styles.virtualTourContent}>
+                  <Text style={styles.virtualTourText}>{items.VirtualTourLabel}</Text>
+                  <Image
+                    source={require("../../assets/images/homesearch/icon/360-degrees.png")} // Replace with your image path
+                    style={styles.virtualTourImage}
+                  />
+                </View>
               </View>
-            )}
-          />
-          {/* Virtual Tour Label */}
-          <View style={styles.virtualTourBadge}>
-            <View style={styles.virtualTourContent}>
-              <Text style={styles.virtualTourText}>{items.VirtualTourLabel}</Text>
-              <Image
-                source={require("../../assets/images/homesearch/icon/360-degrees.png")} // Replace with your image path
-                style={styles.virtualTourImage}
-              />
+              {/* Pagination Dots */}
+              <View style={styles.pagination}>
+                {imageData.map((_, index) => (
+                  <View
+                    key={index}
+                    style={[
+                      styles.dot,
+                      activeIndex === index ? styles.activeDot : styles.inactiveDot,
+                    ]}
+                  />
+                ))}
+              </View>
+            </View>
+            {/* Property Details */}
+            <View style={styles.detailsContainer}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'100%',marginBottom:10}}>
+                <View>
+                  <Text style={styles.cardPropertyName}>{items.cardStreetName}</Text>
+                  <Text style={styles.cardPropertyaddres}>{items.cardAddress}</Text>
+                </View>
+              <View>
+                <Text style={styles.cardPropertyPrice}>{items.CardPropertyPrice}</Text>
+              </View>
+            </View>
+              {/* Home Accessories Component */}
+              <HomeAccessories/>
             </View>
           </View>
-          {/* Pagination Dots */}
-          <View style={styles.pagination}>
-            {imageData.map((_, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.dot,
-                  activeIndex === index ? styles.activeDot : styles.inactiveDot,
-                ]}
-              />
-            ))}
-          </View>
-        </View>
-        {/* Property Details */}
-        <View style={styles.detailsContainer}>
-        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'100%',marginBottom:10}}>
-            <View>
-              <Text style={styles.cardPropertyName}>{items.cardStreetName}</Text>
-              <Text style={styles.cardPropertyaddres}>{items.cardAddress}</Text>
-            </View>
-          <View>
-            <Text style={styles.cardPropertyPrice}>{items.CardPropertyPrice}</Text>
-          </View>
-        </View>
-          {/* Home Accessories Component */}
-          <HomeAccessories/>
-        </View>
-      </View>
       ))}
     </ScrollView>
   );
