@@ -5,24 +5,24 @@ import Checkbox from 'expo-checkbox';
 import Buttons from './Buttons';
 import HomeAccessories from '../HomeSearch/HomeAccessories';
 const { width } = Dimensions.get('window');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0130124563664790d3d369e502a24dc6344255bf
 const PropertyListView = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChecked, setChecked] =  useState(false);
   const [isActive, setActive] =  useState(false);
   const toggleCheckbox = () => setChecked(!isChecked);
-  
   const data = [
     { id: '1', image: require('../../assets/images/dummyCardImage.png') },
     { id: '2', image: require('../../assets/images/dummyCardImage.png') },
     { id: '3', image: require('../../assets/images/dummyCardImage.png') },
   ];
-
   const onScroll = (event: { nativeEvent: { contentOffset: { x: number; }; }; }) => {
     const slideIndex = Math.round(event.nativeEvent.contentOffset.x / width);
     setActiveIndex(slideIndex);
   };
-
 const active = ()=>{
   setActive(false)
 }
@@ -54,13 +54,12 @@ const listViewData = [
     {listViewData.map((item:any)=>(
     <View key={item.id} style={styles.propertyListContainer}>
         <View style={{ flex: 1 }}>
-
           <View style={styles.checkboxWrapper}>
             <Pressable onPress={toggleCheckbox}>
-              <Checkbox 
+              <Checkbox
                 style={styles.checkbox}
-                value={isChecked} 
-                color={isChecked ? '#3366cc' : ''}
+                value={isChecked}
+                color={isChecked ? '#3366CC' : ''}
                 onValueChange={setChecked} />
             </Pressable>
                 {isActive ?
@@ -69,7 +68,6 @@ const listViewData = [
               </Pressable>
             :''}
           </View>
-         
           <Carousel
             style={{borderRadius:8}}
             loop
@@ -85,7 +83,6 @@ const listViewData = [
                 </View>
             )}
           />
-
               {/* Pagination Dots */}
               <View style={styles.pagination}>
                 {data.map((_, index) => (
@@ -99,38 +96,31 @@ const listViewData = [
                 ))}
               </View>
         </View>
-
       <View style={{flex:2, flexDirection:'column',justifyContent:'space-between',marginLeft:15,marginBottom:5}}>
-
         <View>
            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
               <View>
                   <Text style={styles.propertyValue}>{item.propertyValue}</Text>
               </View>
-
               <View style={styles.mapMediaContainer}>
                 <Pressable style={styles.mapMediaWrapper}>
                     <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
               </View>
            </View>
-
             <View style={styles.addressContainer}>
               <Text style={styles.propertyAddress}>{item.propertyAddress}</Text>
               <Text style={styles.propertyAddress}>{item.propertyLocation}</Text>
             </View>
         </View>
-
       {/* Home Accessories Component */}
        <HomeAccessories/>
-
       </View>
     </View>
    ))}
   </View>
   )
 }
-
 const styles =StyleSheet.create({
     propertyListContainer:{
       // flex:1,
@@ -142,7 +132,7 @@ const styles =StyleSheet.create({
       borderRadius:8,
       // borderWidth:1,
       marginBottom:10,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#FFFFFF',
       // Shadow for iOS
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 }, // Even shadow on all sides

@@ -5,6 +5,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { DrawerActions, useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import CustomBottomsheetModel from '../common/CustomBottomsheetModel';
 import FilterProperty from './FilterProperty';
+<<<<<<< HEAD
+=======
+import { Dimensions } from 'react-native';
+import {  useWindowDimensions } from 'react-native';
+
+
+>>>>>>> 0130124563664790d3d369e502a24dc6344255bf
 import GlobalSearch from './GlobalSearch';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 

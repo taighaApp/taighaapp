@@ -8,11 +8,13 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import PropertiesDetails from './Propertiesdetails';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Dashboard from './Admin/Dashboard';
 import Tabs from './(tabs)/_layout';
 const Drawer = createDrawerNavigator();
 
+// const Stack = createStackNavigator();
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 

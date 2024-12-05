@@ -166,6 +166,7 @@ const handleDismiss = useCallback(() => {
        </View>
       </View>
       <PropertyListView/>
+      {/* <PropertiesDetails/> */}
     </ScrollView>
   );
 }
