@@ -6,7 +6,7 @@ import HomeAccessories from '../HomeSearch/HomeAccessories';
 
 const { width } = Dimensions.get('window'); // Get the device's screen width
 
-const PropertyListView = ({listData}:any) => {
+const PropertyListView = ({listData, route}:any) => {
   
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChecked, setChecked] =  useState(false);
@@ -64,7 +64,7 @@ const active = ()=>{
         </View>
 
       {/* Home Accessories Component */}
-       <HomeAccessories/>
+       <HomeAccessories route ={route}/>
 
       </View>
     </View>

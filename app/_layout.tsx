@@ -9,7 +9,6 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Dashboard from './Admin/Dashboard';
 import Tabs from './(tabs)/_layout';
 const Drawer = createDrawerNavigator();
 
@@ -56,11 +55,7 @@ export default function RootLayout() {
             component={Tabs} 
             options={{ headerShown: false }}
           />
-          <Drawer.Screen
-            name="Dashboard"
-            component={Dashboard}
-            options={{ title: "Dashboard Screen" }}
-          />
+
         </Drawer.Navigator>
           {/* <Stack 
             screenOptions={{ 
