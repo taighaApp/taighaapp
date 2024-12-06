@@ -44,7 +44,7 @@ const GlobalSearch = () => {
   const onChangeSearch = (query: string) => {
     setSearchQuery(query); // This remains correct
     const filtered = searchData.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase()) // TypeScript now recognizes query as a string
+      item.name.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
   };
@@ -73,7 +73,7 @@ const GlobalSearch = () => {
     }
   }, []);
 
-  // Search result
+  // Search result list
   const renderSearchItem = useCallback(({ item }:any) => (
     <TouchableOpacity 
       style={styles.searchItem} 
@@ -165,7 +165,7 @@ const GlobalSearch = () => {
 
           <FlatList
             data={filteredData}
-            renderItem={renderSearchItem}
+            renderItem={ renderSearchItem }
             keyExtractor={(item, index) => index.toString()}
             style={styles.searchResults}
             keyboardShouldPersistTaps="handled"
