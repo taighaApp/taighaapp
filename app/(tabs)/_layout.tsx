@@ -1,12 +1,9 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-<<<<<<< HEAD
 import PropertyListView from '@/components/common/PropertyListView';
 import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import PropertiesDetails from '@/components/HomeSearch/PropertiesDetails';
-=======
->>>>>>> 070097f (bottom tab pages separated)
 import HomeSearch from '@/components/HomeSearch/HomeSearch';
 import Dashboard from './Dashboard';
 import { StatusBar } from 'expo-status-bar';
