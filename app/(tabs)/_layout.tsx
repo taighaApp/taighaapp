@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import PropertyListView from '@/components/common/PropertyListView';
+import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
+import PropertiesDetails from '@/components/HomeSearch/PropertiesDetails';
 import HomeSearch from '@/components/HomeSearch/HomeSearch';
 import Dashboard from './Dashboard';
 import { StatusBar } from 'expo-status-bar';
