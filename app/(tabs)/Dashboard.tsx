@@ -2,22 +2,21 @@
 
 import { View, Text, Button, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import React, { useRef } from 'react';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { FAB } from 'react-native-paper';
 
 const Dashboard = () => {
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const router = useRouter(); // Hook called correctly inside the component body.
 
-  const handlePress =()=>{
-    router.push('/(tabs)/Favorites'); 
-  }
+ const handlepress =()=>{router.push('/(tabs)/Dashboard')}
  
   return (
-    <View style={styles.screenContainer}>
+    <View style={styles.container}>
         <View>
-        <Pressable onPress={handlePress}>
+        <Pressable onPress={handlepress}>
           <Text>Favorites</Text>
         </Pressable>
         {/* <CustomBottomsheetModel 
@@ -70,6 +69,12 @@ const Dashboard = () => {
   
         {/* </CustomBottomsheetModel> */}
       </View>
+        <FAB
+    icon="plus"
+    style={styles.fab}
+    onPress={() => console.log('Pressed')}
+  />
+
       </View>
   );
 };
@@ -91,6 +96,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  fab: {
+    position: 'absolute',
+    // margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
 

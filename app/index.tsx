@@ -1,38 +1,18 @@
-// import React from 'react';
-// import { StyleSheet } from 'react-native'; 
-// import { StatusBar } from 'expo-status-bar';
-// import HomeSearch from '@/components/HomeSearch/HomeSearch';
-// import Home from './Home';
+import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { NavigationContainer } from '@react-navigation/native';
+import RootLayout from './_layout';
 
-// // Main functional component for the home screen
-// export default function HomeScreen() {
-//   return (
-//     <>
-//       {/* Set the status bar color */}
-//       <StatusBar style="dark" />
-// {/* <Home/> */}
-//       {/* Render the HomeSearch component */}
-//       {/* <HomeSearch /> */}
-//     </>
-//   );
-// }
+export default function index() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+        <NavigationContainer>
+          <RootLayout />
+        </NavigationContainer>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
+  );
+}
 
-// const styles = StyleSheet.create({
-//   titleContainer: {
-//     flex:1,
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     gap: 8,
-//   },
-//   stepContainer: {
-//     gap: 8,
-//     marginBottom: 8,
-//   },
-//   reactLogo: {
-//     height: 178,
-//     width: 290,
-//     bottom: 0,
-//     left: 0,
-//     position: 'absolute',
-//   },
-// });
