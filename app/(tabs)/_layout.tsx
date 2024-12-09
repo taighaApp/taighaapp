@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import PropertyListView from '@/components/common/PropertyListView';
-import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
-import PropertiesDetails from '@/components/HomeSearch/PropertiesDetails';
 import HomeSearch from '@/components/HomeSearch/HomeSearch';
 import Dashboard from './Dashboard';
-import { StatusBar } from 'expo-status-bar';
 import Search from './Search';
+
+import More from './More';
+import index from '..';
 import Favorites from './Favorites';
 import Tickets from './Tickets';
-import More from './More';
 
 const Tab = createBottomTabNavigator();
+
 export default function Tabs() {
+  const [isHomeSearchVisible, setHomeSearchVisible] = useState(true);
+
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
-      <HomeSearch />
+      {isHomeSearchVisible && <HomeSearch />}
       <Tab.Navigator
         initialRouteName="Dashboard"
         screenOptions={({ route }) => ({
@@ -91,14 +91,13 @@ export default function Tabs() {
           },
           headerShown: false,
           // tabBarActiveBackgroundColor: "red",
-
         })}
-      >
-        <Tab.Screen name="Dashboard" component={Dashboard} />
-        <Tab.Screen name="Search" component={Search}   />
-        <Tab.Screen name="Favorites" component={Favorites}  />
-        <Tab.Screen name="Tickets" component={Tickets}   />
-        <Tab.Screen name="More" component={More}   />
+      > 
+        <Tab.Screen name="Dashboard" component={Dashboard} listeners={{focus: () => setHomeSearchVisible(true),}} />
+        <Tab.Screen name="Search" component={Search}  listeners={{focus: () => setHomeSearchVisible(true),}} />
+        <Tab.Screen name="Favorites" component={Favorites} listeners={{focus: () => setHomeSearchVisible(true),}} />
+        <Tab.Screen name="Tickets" component={Tickets} listeners={{focus: () => setHomeSearchVisible(false),}}  />
+        <Tab.Screen name="More" component={More} listeners={{focus: () => setHomeSearchVisible(true),}}  />
       </Tab.Navigator>
       </View>
   );

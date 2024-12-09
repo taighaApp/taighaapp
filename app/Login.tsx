@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, Dimensions, Pressable, Image, Animated,
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet";
 import Svg, { Circle, ClipPath, Defs, Path, Rect } from "react-native-svg";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import Checkbox from "expo-checkbox";
 import { Dropdown } from "react-native-element-dropdown";
 import Buttons from "@/components/common/Buttons";
@@ -11,18 +11,19 @@ import { FloatingLabelInput } from "react-native-floating-label-input";
 import Media from "@/components/common/Media";
 import PropertyListView from "@/components/common/PropertyListView";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
-
+import { useNavigation } from '@react-navigation/native';
 type Errors = {
   website?: string;
   email?: string;
   password?: string;
 };
 
-const App = () => {
+const Login = () => {
 const [website, setWebsite] = useState('');
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [errors, setErrors] = useState<Errors>({});
+const navigation = useNavigation();
 
 const scrollY = useRef(new Animated.Value(0)).current;
 const animatedScale = useRef(new Animated.Value(1)).current;
@@ -90,15 +91,23 @@ const validateInputs = () => {
 
 
 const handleSubmit = () => {
-  if (validateInputs()) {
-    console.log('Website:', website);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Proceed with form submission or API call
-  }
-  setWebsite('');
-  setEmail('');
-  setPassword('');
+  // ifu(validateInputs()) {
+  //   console.log('Website:', website);
+  //   console.log('Email:', email);
+  //   console.log('Password:', password);
+  //   // Proceed with form submission or API call
+  // }
+  // setWebsite('');
+  // setEmail('');
+  // setPassword('');
+
+  navigation.navigate('Drawer', {
+    screen: 'MainTabs',
+    params: {
+      screen: 'Dashboard'
+    }
+  });
+
 };
 
 
@@ -123,9 +132,8 @@ const handleSubmit = () => {
             </View>
           </View>
            
-            <View style={{flex:1,height:SCREEN_HEIGHT-320,width:'100%',backgroundColor:'#fff',marginTop:109}}>
+            <View style={{flex:1,minHeight:SCREEN_HEIGHT-290,width:'100%',backgroundColor:'#fff',marginTop:109}}>
               <View style={styles.inputSection}>
-
                 <View style={styles.inputContainer}>
                     <FloatingLabelInput
                       label="Website"
@@ -381,5 +389,5 @@ error: {
 },
 });
 
-export default App;
+export default Login;
 

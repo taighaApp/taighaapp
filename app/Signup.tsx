@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, Dimensions, Pressable, Image, Animated,
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet";
 import Svg, { Circle, ClipPath, Defs, Path, Rect } from "react-native-svg";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import Checkbox from "expo-checkbox";
 import { Dropdown } from "react-native-element-dropdown";
 import Buttons from "@/components/common/Buttons";
@@ -147,11 +147,12 @@ const handleChange = (field: keyof FormFields, value: string) => {
   };
   
   const handleSubmit = () => {
-    if (validateForm()) {
-      alert('Form is valid! Submitting...');
-    } else {
-      alert('Form contains errors!');
-    }
+    // if (validateForm()) {
+    //   alert('Form is valid! Submitting...');
+    // } else {
+    //   alert('Form contains errors!');
+    // }
+    router.push('/(tabs)/Tickets');
   };
 
   // render

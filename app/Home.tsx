@@ -8,8 +8,9 @@ export default function Home(){
     const router = useRouter();
 
     const logIn = () => {
+        console.log('Log In button pressed');
         router.push('/Login');
-      };
+    };
       const signUp = () => {
         router.push('/Signup');
       };
@@ -102,4 +103,3 @@ const styles = StyleSheet.create({
         bottom: Platform.OS === 'ios' ? 40 : 20,
     },
 })
-
