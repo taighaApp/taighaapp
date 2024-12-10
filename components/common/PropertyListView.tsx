@@ -5,7 +5,7 @@ import Checkbox from 'expo-checkbox';
 import Buttons from './Buttons';
 import HomeAccessories from '../HomeSearch/HomeAccessories';
 const { width } = Dimensions.get('window');
-const PropertyListView = () => {
+const PropertyListView = ({route}:any) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isChecked, setChecked] =  useState(false);
   const [isActive, setActive] =  useState(false);
@@ -51,12 +51,12 @@ const listViewData = [
     <View key={item.id} style={styles.propertyListContainer}>
         <View style={{ flex: 1 }}>
           <View style={styles.checkboxWrapper}>
-            <Pressable onPress={toggleCheckbox}>
-              <Checkbox
-                style={styles.checkbox}
-                value={isChecked}
-                color={isChecked ? '#3366CC' : ''}
-                onValueChange={setChecked} />
+            <Pressable
+              role="checkbox"
+              aria-checked={isChecked}
+              style={styles.checkbox}
+              onPress={toggleCheckbox}>
+              {isChecked && <Image style={{width:15,height:15}} source={require('../../assets/images/homesearch/icon/checked-box.png')}/>}
             </Pressable>
                 {isActive ?
                 <Pressable style={styles.activeButton} onPress={active}>
@@ -110,7 +110,7 @@ const listViewData = [
             </View>
         </View>
       {/* Home Accessories Component */}
-       <HomeAccessories/>
+       <HomeAccessories route={route}/>
       </View>
     </View>
    ))}

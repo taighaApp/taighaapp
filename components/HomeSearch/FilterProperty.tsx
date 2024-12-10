@@ -8,7 +8,7 @@ import Buttons from '../common/Buttons';
 import BatchActionModel from './BatchActionModel';
 import { Checkbox } from 'react-native-paper';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Svg, { Circle, Path } from 'react-native-svg';
 
@@ -167,6 +167,29 @@ const FilterProperty = () => {
       selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
     },
   ];
+
+  const openHouse = [
+    {
+      id:1,
+      openHouseValue:"This Weekend",
+    },
+    {
+      id:2,
+      openHouseValue:"Any time",
+    }
+  ];
+
+  const priceChange = [
+    {
+      id:1,
+      priceValue:"test1",
+    },
+    {
+      id:2,
+      priceValue:"test2",
+    }
+  ];
+
 
   const handlePress = (id:any) => {
     setSelectedType(id);
@@ -449,17 +472,32 @@ alert('clear')
             <View style={styles.optionWrapper}>
                 <Text style={styles.optionHeadings}>Open House</Text>
                   <View style={{paddingBottom:25,}}>
-                    <Pressable style={styles.dropdownButton} onPress={ handleSelect }>
+                    <Pressable style={styles.dropdownButton} onPress={ handlePresentModalPress }>
                     <Text style={styles.buttonText}>{openHouseoption}</Text>
-                    <Text style={styles.arrow}>▼</Text>
+                    {/* <Text style={styles.arrow}>▼</Text> */}
+                    <AntDesign name="down" size={17} color="black" />
                   </Pressable>
 
                   {/* Half-Screen Modal */}
-                  <BatchActionModel isVisible={isVisible} onClose={() => setIsVisible(false)} >
-                    <Text style={{borderWidth:1}}>This Weekend</Text>
-                    <Text style={{borderWidth:1}}>Any time</Text>
-                    </BatchActionModel>
-                  </View>
+                  <CustomBottomsheetModel 
+                    bottomSheetRef={bottomSheetModalRef}
+                    snapPoints={['10%', '37%']}
+                    showHandleIndicator={false}
+                    >
+                    <View style={{}}>
+                      <View style={{backgroundColor:'#3366cc',alignItems:'center',justifyContent:'center',paddingVertical:15,}}>
+                          <Text style={{color:'#fff',fontSize:16,}}>Open House</Text>
+                      </View>
+                      <View>
+                          {openHouse.map((item)=>(
+                            <View key={item.id} style={{borderBottomWidth:1,borderColor:'#ECECEC'}}>
+                              <Text style={{color:'#AEAEAE',padding:15,fontSize:16}}>{item.openHouseValue}</Text>
+                            </View>
+                          ))}
+                      </View>
+                </View>
+                </CustomBottomsheetModel>
+              </View>
               </View>
 
               <View style={[styles.optionWrapper,{paddingBottom:25}]}>
@@ -474,7 +512,6 @@ alert('clear')
                     },{ backgroundColor: VirtualTour ? 'rgba(51,102,204,0.12)': '#F7F7F7' }]}
                     onPress={VirtualTourPress}
                     >
-
                     {VirtualTour ? (
                         <Image
                           source={require('../../assets/images/homesearch/icon/checked-circule.png')}
@@ -496,26 +533,27 @@ alert('clear')
                 <View style={{paddingBottom:25}}>
                   <Pressable style={styles.dropdownButton} onPress={ handlePresentModalPress }>
                     <Text style={styles.buttonText}>{priceSelectedOption}</Text>
-                    <Text style={styles.arrow}>▼</Text>
+                    <AntDesign name="down" size={17} color="black" />
                   </Pressable>
                   {/* Half-Screen Modal */}
-                  {/* <BatchActionModel isVisible={isVisible} onClose={() => setIsVisible(false)} >
-                    <Text>Last day</Text>
-                    <Text>Last 30 days</Text>
-                    <Text>More then 30 day</Text>
-                    </BatchActionModel> */}
-
-<CustomBottomsheetModel 
-        bottomSheetRef={bottomSheetModalRef}
-        snapPoints={['10%', '37%']}
-        showHandleIndicator={false}
-        >
-          <View style={{}}>
-            <View style={{backgroundColor:'#3366cc',alignItems:'center',justifyContent:'center',paddingVertical:15,}}>
-                <Text style={{color:'#fff',fontSize:16,}}>Batch Actions</Text>
-            </View>
-      </View>
-      </CustomBottomsheetModel>
+                  <CustomBottomsheetModel 
+                    bottomSheetRef={bottomSheetModalRef}
+                    snapPoints={['10%', '37%']}
+                    showHandleIndicator={false}
+                  >
+                    <View>
+                        <View style={{backgroundColor:'#3366cc',alignItems:'center',justifyContent:'center',paddingVertical:15,}}>
+                            <Text style={{color:'#fff',fontSize:16,}}>Batch Actions</Text>
+                        </View>
+                        <View>
+                          {priceChange.map((item)=>(
+                            <View key={item.id} style={{borderBottomWidth:1,borderColor:'#ECECEC'}}>
+                              <Text style={{color:'#AEAEAE',padding:15,fontSize:16}}>{item.priceValue}</Text>
+                            </View>
+                          ))}
+                        </View>
+                    </View>
+                  </CustomBottomsheetModel>
                   </View>
               </View>
 

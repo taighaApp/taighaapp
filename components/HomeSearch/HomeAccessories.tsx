@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, Image, ImageSourcePropType } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
 
-const HomeAccessories = () => {
+const HomeAccessories = ({route}:any) => {  
+  const isFavorite = route.name === "Favorites";
   const propertyDetails = [
     { type: 'bedrooms', count: 5, icon: require('../../assets/images/homesearch/icon/bed-single-hotel.png') },
     { type: 'bathrooms', count: 5, icon: require('../../assets/images/homesearch/icon/bath.png') },
@@ -16,13 +16,14 @@ const HomeAccessories = () => {
      <View style={styles.infoContainer}>
       {/* <View style={styles.info}> */}
     {propertyDetails.map((detail: { type: any; icon: ImageSourcePropType | undefined; count: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
-      <Link href={`/Propertiesdetails?type=${detail.type}`}  key={index} style={styles.info}>
-        <Image style={styles.infoImage} source={detail.icon} />
+      <View  key={index} style={isFavorite ? styles.infoFav : styles.info}>
+        <Image style={isFavorite ? styles.infoImage: styles.infoImages} source={detail.icon} />
         <Text style={styles.infoCounts}>{detail.count}</Text>
-      </Link>
+      </View>
     ))}
          {/* Display the logo separately */}
-         <Image style={styles.logo} source={logo} />
+         {isFavorite ?<Image style={styles.logo} source={logo} />:''}
+         
     </View>
   )
 }
@@ -34,22 +35,37 @@ const  styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         // borderWidth:1,
-        // marginRight:15,
-        // width:'100%',
       },
-      info:{
-        // borderWidth:1,
+      infoFav:{
+        borderWidth:1,
         borderColor:'#DBDBDB',
         paddingHorizontal:10,
         paddingVertical:5,
-        // height:25,
-        // minWidth:40,
+        flexDirection:'row',
         borderRadius:50,
         marginRight:15,
         alignItems:'center',
         justifyContent:'center',
         },
+      info:{
+        borderWidth:1,
+        borderColor:'#DBDBDB',
+        paddingHorizontal:5,
+        paddingVertical:5,
+        flexDirection:'row',
+        borderRadius:50,
+        marginRight:15,
+        alignItems:'center',
+        justifyContent:'center',
+        
+        },
       infoImage:{
+        width:14,
+        height:16,
+        objectFit:'contain',
+        // borderWidth:1,
+      },
+      infoImages:{
         width:14,
         height:16,
         objectFit:'contain',

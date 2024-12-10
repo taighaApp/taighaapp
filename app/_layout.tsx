@@ -1,20 +1,26 @@
-import { DarkTheme, DefaultTheme, NavigationContainer, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import Dashboard from './Admin/Dashboard';
+import { StatusBar } from 'expo-status-bar';
+import Login from './Login';
 import Tabs from './(tabs)/_layout';
-const Drawer = createDrawerNavigator();
+import Signup from './Signup';
+import { createStackNavigator } from '@react-navigation/stack';
 
-// const Stack = createStackNavigator();
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+import NotFoundScreen from './+not-found';
+import Index from './index';
+import DrawerLayout from './drawer/_layout';
+import Home from './Home';
+import Seller from './drawer/Seller';
+import Dashboard from './(tabs)/Dashboard';
+
+const Stack = createStackNavigator();
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -41,29 +47,22 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          
-           <Drawer.Navigator
-          initialRouteName="Tabs"
-          screenOptions={{
-            drawerStyle: { width: 240 },
-            drawerActiveTintColor: '#e91e63',
-          }}
-        >
-          <Drawer.Screen
-            name="Tabs"
-            component={Tabs} 
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="Dashboard"
-            component={Dashboard}
-            options={{ title: "Dashboard Screen" }}
-          />
-        </Drawer.Navigator>
-        </ThemeProvider>
-      </BottomSheetModalProvider>
+    <BottomSheetModalProvider>
+    <Stack.Navigator
+    initialRouteName="Home"
+    screenOptions={{ headerShown: false }}
+  >
+    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="/(tabs)" component={Tabs} />
+    <Stack.Screen name="Signup" component={Signup} />
+    <Stack.Screen name="+not-found" component={NotFoundScreen} />
+    <Stack.Screen name="Drawer" component={DrawerLayout} /> 
+    </Stack.Navigator>
+    </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }
+
+
+ 

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { 
   View, 
   Text, 
@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   FlatList,
   ScrollView,
+  LayoutAnimation,
 } from 'react-native';
 import CustomBottomsheetModel from '../common/CustomBottomsheetModel';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -34,6 +35,7 @@ const GlobalSearch = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const scrollViewRef = useRef<ScrollView>(null);
+  const [contentWidth, setContentWidth] = useState(0);
 
   const handleFocus = useCallback(() => {
     Keyboard.dismiss();
@@ -44,36 +46,48 @@ const GlobalSearch = () => {
   const onChangeSearch = (query: string) => {
     setSearchQuery(query); // This remains correct
     const filtered = searchData.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase()) // TypeScript now recognizes query as a string
+      item.name.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
   };
 
+    // Add this function to handle scroll position updates
+    const updateScrollPosition = useCallback(() => {
+      if (scrollViewRef.current) {
+        // Use setTimeout to ensure the layout has updated
+        setTimeout(() => {
+          if (contentWidth > (Platform.OS === 'ios' ? 350 : 300)) { // Adjust these values based on your container width
+            scrollViewRef.current?.scrollToEnd({ animated: true });
+          } else {
+            scrollViewRef.current?.scrollTo({ x: 0, animated: true });
+          }
+        }, 100);
+      }
+    }, [contentWidth]);
+
+
   const onItemPress = useCallback((item: { name: string; }) => {
-    // Immediately update the selected values
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     if (!selectedValues.includes(item.name)) {
       const newValues = [...selectedValues, item.name];
       setSelectedValues(newValues);
-      
-      // Scroll to end after a short delay to ensure the new tag is rendered
-      setTimeout(() => {
-        scrollViewRef.current?.scrollToEnd({ animated: true });
-      }, 100);
+      updateScrollPosition();
     }
 
-    // Clear search and close bottom sheet
     setSearchQuery('');
     setIsBottomSheetOpen(false);
     bottomSheetModalRef.current?.dismiss();
-  }, [selectedValues]);
+  }, [selectedValues, updateScrollPosition]);
 
   const removeValue = useCallback((value: string) => {
     if (value !== DEFAULT_ZIP) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setSelectedValues(prev => prev.filter(item => item !== value));
+      updateScrollPosition();
     }
-  }, []);
+  }, [updateScrollPosition]);
 
-  // Search result
+  // Search result list
   const renderSearchItem = useCallback(({ item }:any) => (
     <TouchableOpacity 
       style={styles.searchItem} 
@@ -92,6 +106,33 @@ const GlobalSearch = () => {
     </TouchableOpacity>
   ), [onItemPress]);
 
+  const snapPointsPlatformBased = Platform.select({
+    ios: ['90%', '85%'],
+    android: ['50%', '70%'],
+  }) as (string | number)[];
+
+  // Add this effect to handle keyboard
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        bottomSheetModalRef.current?.snapToIndex(0);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+
+
+   // Add this handler for measuring content width
+   const onContentSizeChange = useCallback((width: number) => {
+    setContentWidth(width);
+  }, []);
+  
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -104,6 +145,7 @@ const GlobalSearch = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollViewContent}
+          onContentSizeChange={onContentSizeChange}
         >
           <View style={styles.inputWrapper}>
             {selectedValues.map((value) => (
@@ -128,8 +170,8 @@ const GlobalSearch = () => {
                   styles.searchInput,
                   selectedValues.length === 0 && styles.searchInputWithPlaceholder
                 ]}
-                placeholder={selectedValues.length === 0 ? "Enter City, Zip or School" : ""}
-                placeholderTextColor="#999"
+                placeholder={selectedValues.length === 1 ? "Enter City, Zip or School" : ""}
+                placeholderTextColor="#AEAEAE"
                 onFocus={handleFocus}
                 showSoftInputOnFocus={false}
               />
@@ -140,11 +182,12 @@ const GlobalSearch = () => {
 
       <CustomBottomsheetModel 
         bottomSheetRef={bottomSheetModalRef} 
-        snapPoints={["50%", "70%"]}
+        snapPoints={snapPointsPlatformBased}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.bottomSheetContent}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         >
           <View style={styles.bottomSheetSearchContainer}>
             <TextInput
@@ -165,7 +208,7 @@ const GlobalSearch = () => {
 
           <FlatList
             data={filteredData}
-            renderItem={renderSearchItem}
+            renderItem={ renderSearchItem }
             keyExtractor={(item, index) => index.toString()}
             style={styles.searchResults}
             keyboardShouldPersistTaps="handled"
@@ -180,7 +223,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 16,
+    marginHorizontal:13,
+    // borderWidth:1,
   },
   searchContainer: {
     height: 40,
@@ -204,9 +248,10 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     height: 40,
-    fontSize: 16,
-    color: '#333',
+    fontSize: 14,
+    color: '#AEAEAE',
     paddingHorizontal: 4,
+    fontFamily:'interRegular'
   },
   searchInputWithPlaceholder: {
     minWidth: 200,
@@ -214,7 +259,7 @@ const styles = StyleSheet.create({
   tag: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#4B88FF',
+    backgroundColor: '#EEEEEE',
     borderRadius: 4,
     paddingVertical: 4,
     paddingHorizontal: 8,
@@ -222,7 +267,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   tagText: {
-    color: '#FFF',
+    color: '#3366CC',
     fontSize: 14,
     marginRight: 4,
   },

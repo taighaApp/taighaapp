@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet,Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 export default function DashboardScreen() {
+  const handleClick = () =>{
+    router.push('/Home');
+  }
   return (
     <View style={styles.screenContainer}>
-      <Text>Dashboard Screen</Text>
+      <Button title='test' onPress={handleClick}/>
     </View>
   );
 }

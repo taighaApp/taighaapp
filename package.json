@@ -55,7 +55,8 @@
     "react-native-tab-view": "^4.0.5",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.10",
-    "wrn-echarts": "^0.1.6"
+    "wrn-echarts": "^0.1.6",
+    "expo-linear-gradient": "~14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

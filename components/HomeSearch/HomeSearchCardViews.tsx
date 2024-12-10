@@ -16,8 +16,7 @@ import { Link } from 'expo-router';
 // import HomeAccessories from './HomeAccessories';
 const { width } = Dimensions.get('window');
 
-export default function PropertyCard({ navigation }:any){
-
+export default function PropertyCard({ route }:any){  
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   // Image data for slider
@@ -77,10 +76,8 @@ export default function PropertyCard({ navigation }:any){
   ];
 
   return (
-    <ScrollView  showsVerticalScrollIndicator={false} style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {cardData.map((items)=>(
-
-
           <View key={items.id} style={styles.card}>
             {/* Favorite and Share Icons */}
             <View style={styles.iconContainer}>
@@ -145,7 +142,7 @@ export default function PropertyCard({ navigation }:any){
               </View>
             </View>
               {/* Home Accessories Component */}
-              <HomeAccessories/>
+              <HomeAccessories route={route}/>
             </View>
           </View>
       ))}
@@ -159,16 +156,17 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
-    width: width - 40,
+    width: width-40,
     height: 290,
-    marginVertical: 10,
-    marginHorizontal:10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 }, // Balanced shadow offset
     shadowOpacity: 0.2,
     shadowRadius: 4, 
     elevation: 5,
     alignItems: 'center',
+    margin:'auto',
+    // borderWidth:1,
+    marginBottom:10,
   },
   iconContainer: {
     flexDirection: "row",
