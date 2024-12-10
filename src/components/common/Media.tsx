@@ -12,21 +12,21 @@ const Media = () => {
                 <View style={styles.imageWrapper}>
                     <TouchableOpacity onPress={handlePressApple}>
                         <Image
-                        style={styles.mediaImage}  source={require('../../assets/images/apple.png')}/>
+                        style={styles.mediaImage}  source={require('../../../assets/images/apple.png')}/>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.imageWrapper}>
                     <TouchableOpacity onPress={handlePressGoogle}>
                         <Image
-                        style={styles.mediaImage}  source={require('../../assets/images/google.png')}/>
+                        style={styles.mediaImage}  source={require('../../../assets/images/google.png')}/>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.imageWrapper}>
                     <TouchableOpacity onPress={handlePressFb}>
                         <Image
-                        style={styles.mediaImage}  source={require('../../assets/images/facebook.png')}/>
+                        style={styles.mediaImage}  source={require('../../../assets/images/facebook.png')}/>
                     </TouchableOpacity>
                 </View>
         </View>

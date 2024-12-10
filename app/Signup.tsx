@@ -6,11 +6,11 @@ import Svg, { Circle, ClipPath, Defs, Path, Rect } from "react-native-svg";
 import { Link, router } from "expo-router";
 import Checkbox from "expo-checkbox";
 import { Dropdown } from "react-native-element-dropdown";
-import Buttons from "@/components/common/Buttons";
+import Buttons from "@/src/components/common/Buttons";
 import { FloatingLabelInput } from "react-native-floating-label-input";
-import Media from "@/components/common/Media";
-import PropertyListView from "@/components/common/PropertyListView";
-import ImageCarousel from "@/components/common/imageCarousel";
+import Media from "@/src/components/common/Media";
+import PropertyListView from "@/src/components/common/PropertyListView";
+import ImageCarousel from "@/src/components/common/imageCarousel";
 // import ImageCarousel from "@/components/common/imageCarousel";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 

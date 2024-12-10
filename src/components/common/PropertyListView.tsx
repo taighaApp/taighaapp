@@ -11,9 +11,9 @@ const PropertyListView = ({route}:any) => {
   const [isActive, setActive] =  useState(false);
   const toggleCheckbox = () => setChecked(!isChecked);
   const data = [
-    { id: '1', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '2', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '3', image: require('../../assets/images/dummyCardImage.png') },
+    { id: '1', image: require('../../../assets/images/dummyCardImage.png') },
+    { id: '2', image: require('../../../assets/images/dummyCardImage.png') },
+    { id: '3', image: require('../../../assets/images/dummyCardImage.png') },
   ];
   const onScroll = (event: { nativeEvent: { contentOffset: { x: number; }; }; }) => {
     const slideIndex = Math.round(event.nativeEvent.contentOffset.x / width);

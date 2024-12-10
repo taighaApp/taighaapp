@@ -3,7 +3,7 @@
 import { View, Text, Button, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import React, { useRef } from 'react';
 import { Link, useRouter } from 'expo-router';
-import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
+import CustomBottomsheetModel from '@/src/components/common/CustomBottomsheetModel';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { FAB } from 'react-native-paper';
 
@@ -69,11 +69,7 @@ const Dashboard = () => {
   
         {/* </CustomBottomsheetModel> */}
       </View>
-        <FAB
-    icon="plus"
-    style={styles.fab}
-    onPress={() => console.log('Pressed')}
-  />
+
 
       </View>
   );
@@ -97,12 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  fab: {
-    position: 'absolute',
-    // margin: 16,
-    right: 0,
-    bottom: 0,
-  },
+
 });
 
 export default Dashboard;

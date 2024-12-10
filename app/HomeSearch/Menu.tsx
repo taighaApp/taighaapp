@@ -1,6 +1,6 @@
 import { Text, SafeAreaView } from 'react-native'
 import React from 'react'
-import LeftMenu from '@/components/HomeSearch/Menu/LeftMenu'
+import LeftMenu from '@/src/components/HomeSearch/Menu/LeftMenu'
 
 const Menu = () => {
   return (
@@ -10,4 +10,4 @@ const Menu = () => {
   )
 }
 
-export default Menu
+export default Menu;

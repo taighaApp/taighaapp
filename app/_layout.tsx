@@ -12,7 +12,6 @@ import Tabs from './(tabs)/_layout';
 import Signup from './Signup';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import NotFoundScreen from './+not-found';
 import Index from './index';
 import DrawerLayout from './drawer/_layout';
 import Home from './Home';
@@ -33,6 +32,11 @@ export default function RootLayout() {
     interRegular: require('../assets/fonts/Inter/static/Inter_18pt-Regular.ttf'),
     interMedium: require('../assets/fonts/Inter/static/Inter_18pt-Medium.ttf'),
     interBold: require('../assets/fonts/Inter/static/Inter_18pt-Bold.ttf'),
+    rubikRegular: require('../assets/fonts/Rubik/static/Rubik-Regular.ttf'),
+    rubikLight: require('../assets/fonts/Rubik/static/Rubik-Light.ttf'),
+    rubikMedium: require('../assets/fonts/Rubik/static/Rubik-Medium.ttf'),
+    rubikSemiBold: require('../assets/fonts/Rubik/static/Rubik-SemiBold.ttf'),
+    rubikBold: require('../assets/fonts/Rubik/static/Rubik-Bold.ttf'),
   });
 
   useEffect(() => {
@@ -56,7 +60,6 @@ export default function RootLayout() {
     <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="/(tabs)" component={Tabs} />
     <Stack.Screen name="Signup" component={Signup} />
-    <Stack.Screen name="+not-found" component={NotFoundScreen} />
     <Stack.Screen name="Drawer" component={DrawerLayout} /> 
     </Stack.Navigator>
     </BottomSheetModalProvider>

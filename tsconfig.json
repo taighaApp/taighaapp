@@ -4,11 +4,11 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/components/*": ["src/components/*"],
+      "@/*": [ "./*" ],
+      "@types/*": ["types/type.d.ts"],
+    },
+    
   },
   "include": [
     "**/*.ts",

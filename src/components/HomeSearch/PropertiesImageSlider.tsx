@@ -19,14 +19,14 @@ export default function App() {
   const flatListRef = useRef(null); // Ref for FlatList
 
   const images = [
-    require('../../assets/images/PropertiesImage/property-image.png'),
-    require('../../assets/images/PropertiesImage/properties-inside.png'),
-    require('../../assets/images/PropertiesImage/properties-showcase.png'),
-    require('../../assets/images/PropertiesImage/property-image.png'),
-    require('../../assets/images/PropertiesImage/properties-inside.png'),
+    require('../../../assets/images/PropertiesImage/property-image.png'),
+    require('../../../assets/images/PropertiesImage/properties-inside.png'),
+    require('../../../assets/images/PropertiesImage/properties-showcase.png'),
+    require('../../../assets/images/PropertiesImage/property-image.png'),
+    require('../../../assets/images/PropertiesImage/properties-inside.png'),
   ];
 
-  const openModal = (index) => {
+  const openModal = (index:any) => {
     setSelectedIndex(index);
     setModalVisible(true);
     setTimeout(() => {

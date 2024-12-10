@@ -1,14 +1,14 @@
-import Buttons from '@/components/common/Buttons';
+import Buttons from '@/src/components/common/Buttons';
 import { useRouter } from 'expo-router';
 import { Button, Dimensions, Image, ImageBackground, Linking, Platform, Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Dots from '../components/common/Dots';
+import Dots from '../src/components/common/Dots';
 
 const height = Dimensions.get('screen').height
 export default function Home(){
     const router = useRouter();
 
     const logIn = () => {
-        console.log('Log In button pressed');
+        // console.log('Log In button pressed');
         router.push('/Login');
     };
       const signUp = () => {
