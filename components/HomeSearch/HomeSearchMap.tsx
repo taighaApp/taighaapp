@@ -47,7 +47,7 @@ const properties = [
     longitude: -122.676,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummy-1.jpg')],
+    images: [require('../../assets/images/dummy-1.jpg')],
     isActive: true
   },
   { 
@@ -57,7 +57,7 @@ const properties = [
     longitude: -122.658,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummy-2.jpg')],
+    images: [require('../../assets/images/dummy-2.jpg')],
     isActive: true
   },
   { 
@@ -67,7 +67,7 @@ const properties = [
     longitude: -122.666,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummy-3.jpg')],
+    images: [require('../../assets/images/dummy-3.jpg')],
     isActive: true
   },
   { 
@@ -77,7 +77,7 @@ const properties = [
     longitude: -122.673,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummyCardImage.png')],
+    images: [require('../../assets/images/dummyCardImage.png')],
     isActive: true
   },
   { 
@@ -87,7 +87,7 @@ const properties = [
     longitude: -122.705,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummyCardImage.png')],
+    images: [require('../../assets/images/dummyCardImage.png')],
     isActive: true
   },
   { 
@@ -97,7 +97,7 @@ const properties = [
     longitude: -122.684,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummyCardImage.png')],
+    images: [require('../../assets/images/dummyCardImage.png')],
     isActive: true
   },
   { 
@@ -107,7 +107,7 @@ const properties = [
     longitude: -122.670,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummyCardImage.png')],
+    images: [require('../../assets/images/dummyCardImage.png')],
     isActive: true
   },
   { 
@@ -117,7 +117,7 @@ const properties = [
     longitude: -122.676,
     street: '6220 NW SKYLINE BLVD',
     address: 'Portland, OR 97229',
-    images: [require('../../../assets/images/dummyCardImage.png')],
+    images: [require('../../assets/images/dummyCardImage.png')],
     isActive: true
   },
 

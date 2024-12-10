@@ -3,7 +3,7 @@
 import { View, Text, Button, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import React, { useRef } from 'react';
 import { Link, useRouter } from 'expo-router';
-import CustomBottomsheetModel from '@/src/components/common/CustomBottomsheetModel';
+import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { FAB } from 'react-native-paper';
 

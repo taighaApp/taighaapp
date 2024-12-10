@@ -21,11 +21,11 @@ export default function PropertyCard({ route }:any){
   const [activeIndex, setActiveIndex] = useState(0);
   // Image data for slider
   const imageData = [
-    { id: '1', image: require("../../../assets/images/homesearch/icon/Homecardimage.png") },
-    { id: '2', image: require("../../../assets/images/homesearch/icon/Homecardimage.png") },
-    { id: '3', image: require("../../../assets/images/homesearch/icon/Homecardimage.png") },
-    { id: '4', image: require("../../../assets/images/homesearch/icon/Homecardimage.png") },
-    { id: '5', image: require("../../../assets/images/homesearch/icon/Homecardimage.png") },
+    { id: '1', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
+    { id: '2', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
+    { id: '3', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
+    { id: '4', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
+    { id: '5', image: require("../../assets/images/homesearch/icon/Homecardimage.png") },
   ];
   // Function to handle sharing property details
   const handleShare = async () => {
@@ -82,11 +82,11 @@ export default function PropertyCard({ route }:any){
             {/* Favorite and Share Icons */}
             <View style={styles.iconContainer}>
               <Pressable style={styles.icon} >
-                <Image style={styles.mapMedia} source={require('../../../assets/images/PropertiesImage/properties-fav.png')}/>
+                <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-fav.png')}/>
               </Pressable>
 
               <Pressable style={styles.icon} onPress={handleShare}>
-                <Image style={styles.mapMedia} source={require('../../../assets/images/PropertiesImage/properties-share-block.png')}/>
+                <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-share-block.png')}/>
               </Pressable>
             </View>
             {/* Image Slider */}
@@ -112,7 +112,7 @@ export default function PropertyCard({ route }:any){
                 <View style={styles.virtualTourContent}>
                   <Text style={styles.virtualTourText}>{items.VirtualTourLabel}</Text>
                   <Image
-                    source={require("../../../assets/images/homesearch/icon/360-degrees.png")} // Replace with your image path
+                    source={require("../../assets/images/homesearch/icon/360-degrees.png")} // Replace with your image path
                     style={styles.virtualTourImage}
                   />
                 </View>

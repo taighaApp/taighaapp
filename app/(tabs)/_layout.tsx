@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeSearch from '@/src/components/HomeSearch/HomeSearch';
+import HomeSearch from '@/components/HomeSearch/HomeSearch';
 import Dashboard from './Dashboard';
 import Search from './Search';
 

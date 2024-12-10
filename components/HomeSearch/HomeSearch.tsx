@@ -22,11 +22,11 @@ export default function Header() {
     navigation.dispatch(DrawerActions.openDrawer());  };
 
   const headerMenu = [
-    { name: 'House', icon: require('../../../assets/images/homesearch/icon/house.png') },
-    { name: 'Townhomes', icon: require('../../../assets/images/homesearch/icon/townhomes.png') },
-    { name: 'Condos', icon: require('../../../assets/images/homesearch/icon/Condos.png') },
-    { name: 'Multi-family', icon: require('../../../assets/images/homesearch/icon/multi-family.png') },
-    { name: 'Lots/Land', icon: require('../../../assets/images/homesearch/icon/land.png') },
+    { name: 'House', icon: require('../../assets/images/homesearch/icon/house.png') },
+    { name: 'Townhomes', icon: require('../../assets/images/homesearch/icon/townhomes.png') },
+    { name: 'Condos', icon: require('../../assets/images/homesearch/icon/Condos.png') },
+    { name: 'Multi-family', icon: require('../../assets/images/homesearch/icon/multi-family.png') },
+    { name: 'Lots/Land', icon: require('../../assets/images/homesearch/icon/land.png') },
   ];
 
   const handlePresentModalPress = useCallback(() => {
@@ -49,7 +49,7 @@ export default function Header() {
         {/* Filter Button */}
         <TouchableOpacity style={styles.filterButton} onPress={handlePresentModalPress}>
           <Image
-            source={require('../../../assets/images/homesearch/icon/filtericon.png')}
+            source={require('../../assets/images/homesearch/icon/filtericon.png')}
             style={{ width: 30, height: 30, tintColor: '#3478F6' }}
           />
         </TouchableOpacity>

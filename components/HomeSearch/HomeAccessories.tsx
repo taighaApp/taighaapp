@@ -4,13 +4,13 @@ import React from 'react'
 const HomeAccessories = ({route}:any) => {  
   const isFavorite = route.name === "Favorites";
   const propertyDetails = [
-    { type: 'bedrooms', count: 5, icon: require('../../../assets/images/homesearch/icon/bed-single-hotel.png') },
-    { type: 'bathrooms', count: 5, icon: require('../../../assets/images/homesearch/icon/bath.png') },
-    { type: 'area', count: 6887, icon: require('../../../assets/images/homesearch/icon/square-measument.png') },
-    { type: 'time', count: '88D', icon: require('../../../assets/images/homesearch/icon/time-clock-date-time-icon.png') },
+    { type: 'bedrooms', count: 5, icon: require('../../assets/images/homesearch/icon/bed-single-hotel.png') },
+    { type: 'bathrooms', count: 5, icon: require('../../assets/images/homesearch/icon/bath.png') },
+    { type: 'area', count: 6887, icon: require('../../assets/images/homesearch/icon/square-measument.png') },
+    { type: 'time', count: '88D', icon: require('../../assets/images/homesearch/icon/time-clock-date-time-icon.png') },
 //  <Image style={{width:50,height:20,objectFit:'cover'}} source={require('../../assets/images/homesearch/icon/rmls-logo.png')}/> 
   ];
-  const logo = require('../../../assets/images/homesearch/icon/rmls-logo.png');
+  const logo = require('../../assets/images/homesearch/icon/rmls-logo.png');
   return (
   
      <View style={styles.infoContainer}>
