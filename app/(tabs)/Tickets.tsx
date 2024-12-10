@@ -1,7 +1,5 @@
 import { View, Text, TouchableOpacity, Pressable, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView, Platform, Keyboard, FlatList } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import PropertyListView from '@/components/common/PropertyListView';
-import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 import { AntDesign } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,6 +8,7 @@ import CustomBottomSheet from '@/components/common/CustomBottomSheet';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ScrollView } from 'react-native-gesture-handler';
+import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 const {width,height} = Dimensions.get('window');
 
 
@@ -202,42 +201,36 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
           style={styles.bottomSheetContent}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         >
-          <Text>snddnskn</Text>
-          <Text>snddnskn</Text>
-          <Text>snddnskn</Text>
-          <Text>snddnskn</Text>
-          <Text>snddnskn</Text>
-          <Text>snddnskn</Text>
-          <Text>snddnskn</Text>
-        <CustomBottomSheet 
-           bottomSheetRef={bottomSheetModalRef}
-           snapPoints={['10%', '90%']}
-           showHandleIndicator={true}
-           index={1}
-        >
-          <View>
-            <View>
-                <TextInput
-                  style={styles.bottomSheetSearchInput}
-                  placeholder="Ticket Search"
-                  value={searchQuery}
-                  onChangeText={onChangeSearch}
-                  autoFocus
-                  placeholderTextColor="#999"
-                />
-                <TouchableOpacity 
-                  onPress={() => setSearchQuery('')}
-                  style={styles.searchIcon}
-                >
-                  <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
-                </TouchableOpacity>
-              </View>
+          <Text>test</Text>
+      
+        <CustomBottomSheet>
+          <ScrollView> 
+          <View style={{marginHorizontal:20}}>
+            <View style={{}}>
+              <TextInput
+                style={styles.bottomSheetSearchInput}
+                placeholder="Ticket Search"
+                value={searchQuery}
+                onChangeText={onChangeSearch}
+                autoFocus
+                placeholderTextColor="#999"
+              />
+              <TouchableOpacity 
+                onPress={() => setSearchQuery('')}
+                style={styles.searchIcon}
+              >
+                <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
+              </TouchableOpacity>
+            </View>
+            <View style={{marginTop:5}}>
           <FlatList
             data={ticketData}
             keyExtractor={(item) => item.id.toString()} // Convert the id to string
             renderItem={({ item }) => (
-              <View key={item.id} style={{marginTop:20}}>
-              <View style={{flexDirection:'row',width:width-40,margin:'auto',}}>
+            
+                <TouchableOpacity onPress={handlePresentModalPress}>
+              <View key={item.id} style={{marginTop:20,}}>
+              <View style={{flexDirection:'row',margin:'auto',}}>
                 <View style={{width:50,height:50,backgroundColor:'red',borderRadius:50,}}>
                   <Image  style={{width:'100%',height:'100%',backgroundColor:'red',borderRadius:50,}} source={item.profileImage}/>
                 </View>
@@ -270,9 +263,12 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
             </View>
             <View style={{borderColor:'#ECECEC',borderWidth:1,marginTop:20,marginLeft:85,width:width-110}}/>
             </View>
+            </TouchableOpacity>
             )}
-          />
+            />
+            </View>
         </View>
+        </ScrollView>
         </CustomBottomSheet> 
        {/* fixed create button */}
          <FAB
@@ -284,6 +280,14 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
             />
           )}
         /> 
+        {/* datails component */}
+        <CustomBottomsheetModel
+              bottomSheetRef={bottomSheetModalRef}
+              snapPoints={['10%', '97%']}
+              showHandleIndicator={false}
+              >
+                <Text>Details component</Text>
+            </CustomBottomsheetModel>
          </KeyboardAvoidingView> 
       
     );
@@ -394,11 +398,11 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       },
       bottomSheetSearchInput: {
         height: 40,
-        backgroundColor: '#FFF',
+        backgroundColor: '#F9F9F9',
         borderWidth: 1,
-        borderColor: '#AEAEAE',
-        borderRadius: 8,
-        paddingHorizontal: 12,
+        borderColor: '#EAEAEA',
+        borderRadius: 30,
+        paddingHorizontal: 10,
         paddingLeft: 40,
         fontSize: 16,
       },
