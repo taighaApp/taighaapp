@@ -14,7 +14,7 @@ const PropertyListView = ({listData, route}:any) => {
   const toggleCheckbox = () => setChecked(!isChecked);
   
   const data = [
-    { id: '1', image: require('../../../assets/images/dummyCardImage.png') },
+    { id: '1', image: require('../../assets/images/dummyCardImage.png') },
   ];
 
   const onScroll = (event: { nativeEvent: { contentOffset: { x: number; }; }; }) => {
@@ -45,13 +45,13 @@ const active = ()=>{
 
               <View style={styles.mapMediaContainer}>
                 <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../../assets/images/homesearch/icon/chat-bubble--com.png')}/>
+                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/chat-bubble--com.png')}/>
                 </Pressable>
                 <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../../assets/images/homesearch/icon/favorite.png')}/>
+                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
                 <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../../assets/images/homesearch/icon/share-icon.png')}/>
+                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/share-icon.png')}/>
                 </Pressable>
            
               </View>

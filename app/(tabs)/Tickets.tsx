@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Pressable, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView, Platform, Keyboard, FlatList } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import PropertyListView from '@/src/components/common/PropertyListView';
-import CustomBottomsheetModel from '@/src/components/common/CustomBottomsheetModel';
+import PropertyListView from '@/components/common/PropertyListView';
+import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 import { AntDesign } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';

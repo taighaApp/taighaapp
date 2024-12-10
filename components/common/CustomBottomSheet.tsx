@@ -1,28 +1,53 @@
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useCallback } from "react";
 import { StyleSheet, Dimensions, Platform, ScrollView } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 // Type for the props, which includes `children`
 interface CustomBottomSheetProps {
-  children: React.ReactNode; // This allows you to pass any React element as children
+  children: React.ReactNode; 
+  bottomSheetRef: React.RefObject<BottomSheetModal>;
+  snapPoints: (string | number)[]; // Accept snapPoints as a prop
+  showHandleIndicator?:boolean;
+  index:Number;
 }
 
-const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
+const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, bottomSheetRef, snapPoints, showHandleIndicator=true, index }) => {
   // hooks
   const sheetRef = useRef<BottomSheet>(null);
   // variables
-  const snapPoints = useMemo(() => ['20%', '50%','92%'], []);
-
+  const defaultSnapPoints = useMemo(() => snapPoints || ['25%', '50%', '75%'], [snapPoints]);
+  
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1} // Hides backdrop when fully closed
+        appearsOnIndex={1} // Shows backdrop starting from second snap point
+      />
+    ),
+    []
+  );
+  const handleSheetChange = useCallback(
+    (index: any) => {
+      if (index >= 0 && index < snapPoints.length) {
+        console.log(`Sheet changed to index: ${index}`);
+      }else{
+        bottomSheetRef.current?.snapToIndex(2);
+      }
+    },
+    [defaultSnapPoints, bottomSheetRef]
+  );
 
   return (
     // <GestureHandlerRootView style={styles.container}>
       <BottomSheet
-        ref={sheetRef}
+      ref={sheetRef}
+      index={defaultSnapPoints.length -  1}
         snapPoints={snapPoints}
-        index={0}
+        onChange={handleSheetChange}
         // style={styles.bottomSheet}
         enableOverDrag={false}
         enableContentPanningGesture={true}
@@ -33,6 +58,8 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
         keyboardBehavior={Platform.OS === 'ios' ? 'extend' : 'interactive'}
         keyboardBlurBehavior="restore"
         detached={true}
+        backdropComponent={renderBackdrop}
+        handleComponent={showHandleIndicator ? undefined : () => null}
         handleIndicatorStyle={{backgroundColor:'#E2E2E2'}}
       >
             <BottomSheetView>
