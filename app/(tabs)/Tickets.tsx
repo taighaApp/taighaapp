@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Pressable, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView, Platform, Keyboard, FlatList } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import PropertyListView from '@/src/components/common/PropertyListView';
 import CustomBottomsheetModel from '@/src/components/common/CustomBottomsheetModel';
@@ -11,7 +11,23 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ScrollView } from 'react-native-gesture-handler';
 const {width,height} = Dimensions.get('window');
-function TicketsScreen({route}:any) {
+
+
+interface FlatListProps {
+  id: number;
+  name: string;
+  time: string;
+  heading: string;
+  ticketId: string;
+  content: string;
+  profileImage: any;
+  threadCount: number;
+  replyImage: any;
+  profileRead: boolean;
+  readContent: boolean;
+}
+
+const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
     const [isVisible, setIsVisible] = useState(false);
     const [openHouseoption, setOpenHouseoption] = useState('Batch action');
     const [checked, setChecked] = useState(false);
@@ -179,78 +195,87 @@ function TicketsScreen({route}:any) {
   }
   
     return (
-        <LinearGradient
-        colors={['#854BD0CC', '#3366cc',]}
-        start={{ x: -0.2, y: 0.5 }}
-        end={{ x: 2, y: 0.5 }}
-        style={styles.gradientContainer}
-      >
-         <KeyboardAvoidingView
+
+
+          <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.bottomSheetContent}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         >
-        <CustomBottomSheet>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View>
-            
-        <KeyboardAwareScrollView style={styles.bottomSheetSearchContainer}>
-        <TextInput
-          style={styles.bottomSheetSearchInput}
-          placeholder="Ticket Search"
-          value={searchQuery}
-          onChangeText={onChangeSearch}
-          autoFocus
-          placeholderTextColor="#999"
-        />
-        <TouchableOpacity 
-          onPress={() => setSearchQuery('')}
-          style={styles.searchIcon}
+          <Text>snddnskn</Text>
+          <Text>snddnskn</Text>
+          <Text>snddnskn</Text>
+          <Text>snddnskn</Text>
+          <Text>snddnskn</Text>
+          <Text>snddnskn</Text>
+          <Text>snddnskn</Text>
+        <CustomBottomSheet 
+           bottomSheetRef={bottomSheetModalRef}
+           snapPoints={['10%', '90%']}
+           showHandleIndicator={true}
+           index={1}
         >
-          <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
-        </TouchableOpacity>
-      </KeyboardAwareScrollView>
-            </View>
-          {ticketData.map((item)=>(
-            <View key={item.id} style={{marginTop:20}}>
-            <View style={{flexDirection:'row',width:width-40,margin:'auto',}}>
-              <View style={{width:50,height:50,backgroundColor:'red',borderRadius:50,}}>
-                <Image  style={{width:'100%',height:'100%',backgroundColor:'red',borderRadius:50,}} source={item.profileImage}/>
+          <View>
+            <View>
+                <TextInput
+                  style={styles.bottomSheetSearchInput}
+                  placeholder="Ticket Search"
+                  value={searchQuery}
+                  onChangeText={onChangeSearch}
+                  autoFocus
+                  placeholderTextColor="#999"
+                />
+                <TouchableOpacity 
+                  onPress={() => setSearchQuery('')}
+                  style={styles.searchIcon}
+                >
+                  <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
+                </TouchableOpacity>
               </View>
-
-              <View style={{flexDirection:'column',justifyContent:'space-between',width: width-110,marginLeft:15,}}>
-                <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-                  <Text style={[styles.profileNameBase, item.profileRead ? styles.profileNameRead : styles.profileNameUnread]}>{item.name}</Text>
-                  <Text style={{fontFamily:'rubikLight',fontSize:13,letterSpacing:0.2}}>{item.time}</Text>
+          <FlatList
+            data={ticketData}
+            keyExtractor={(item) => item.id.toString()} // Convert the id to string
+            renderItem={({ item }) => (
+              <View key={item.id} style={{marginTop:20}}>
+              <View style={{flexDirection:'row',width:width-40,margin:'auto',}}>
+                <View style={{width:50,height:50,backgroundColor:'red',borderRadius:50,}}>
+                  <Image  style={{width:'100%',height:'100%',backgroundColor:'red',borderRadius:50,}} source={item.profileImage}/>
                 </View>
-
-                <View>
-                  <Text style={[styles.readContentBase,item.readContent? styles.rearData: styles.unRearData ]} numberOfLines={1}>
-                    {item.heading}
-                  </Text>
-                </View>
-
-                <Text numberOfLines={2} style={{width:'80%',}}>
-                    <Text style={{fontFamily:'rubikLight',color:'#767676',fontSize:16,lineHeight:19,letterSpacing:0.2}}>{item.ticketId}{` `}:</Text>
-                    <Text style={{fontFamily:'rubikLight',fontSize:16,lineHeight:19,letterSpacing:0.2}}>{` `}Customer{` `}: </Text>
-                    <Text style={{fontFamily:'rubikLight',fontSize:16,lineHeight:19,letterSpacing:0.2,color:'#242424'}}>
-                      {item.content}
+  
+                <View style={{flexDirection:'column',justifyContent:'space-between',width: width-110,marginLeft:15,}}>
+                  <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+                    <Text style={[styles.profileNameBase, item.profileRead ? styles.profileNameRead : styles.profileNameUnread]}>{item.name}</Text>
+                    <Text style={{fontFamily:'rubikLight',fontSize:13,letterSpacing:0.2}}>{item.time}</Text>
+                  </View>
+  
+                  <View>
+                    <Text style={[styles.readContentBase,item.readContent? styles.rearData: styles.unRearData ]} numberOfLines={1}>
+                      {item.heading}
                     </Text>
-                </Text>
-
-                <View style={{ flexDirection:'row',position:'absolute',right:0,bottom:0 }}>
-                  <Text style={styles.emailCount}>({item.threadCount})</Text>
-                  <Image style={{width:20,height:20,}} source={item.replyImage}/>
+                  </View>
+  
+                  <Text numberOfLines={2} style={{width:'80%',}}>
+                      <Text style={{fontFamily:'rubikLight',color:'#767676',fontSize:16,lineHeight:19,letterSpacing:0.2}}>{item.ticketId}{` `}:</Text>
+                      <Text style={{fontFamily:'rubikLight',fontSize:16,lineHeight:19,letterSpacing:0.2}}>{` `}Customer{` `}: </Text>
+                      <Text style={{fontFamily:'rubikLight',fontSize:16,lineHeight:19,letterSpacing:0.2,color:'#242424'}}>
+                        {item.content}
+                      </Text>
+                  </Text>
+  
+                  <View style={{ flexDirection:'row',position:'absolute',right:0,bottom:0 }}>
+                    <Text style={styles.emailCount}>({item.threadCount})</Text>
+                    <Image style={{width:20,height:20,}} source={item.replyImage}/>
+                  </View>
                 </View>
-              </View>
-          </View>
-          <View style={{borderColor:'#ECECEC',borderWidth:1,marginTop:20,marginLeft:85,width:width-110}}/>
-          </View>
-          ))}
-          </ScrollView>
-        </CustomBottomSheet>
-      {/* fixed create button */}
-        <FAB
+            </View>
+            <View style={{borderColor:'#ECECEC',borderWidth:1,marginTop:20,marginLeft:85,width:width-110}}/>
+            </View>
+            )}
+          />
+        </View>
+        </CustomBottomSheet> 
+       {/* fixed create button */}
+         <FAB
           style={styles.fab}
           onPress={() => console.log('Pressed')}
           icon={() => (
@@ -258,63 +283,9 @@ function TicketsScreen({route}:any) {
               source={require('../../assets/images/admin/images/gradiant-plus.png')} // Replace with your image
             />
           )}
-        />
-        </KeyboardAvoidingView>
-    {/* <Image source={require('../../assets/images/admin/images/gradiant-plus')}/> */}
-     
-</LinearGradient>
-  // <ScrollView style={{flex:1,paddingHorizontal:20,}}>
-  //       <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginTop:10}}>
-  //        <View style={[styles.checkboxWrapper,{marginBottom:0 }]}>
-  //           <Pressable
-  //             role="checkbox"
-  //             aria-checked={checked}
-  //             style={styles.checkbox}
-  //             onPress={onChange}>
-  //             {checked && <Image style={{width:20,height:20}} source={require('../../assets/images/homesearch/icon/checked-box.png')}/>}
-  //           </Pressable>
-  //           <Text>Selected</Text>
-  //        </View>
-         
-  //           <View style={{marginBottom:10,}}>
-  //             <Pressable style={styles.dropdownButton} onPress={ handlePresentModalPress }>
-  //               <Text style={styles.buttonText}>{openHouseoption}</Text>
-  //               <AntDesign name="down" size={17} color="black" />
-  //           </Pressable>
-  //           {/* Half-Screen Modal */}
-  
-  //         <CustomBottomsheetModel 
-  //         bottomSheetRef={bottomSheetModalRef}
-  //         snapPoints={['10%', '37%']}
-  //         showHandleIndicator={false}
-  //         >
-  //           <View style={{}}>
-  //             <View style={{backgroundColor:'#3366cc',alignItems:'center',justifyContent:'center',paddingVertical:15,}}>
-  //                 <Text style={{color:'#fff',fontSize:16,}}>Batch Actions</Text>
-  //             </View>
-  //             <View>
-  //                 {batchAction.map((item)=>(
-  //                   <View key={item.id} style={{borderBottomWidth:1,borderColor:'#ECECEC'}}>
-  //                     <Text style={{color:'#AEAEAE',padding:15,fontSize:16}}>{item.batchActionValue}</Text>
-  //                   </View>
-  //                 ))}
-  //             </View>
-  //               <View style={{flexDirection:'row',alignItems:'center',height:60}}>
-  //                <TouchableOpacity style={{width:'50%'}} onPress={handleDismiss}>
-  //                 <Text style={{color:'#3366cc',fontSize:16,textAlign:'center'}}>Cancel</Text>
-  //                 </TouchableOpacity>
-  //                 <View style={{borderWidth:1,height:20,borderColor:'#ECECEC'}}/>
-  //                <TouchableOpacity style={{borderRightWidth:1,width:'50%'}} onPress={handleDismiss}>
-  //                 <Text style={{color:'#3366cc',fontSize:16,textAlign:'center'}}>Ok</Text>
-  //                 </TouchableOpacity>
-  //               </View>
-  //       </View>
-  //       </CustomBottomsheetModel>
-  //        </View>
-  //       </View>
-  //       <PropertyListView route={route}/>
-  //       {/* <PropertiesDetails/> */}
-  //     </ScrollView>
+        /> 
+         </KeyboardAvoidingView> 
+      
     );
   }
   const styles = StyleSheet.create({
@@ -323,8 +294,7 @@ function TicketsScreen({route}:any) {
     },
     bottomSheetContent: {
       flex: 1,
-      backgroundColor: '#fff',
-      padding: 16,
+      backgroundColor:'#3366CC',
     },
     container:{
       flex:1,
@@ -452,4 +422,60 @@ function TicketsScreen({route}:any) {
         marginBottom: 16,
       },
   })
-  export default TicketsScreen;
+  export default Tickets;
+
+
+// propertyListView card;
+
+      //   <ScrollView style={{flex:1,paddingHorizontal:20,}}>
+    //   <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginTop:10}}>
+    //    <View style={[styles.checkboxWrapper,{marginBottom:0 }]}>
+    //       <Pressable
+    //         role="checkbox"
+    //         aria-checked={checked}
+    //         style={styles.checkbox}
+    //         onPress={onChange}>
+    //         {checked && <Image style={{width:20,height:20}} source={require('../../assets/images/homesearch/icon/checked-box.png')}/>}
+    //       </Pressable>
+    //       <Text>Selected</Text>
+    //    </View>
+       
+    //       <View style={{marginBottom:10,}}>
+    //         <Pressable style={styles.dropdownButton} onPress={ handlePresentModalPress }>
+    //           <Text style={styles.buttonText}>{openHouseoption}</Text>
+    //           <AntDesign name="down" size={17} color="black" />
+    //       </Pressable>
+    //       {/* Half-Screen Modal */}
+
+    //     <CustomBottomsheetModel 
+    //     bottomSheetRef={bottomSheetModalRef}
+    //     snapPoints={['10%', '37%']}
+    //     showHandleIndicator={false}
+    //     >
+    //       <View style={{}}>
+    //         <View style={{backgroundColor:'#3366cc',alignItems:'center',justifyContent:'center',paddingVertical:15,}}>
+    //             <Text style={{color:'#fff',fontSize:16,}}>Batch Actions</Text>
+    //         </View>
+    //         <View>
+    //             {batchAction.map((item)=>(
+    //               <View key={item.id} style={{borderBottomWidth:1,borderColor:'#ECECEC'}}>
+    //                 <Text style={{color:'#AEAEAE',padding:15,fontSize:16}}>{item.batchActionValue}</Text>
+    //               </View>
+    //             ))}
+    //         </View>
+    //           <View style={{flexDirection:'row',alignItems:'center',height:60}}>
+    //            <TouchableOpacity style={{width:'50%'}} onPress={handleDismiss}>
+    //             <Text style={{color:'#3366cc',fontSize:16,textAlign:'center'}}>Cancel</Text>
+    //             </TouchableOpacity>
+    //             <View style={{borderWidth:1,height:20,borderColor:'#ECECEC'}}/>
+    //            <TouchableOpacity style={{borderRightWidth:1,width:'50%'}} onPress={handleDismiss}>
+    //             <Text style={{color:'#3366cc',fontSize:16,textAlign:'center'}}>Ok</Text>
+    //             </TouchableOpacity>
+    //           </View>
+    //   </View>
+    //   </CustomBottomsheetModel>
+    //    </View>
+    //   </View>
+    //   <PropertyListView route={route}/>
+    //   {/* <PropertiesDetails/> */}
+    // </ScrollView>
