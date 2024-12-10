@@ -133,38 +133,38 @@ const FilterProperty = () => {
     { 
       id: 1,
       label: 'House', 
-      image: require('../../assets/images/homesearch/icon/house.png'),
-      selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
+      image: require('../../../assets/images/homesearch/icon/house.png'),
+      selectedImage: require('../../../assets/images/homesearch/icon/house-white.png') 
     },
     { 
       id: 2, 
       label: 'Townhomes', 
-      image: require('../../assets/images/homesearch/icon/townhomes.png'),
-      selectedImage: require('../../assets/images/homesearch/icon/townhomes-white.png') 
+      image: require('../../../assets/images/homesearch/icon/townhomes.png'),
+      selectedImage: require('../../../assets/images/homesearch/icon/townhomes-white.png') 
     },
     { 
       id: 3, 
       label: 'Condos', 
-      image: require('../../assets/images/homesearch/icon/Condos.png'), 
-      selectedImage: require('../../assets/images/homesearch/icon/house-white.png'),
+      image: require('../../../assets/images/homesearch/icon/Condos.png'), 
+      selectedImage: require('../../../assets/images/homesearch/icon/house-white.png'),
     },
     { 
       id: 4, 
       label: 'Multi-family', 
-      image: require('../../assets/images/homesearch/icon/multi-family.png'),
-      selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
+      image: require('../../../assets/images/homesearch/icon/multi-family.png'),
+      selectedImage: require('../../../assets/images/homesearch/icon/house-white.png') 
     },
     { 
       id: 5, 
       label: 'Land', 
-      image: require('../../assets/images/homesearch/icon/land.png'),
-      selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
+      image: require('../../../assets/images/homesearch/icon/land.png'),
+      selectedImage: require('../../../assets/images/homesearch/icon/house-white.png') 
     },
     { 
       id: 6, 
       label: 'Commercial', 
-      image: require('../../assets/images/homesearch/icon/Commercial.png'),
-      selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
+      image: require('../../../assets/images/homesearch/icon/Commercial.png'),
+      selectedImage: require('../../../assets/images/homesearch/icon/house-white.png') 
     },
   ];
 
@@ -454,12 +454,12 @@ alert('clear')
                     >
                       {checkedState[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -514,12 +514,12 @@ alert('clear')
                     >
                     {VirtualTour ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -710,12 +710,12 @@ alert('clear')
                     >
                       {fovAndFeature[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -741,12 +741,12 @@ alert('clear')
                     >
                       {newOrModify[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}
@@ -772,12 +772,12 @@ alert('clear')
                     >
                       {propertyCatagry[index] ? (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/checked-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/checked-circule.png')}
                           style={styles.checkedImage}
                         />
                       ) : (
                         <Image
-                          source={require('../../assets/images/homesearch/icon/unCheck-circule.png')}
+                          source={require('../../../assets/images/homesearch/icon/unCheck-circule.png')}
                           style={styles.checkedImage}
                         />
                       )}

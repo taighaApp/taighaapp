@@ -1,6 +1,6 @@
 import { View,StyleSheet } from 'react-native'
 import React from 'react'
-import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
+import HomeSearchMap from '@/src/components/HomeSearch/HomeSearchMap';
 
 function Search({route}:any) {
     return (

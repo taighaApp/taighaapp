@@ -112,11 +112,11 @@ const scaleAnimation = useRef(new Animated.Value(0)).current; // Initial scale v
       };
 
       const images = [
-        require('../../assets/images/PropertiesImage/property-image.png'),
-        require('../../assets/images/PropertiesImage/properties-inside.png'),
+        require('../../../assets/images/PropertiesImage/property-image.png'),
+        require('../../../assets/images/PropertiesImage/properties-inside.png'),
         // require('../../assets/images/PropertiesImage/homeimage.jpg'),
-        require('../../assets/images/PropertiesImage/property-image.png'),
-        require('../../assets/images/PropertiesImage/properties-inside.png'),
+        require('../../../assets/images/PropertiesImage/property-image.png'),
+        require('../../../assets/images/PropertiesImage/properties-inside.png'),
       ];
 
       const openModal = (index:any) => {
@@ -248,14 +248,14 @@ const renderSectionContent = (key: string) => {
               <Pressable style={styles.iconfav}>
                 <Link href={'/HomeSearch'}>
                     {/* <AntDesign name="arrowleft" size={24} color="black" /> */}
-                    <Image style={{width:20,height:20}} source={require('../../assets/images/PropertiesImage/properties-backarrow.png')}/>
+                    <Image style={{width:20,height:20}} source={require('../../../assets/images/PropertiesImage/properties-backarrow.png')}/>
                 </Link>
               </Pressable>
             </View>
 
             <View style={{flexDirection:'row' , gap:10}}>
             <Pressable style={styles.iconfav}>
-              <Image style={styles.mapMedia} source={require('../../assets/images/PropertiesImage/properties-fav.png')}/>
+              <Image style={styles.mapMedia} source={require('../../../assets/images/PropertiesImage/properties-fav.png')}/>
             </Pressable>
 
             <Pressable style={styles.iconfav} onPress={handleShare}>
@@ -373,13 +373,13 @@ const renderSectionContent = (key: string) => {
 
             <ImageBackground
             style={styles.backgroundImage}
-            source={require('../../assets/images/PropertiesImage/properties-backgroundimage.png')} // Replace with your background image path
+            source={require('../../../assets/images/PropertiesImage/properties-backgroundimage.png')} // Replace with your background image path
             >
 
             <View >
                 <Image
                     style={styles.profileImage}
-                    source={require('../../assets/images/PropertiesImage/Krishna_image.png')} // Replace with the correct image path
+                    source={require('../../../assets/images/PropertiesImage/Krishna_image.png')} // Replace with the correct image path
                 />
             </View>
 
@@ -398,25 +398,25 @@ const renderSectionContent = (key: string) => {
                         <TouchableOpacity style={styles.iconWrapper}>
                         <Image
                             style={styles.icon}
-                            source={require('../../assets/images/facebook.png')}
+                            source={require('../../../assets/images/facebook.png')}
                         />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.iconWrapper}>
                         <Image
                             style={styles.icon}
-                            source={require('../../assets/images/gmail-icon.png')}
+                            source={require('../../../assets/images/gmail-icon.png')}
                         />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.iconWrapper_linkedin}>
                         <Image
                             style={styles.linkedinicon}
-                            source={require('../../assets/images/linkedin.png')}
+                            source={require('../../../assets/images/linkedin.png')}
                         />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.iconWrapper}>
                         <Image
                             style={styles.icon}
-                            source={require('../../assets/images/twitterx-icon.png')}
+                            source={require('../../../assets/images/twitterx-icon.png')}
                         />
                         </TouchableOpacity>
                     </View>
@@ -477,7 +477,7 @@ const renderSectionContent = (key: string) => {
                 </View>
 
                 <View style={styles.listingContent}>
-                <Image source={require('../../assets/images/homesearch/icon/rmls-logo.png')} style={styles.listingContent_image} />
+                <Image source={require('../../../assets/images/homesearch/icon/rmls-logo.png')} style={styles.listingContent_image} />
 
                     <Text style={styles.listingContent_text}>{'         \t'}
                     The content relating to real estate for sale on this site comes in part from the IDX program of the RMLS of Portland, Oregon. 
