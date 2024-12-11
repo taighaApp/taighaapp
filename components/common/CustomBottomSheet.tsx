@@ -17,7 +17,7 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, initial
   // hooks
   const sheetRef = useRef<BottomSheet>(null);
   // variables
-  const snapPoints = useMemo(() => ['3%', '50%', '80%','90%'], []);
+  const snapPoints = useMemo(() => ['3%', '50%','75%', '80%','90%','100%'], []);
    // Handler for detecting index changes
    const handleSheetChange = (index: number) => {
     if (onIndexChange) {
@@ -26,7 +26,7 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, initial
   };
 
   return (
-    // <GestureHandlerRootView style={styles.container}>
+    // <GestureHandlerRootView style={styles.container}> 
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}

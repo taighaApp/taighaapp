@@ -93,7 +93,7 @@ export default function Tabs() {
           // tabBarActiveBackgroundColor: "red",
         })}
       > 
-        <Tab.Screen name="Dashboard" component={Dashboard} listeners={{focus: () => setHomeSearchVisible(true),}} />
+        <Tab.Screen name="Dashboard" component={Dashboard} listeners={{focus: () => setHomeSearchVisible(false),}} />
         <Tab.Screen name="Search" component={Search}  listeners={{focus: () => setHomeSearchVisible(true),}} />
         <Tab.Screen name="Favorites" component={Favorites} listeners={{focus: () => setHomeSearchVisible(true),}} />
         <Tab.Screen name="Tickets" component={Tickets} listeners={{focus: () => setHomeSearchVisible(false),}}  />
