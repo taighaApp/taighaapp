@@ -2,10 +2,10 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Seller() {
+export default function Contactus() {
   return (
     <View style={styles.screenContainer}>
-      <Text>Sellers</Text>
+      <Text>Contact Us</Text>
     </View>
   );
 }

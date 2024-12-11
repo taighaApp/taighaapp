@@ -2,10 +2,10 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Seller() {
+export default function WhatWeDo() {
   return (
     <View style={styles.screenContainer}>
-      <Text>Sellers</Text>
+      <Text>PM - What We Do</Text>
     </View>
   );
 }
