@@ -8,19 +8,30 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 // Type for the props, which includes `children`
 interface CustomBottomSheetProps {
-  children: React.ReactNode; // This allows you to pass any React element as children
+  children: React.ReactNode;
+  initialIndex?: number;
+  onIndexChange?: (index: number) => void; 
 }
-const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
+
+const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, initialIndex = 0, onIndexChange }) => {
   // hooks
   const sheetRef = useRef<BottomSheet>(null);
   // variables
   const snapPoints = useMemo(() => ['3%', '50%', '80%','90%'], []);
+   // Handler for detecting index changes
+   const handleSheetChange = (index: number) => {
+    if (onIndexChange) {
+      onIndexChange(index); // Trigger the callback if provided
+    }
+  };
+
   return (
     // <GestureHandlerRootView style={styles.container}>
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
-        index={0}
+        index={initialIndex}
+        onChange={handleSheetChange}
         // style={styles.bottomSheet}
         enableOverDrag={false}
         enableContentPanningGesture={true}

@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, Pressable, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView, Platform, Keyboard, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView, Platform, Keyboard, FlatList, LayoutAnimation } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { AntDesign } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FAB, Searchbar } from 'react-native-paper';
@@ -26,7 +25,7 @@ interface FlatListProps {
   readContent: boolean;
 }
 
-const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
+const Tickets:React.FC<FlatListProps> = ()=> {
     const [isVisible, setIsVisible] = useState(false);
     const [openHouseoption, setOpenHouseoption] = useState('Batch action');
     const [checked, setChecked] = useState(false);
@@ -34,7 +33,9 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
     const [readContent, setReadContent] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  
+  // Correctly type the ref
+  const scrollRef = useRef<ScrollView>(null);
+
   const batchAction = [
     {id:1,batchActionValue:'Favorite'},
     {id:2,batchActionValue:'Request Tour'},
@@ -66,7 +67,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 2,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -79,7 +80,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-2.jpg'),
       threadCount: 6,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:false,
       readContent:false,
     },
@@ -92,7 +93,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-3.jpg'),
       threadCount: 8,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -105,7 +106,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 10,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:false,
       readContent:false,
     },
@@ -118,7 +119,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -131,7 +132,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -144,7 +145,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -157,7 +158,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -170,7 +171,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
@@ -183,27 +184,124 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       content: "198 NE, Form Ironcreek Terrace, Hill ... ",
       profileImage: require('../../assets/images/dummy-1.jpg'),
       threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/email-reply.png'),
+      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
       profileRead:true,
       readContent:true,
     },
   ];
-  
-  const onChangeSearch = (text: React.SetStateAction<string>)=>{
+  const FilterData=[
+    {
+      id:1,
+      FilterName:"Showstopper",
+      filterImage: require('../../assets/images/admin/images//tickets/up-arrow-com.png'),
+    },
+    {
+      id:2,
+      FilterName:"Sort By Email",
+      filterImage: require('../../assets/images/admin/images/tickets/mail.png'),
+    },
+    {
+      id:3,
+      FilterName:"Closed",
+      filterImage: require('../../assets/images/admin/images/tickets/lock.png'),
+    },
+    {
+      id:4,
+      FilterName:"Sort By Activity",
+      filterImage: require('../../assets/images/admin/images/tickets/clock-activity--com-2.png'),
+    },
+    {
+      id:5,
+      FilterName:"Showstopper",
+      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
+    },
+    {
+      id:6,
+      FilterName:"Showstopper",
+      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
+    },
+    {
+      id:7,
+      FilterName:"Showstopper",
+      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
+    },
+    {
+      id:7,
+      FilterName:"Showstopper",
+      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
+    },
+    {
+      id:8,
+      FilterName:"Showstopper",
+      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
+    },
+  ]
+  // don't remove the below state
+  const [filterChose, setFilterChose] = useState(FilterData[0].id);
+  const [filteredData, setFilteredData] = useState(ticketData);
+
+  const onChangeSearch = (text: string)=>{
     setSearchQuery(text);
+
+    if (text.trim() === "") {
+      setFilteredData(ticketData); // Reset to original data if search is cleared
+    } else {
+      const filtered = ticketData.filter((item) =>
+        item.name.toLowerCase().includes(text.toLowerCase()) // Case-insensitive search
+      );
+      setFilteredData(filtered);
+    }
   }
+
+  const handleFilterClick = (id:any) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); 
+    setFilterChose(id);
+  }
+  const scrollToLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ x: 0, animated: true }); // Scroll to the leftmost position
+    }
+  };
   
+  const handleIndexChange = (index: number) => {
+    console.log("BottomSheet Index Changed:", index);
+  };
+
+
     return (
-
-
           <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.bottomSheetContent}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         >
-          <Text>test</Text>
+          <View style={{marginTop:40}}>
+            <View style={{borderWidth:1,height:40,}}>
+              <Text>Header</Text>
+            </View>
+        {/* ticket filter */}
+        <ScrollView
+         horizontal
+         showsHorizontalScrollIndicator={false}
+          style={{ marginTop: 25, height: 35, }}
+          ref={scrollRef}
+          contentOffset={{ x: 0, y: 0 }} 
+          >
+            {FilterData.map((item)=>(
+              <TouchableOpacity style={[styles.filterContainer,{backgroundColor:filterChose === item.id ? '#fff': '#rgba(255,255,255,0.4)'},{marginLeft:item.id === 1 ? 20:0}]} onPress={ ()=> handleFilterClick(item.id) }>
+                <Image style={{width:17,height:17,objectFit:'contain',tintColor: filterChose === item.id ? '#3366cc':'#fff'}} source={item.filterImage}/>
+                <Text
+                  style={[{paddingLeft:5,color:filterChose === item.id ?'#3366cc':'#fff',}]}
+                >
+                  {item.FilterName}
+                </Text>
+                
+              </TouchableOpacity>
+        ))}
+
+        </ScrollView>
+          </View>
       
-        <CustomBottomSheet>
+        <CustomBottomSheet initialIndex={2} onIndexChange={handleIndexChange}>
           <ScrollView> 
           <View style={{marginHorizontal:20}}>
             <View style={{}}>
@@ -216,15 +314,19 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
                 placeholderTextColor="#999"
               />
               <TouchableOpacity 
-                onPress={() => setSearchQuery('')}
+                onPress={() => setSearchQuery("")}
                 style={styles.searchIcon}
               >
                 <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
               </TouchableOpacity>
             </View>
             <View style={{marginTop:5}}>
+               {/* Conditional Rendering */}
+      {filteredData.length === 0 ? (
+        <Text style={styles.noDataText}>No data found</Text>
+      ) : (
           <FlatList
-            data={ticketData}
+            data={filteredData}
             keyExtractor={(item) => item.id.toString()} // Convert the id to string
             renderItem={({ item }) => (
             
@@ -266,7 +368,9 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
             </TouchableOpacity>
             )}
             />
+          )}
             </View>
+          
         </View>
         </ScrollView>
         </CustomBottomSheet> 
@@ -276,7 +380,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
           onPress={() => console.log('Pressed')}
           icon={() => (
             <Image style={{width:17,height:17, margin:'auto'}}
-              source={require('../../assets/images/admin/images/gradiant-plus.png')} // Replace with your image
+              source={require('../../assets/images/admin/images/tickets/gradiant-plus.png')} // Replace with your image
             />
           )}
         /> 
@@ -286,7 +390,22 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
               snapPoints={['10%', '97%']}
               showHandleIndicator={false}
               >
-                <Text>Details component</Text>
+                <View>
+                  <View style={{borderBottomWidth:1,borderColor:'red',marginBottom:15,}}>
+                    <View>
+                        C24056 : Customer : 9957 SW Scott Ct, Portland, OR - Work Order - Home Winterizing and water bill
+                    </View>
+                    <Image source={require('../../assets/images/admin/images/tickets/gradiant-plus.png')}/>
+                  </View>
+
+                  <View>
+                    <Text>Description</Text>
+                    <Text>
+                      A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following 
+                      </Text>
+                  </View>
+
+                </View>
             </CustomBottomsheetModel>
          </KeyboardAvoidingView> 
       
@@ -424,6 +543,20 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
       bottomSheetSearchContainer: {
         position: 'relative',
         marginBottom: 16,
+      },
+      filterContainer:{
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius:34,
+        marginRight:10,
+        paddingHorizontal:15
+      },
+      noDataText: {
+        marginTop: 20,
+        textAlign: "center",
+        fontSize: 16,
+        color: "#666",
       },
   })
   export default Tickets;
