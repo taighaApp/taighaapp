@@ -1,22 +1,20 @@
 
+
+
 import React, { useRef, useMemo } from "react";
 import { StyleSheet, Dimensions, Platform, ScrollView } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
-
 // Type for the props, which includes `children`
 interface CustomBottomSheetProps {
   children: React.ReactNode; // This allows you to pass any React element as children
 }
-
 const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children }) => {
   // hooks
   const sheetRef = useRef<BottomSheet>(null);
   // variables
-  const snapPoints = useMemo(() => ['20%', '50%','92%'], []);
-
-
+  const snapPoints = useMemo(() => ['3%', '50%', '80%','90%'], []);
   return (
     // <GestureHandlerRootView style={styles.container}>
       <BottomSheet
@@ -53,7 +51,6 @@ const styles = StyleSheet.create({
   form:{
     marginHorizontal:20,
   },
-
   bottomSheet: {
     flex: 1,
     position: 'relative',
@@ -99,6 +96,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
-
-
 export default CustomBottomSheet;
+
+

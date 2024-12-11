@@ -1,4 +1,4 @@
-import HomeSearchCardViews from "@/src/components/HomeSearch/HomeSearchCardViews";
+import HomeSearchCardViews from "@/components/HomeSearch/HomeSearchCardViews";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef, useState } from "react";
 
