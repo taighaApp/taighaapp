@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ScrollView } from 'react-native-gesture-handler';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
+import TicketDetails from '@/components/Admin/details/TicketDetails';
 const {width,height} = Dimensions.get('window');
 
 
@@ -390,22 +391,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
               snapPoints={['10%', '97%']}
               showHandleIndicator={false}
               >
-                <View>
-                  <View style={{borderBottomWidth:1,borderColor:'red',marginBottom:15,}}>
-                    <View>
-                        C24056 : Customer : 9957 SW Scott Ct, Portland, OR - Work Order - Home Winterizing and water bill
-                    </View>
-                    <Image source={require('../../assets/images/admin/images/tickets/gradiant-plus.png')}/>
-                  </View>
-
-                  <View>
-                    <Text>Description</Text>
-                    <Text>
-                      A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following A support ticket has been submitted for your property located at 9957 SW Scott Ct, Portland, OR 972. The following 
-                      </Text>
-                  </View>
-
-                </View>
+                <TicketDetails/>
             </CustomBottomsheetModel>
          </KeyboardAvoidingView> 
       
