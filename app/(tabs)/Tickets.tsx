@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ScrollView } from 'react-native-gesture-handler';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
+import TicketDetails from '@/components/Admin/details/TicketDetails';
 const {width,height} = Dimensions.get('window');
 
 
@@ -286,7 +287,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
               snapPoints={['10%', '97%']}
               showHandleIndicator={false}
               >
-                <Text>Details component</Text>
+                <TicketDetails/>
             </CustomBottomsheetModel>
          </KeyboardAvoidingView> 
       
