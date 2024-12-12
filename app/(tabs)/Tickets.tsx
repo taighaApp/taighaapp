@@ -52,7 +52,6 @@ const Tickets:React.FC<FlatListProps> = ()=> {
   }, []);
   
    const onChange= () => setChecked(!checked);
-
     return (
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
