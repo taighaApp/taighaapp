@@ -1,10 +1,6 @@
-
-
-
-
 import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 
 const { height } = Dimensions.get('window');
 
@@ -13,12 +9,11 @@ interface Props {
   bottomSheetRef: React.RefObject<BottomSheetModal>;
   snapPoints: (string | number)[]; // Accept snapPoints as a prop
   showHandleIndicator?:boolean;
+  initialIndex?: number;
 }
 
-const CustomBottomsheetModel: React.FC<Props> = ({ children, bottomSheetRef, snapPoints, showHandleIndicator=true }) => {
+const CustomBottomsheetModel: React.FC<Props> = ({ children, bottomSheetRef, initialIndex, snapPoints = ['25%', '50%', height+300], showHandleIndicator=true }) => {
   // Use height percentages as numeric values for more consistency
-  // const snapPoints = useMemo(() => [0.1 * height, 0.5 * height, 0.9 * height], []);
-  const defaultSnapPoints = useMemo(() => snapPoints || ['25%', '50%', '75%'], [snapPoints]);
 
   const handleDismiss = useCallback(() => {
     console.log('Dismiss button pressed');
@@ -32,7 +27,7 @@ const CustomBottomsheetModel: React.FC<Props> = ({ children, bottomSheetRef, sna
             bottomSheetRef.current?.snapToIndex(2);
           }
         },
-        [defaultSnapPoints, bottomSheetRef]
+        [snapPoints, bottomSheetRef]
       );
 
   const renderBackdrop = useCallback(
@@ -49,7 +44,7 @@ const CustomBottomsheetModel: React.FC<Props> = ({ children, bottomSheetRef, sna
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
-      index={defaultSnapPoints.length - 1}
+      index={ initialIndex }
       snapPoints={snapPoints}
       onChange={handleSheetChange}
       enableDismissOnClose={true}
@@ -60,9 +55,18 @@ const CustomBottomsheetModel: React.FC<Props> = ({ children, bottomSheetRef, sna
       backdropComponent={renderBackdrop}
       handleComponent={showHandleIndicator ? undefined : () => null}
     >
-      <BottomSheetView style={styles.contentContainer}>
+      <BottomSheetScrollView 
+      // style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
+        bounces={false}
+        showsVerticalScrollIndicator={true}
+      >
+      <BottomSheetView>
+
+        {/* Render the children here */}
         {children}
       </BottomSheetView>
+      </BottomSheetScrollView>
     </BottomSheetModal>
   );
 };
@@ -75,14 +79,15 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 20,
     // backgroundColor: '#ffffff',
-    borderRadius: 20, // Ensure border radius is applied here
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     overflow: 'hidden', // Ensures content respects border radius
   },
-  contentContainer: {
+  scrollView: {
     flex: 1,
-    // backgroundColor: '#ffffff',
-    // borderTopLeftRadius: 10, // Reapply border radius if handleComponent is removed
-    // borderTopRightRadius: 10,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
   },
 
 });

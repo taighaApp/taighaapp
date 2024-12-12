@@ -6,10 +6,12 @@ import { FAB, Searchbar } from 'react-native-paper';
 import CustomBottomSheet from '@/components/common/CustomBottomSheet';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, Swipeable } from 'react-native-gesture-handler';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
-import TicketDetails from '@/components/Admin/details/TicketDetails';
-const {width,height} = Dimensions.get('window');
+import Accordion from '@/components/common/Accordion/CustomAccordion';
+import Index from '../Admin/tickets/Index';
+import TicketDetails from '../Admin/tickets/TicketDetails';
+const {width,height: windowHeight} = Dimensions.get('window');
 
 
 interface FlatListProps {
@@ -34,9 +36,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
     const [readContent, setReadContent] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  // Correctly type the ref
-  const scrollRef = useRef<ScrollView>(null);
-
+    
   const batchAction = [
     {id:1,batchActionValue:'Favorite'},
     {id:2,batchActionValue:'Request Tour'},
@@ -56,192 +56,9 @@ const Tickets:React.FC<FlatListProps> = ()=> {
   }, []);
   
    const onChange= () => setChecked(!checked);
-   
-  //  tickets data
-  const ticketData = [
-    {
-      id: 1,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 2,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 2,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-2.jpg'),
-      threadCount: 6,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:false,
-      readContent:false,
-    },
-    {
-      id: 3,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-3.jpg'),
-      threadCount: 8,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 4,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 10,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:false,
-      readContent:false,
-    },
-    {
-      id: 5,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 6,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 7,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 8,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 9,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-    {
-      id: 10,
-      name: "Krishna Regupathy",
-      time: "12:04 PM",
-      heading: "Dear Test Customer, this will ticket...",
-      ticketId: "C24056",
-      content: "198 NE, Form Ironcreek Terrace, Hill ... ",
-      profileImage: require('../../assets/images/dummy-1.jpg'),
-      threadCount: 12,
-      replyImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-      profileRead:true,
-      readContent:true,
-    },
-  ];
-  const FilterData=[
-    {
-      id:1,
-      FilterName:"Showstopper",
-      filterImage: require('../../assets/images/admin/images//tickets/up-arrow-com.png'),
-    },
-    {
-      id:2,
-      FilterName:"Sort By Email",
-      filterImage: require('../../assets/images/admin/images/tickets/mail.png'),
-    },
-    {
-      id:3,
-      FilterName:"Closed",
-      filterImage: require('../../assets/images/admin/images/tickets/lock.png'),
-    },
-    {
-      id:4,
-      FilterName:"Sort By Activity",
-      filterImage: require('../../assets/images/admin/images/tickets/clock-activity--com-2.png'),
-    },
-    {
-      id:5,
-      FilterName:"Showstopper",
-      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-    },
-    {
-      id:6,
-      FilterName:"Showstopper",
-      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-    },
-    {
-      id:7,
-      FilterName:"Showstopper",
-      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-    },
-    {
-      id:7,
-      FilterName:"Showstopper",
-      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-    },
-    {
-      id:8,
-      FilterName:"Showstopper",
-      filterImage: require('../../assets/images/admin/images/tickets/email-reply.png'),
-    },
-  ]
-  // don't remove the below state
-  const [filterChose, setFilterChose] = useState(FilterData[0].id);
-  const [filteredData, setFilteredData] = useState(ticketData);
-
-  const onChangeSearch = (text: string)=>{
+  
+  
+  const onChangeSearch = (text: React.SetStateAction<string>)=>{
     setSearchQuery(text);
 
     if (text.trim() === "") {
@@ -254,15 +71,6 @@ const Tickets:React.FC<FlatListProps> = ()=> {
     }
   }
 
-  const handleFilterClick = (id:any) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); 
-    setFilterChose(id);
-  }
-  const scrollToLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({ x: 0, animated: true }); // Scroll to the leftmost position
-    }
-  };
   
   const handleIndexChange = (index: number) => {
     console.log("BottomSheet Index Changed:", index);
@@ -270,7 +78,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
 
 
     return (
-          <KeyboardAvoidingView
+        <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.bottomSheetContent}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
@@ -302,9 +110,8 @@ const Tickets:React.FC<FlatListProps> = ()=> {
         </ScrollView>
           </View>
       
-        <CustomBottomSheet initialIndex={2} onIndexChange={handleIndexChange}>
-          <ScrollView> 
-          <View style={{marginHorizontal:20}}>
+        <CustomBottomSheet snapPoints={['80%', '100%','150%']} initialIndex={0}>
+          <View style={{marginHorizontal:20, minHeight: windowHeight + 500}}>
             <View style={{}}>
               <TextInput
                 style={styles.bottomSheetSearchInput}
@@ -321,61 +128,25 @@ const Tickets:React.FC<FlatListProps> = ()=> {
                 <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
               </TouchableOpacity>
             </View>
-            <View style={{marginTop:5}}>
-               {/* Conditional Rendering */}
-      {filteredData.length === 0 ? (
-        <Text style={styles.noDataText}>No data found</Text>
-      ) : (
-          <FlatList
-            data={filteredData}
-            keyExtractor={(item) => item.id.toString()} // Convert the id to string
-            renderItem={({ item }) => (
-            
-                <TouchableOpacity onPress={handlePresentModalPress}>
-              <View key={item.id} style={{marginTop:20,}}>
-              <View style={{flexDirection:'row',margin:'auto',}}>
-                <View style={{width:50,height:50,backgroundColor:'red',borderRadius:50,}}>
-                  <Image  style={{width:'100%',height:'100%',backgroundColor:'red',borderRadius:50,}} source={item.profileImage}/>
-                </View>
-  
-                <View style={{flexDirection:'column',justifyContent:'space-between',width: width-110,marginLeft:15,}}>
-                  <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-                    <Text style={[styles.profileNameBase, item.profileRead ? styles.profileNameRead : styles.profileNameUnread]}>{item.name}</Text>
-                    <Text style={{fontFamily:'rubikLight',fontSize:13,letterSpacing:0.2}}>{item.time}</Text>
-                  </View>
-  
-                  <View>
-                    <Text style={[styles.readContentBase,item.readContent? styles.rearData: styles.unRearData ]} numberOfLines={1}>
-                      {item.heading}
-                    </Text>
-                  </View>
-  
-                  <Text numberOfLines={2} style={{width:'80%',}}>
-                      <Text style={{fontFamily:'rubikLight',color:'#767676',fontSize:16,lineHeight:19,letterSpacing:0.2}}>{item.ticketId}{` `}:</Text>
-                      <Text style={{fontFamily:'rubikLight',fontSize:16,lineHeight:19,letterSpacing:0.2}}>{` `}Customer{` `}: </Text>
-                      <Text style={{fontFamily:'rubikLight',fontSize:16,lineHeight:19,letterSpacing:0.2,color:'#242424'}}>
-                        {item.content}
-                      </Text>
-                  </Text>
-  
-                  <View style={{ flexDirection:'row',position:'absolute',right:0,bottom:0 }}>
-                    <Text style={styles.emailCount}>({item.threadCount})</Text>
-                    <Image style={{width:20,height:20,}} source={item.replyImage}/>
-                  </View>
-                </View>
-            </View>
-            <View style={{borderColor:'#ECECEC',borderWidth:1,marginTop:20,marginLeft:85,width:width-110}}/>
-            </View>
-            </TouchableOpacity>
-            )}
-            />
-          )}
-            </View>
-          
+
+            {/* ticket List */}
+          <Index props={handlePresentModalPress}/>
+          {/* ************************************************* */}
         </View>
-        </ScrollView>
         </CustomBottomSheet> 
-       {/* fixed create button */}
+
+        {/* datails component */}
+        <CustomBottomsheetModel
+          snapPoints={['80%', '100%','150%']} 
+          initialIndex={0}
+          bottomSheetRef={bottomSheetModalRef}
+          showHandleIndicator={false}
+        >
+            <TicketDetails/>
+            {/* <Text>jscbhsaj</Text> */}
+        </CustomBottomsheetModel>
+
+         {/* fixed create button */}
          <FAB
           style={styles.fab}
           onPress={() => console.log('Pressed')}
@@ -385,15 +156,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
             />
           )}
         /> 
-        {/* datails component */}
-        <CustomBottomsheetModel
-              bottomSheetRef={bottomSheetModalRef}
-              snapPoints={['10%', '97%']}
-              showHandleIndicator={false}
-              >
-                <TicketDetails/>
-            </CustomBottomsheetModel>
-         </KeyboardAvoidingView> 
+        </KeyboardAvoidingView> 
       
     );
   }
@@ -465,30 +228,6 @@ const Tickets:React.FC<FlatListProps> = ()=> {
         width:45,
         height:45,
       },
-      profileNameBase:{
-        fontSize:17,
-      },
-      profileNameUnread:{
-        fontFamily:'rubikMedium',
-      },
-      profileNameRead:{
-        fontFamily:'rubikRegular',
-      },
-      readContentBase:{
-        fontSize:17,
-        letterSpacing:0.2,
-        paddingBottom:5,
-      },
-      rearData:{
-        fontFamily:'rubikLight',
-      },
-      unRearData:{
-        fontFamily:'rubikMedium',
-      },
-      emailCount:{
-        right:25,
-        fontFamily:'rubikMedium',
-      },
       searchbar: {
         borderRadius: 8,
         height: 40,
@@ -530,20 +269,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
         position: 'relative',
         marginBottom: 16,
       },
-      filterContainer:{
-        flexDirection: 'row',
-        alignItems:'center',
-        justifyContent:'center',
-        borderRadius:34,
-        marginRight:10,
-        paddingHorizontal:15
-      },
-      noDataText: {
-        marginTop: 20,
-        textAlign: "center",
-        fontSize: 16,
-        color: "#666",
-      },
+ 
   })
   export default Tickets;
 
