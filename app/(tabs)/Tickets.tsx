@@ -4,16 +4,13 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FAB, Searchbar } from 'react-native-paper';
 import CustomBottomSheet from '@/components/common/CustomBottomSheet';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ScrollView, Swipeable } from 'react-native-gesture-handler';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
-import Accordion from '@/components/common/Accordion/CustomAccordion';
 import Index from '../Admin/tickets/Index';
 import TicketDetails from '../Admin/tickets/TicketDetails';
+import Header from '../Admin/tickets/Header';
 const {width,height: windowHeight} = Dimensions.get('window');
-
-
 interface FlatListProps {
   id: number;
   name: string;
@@ -34,7 +31,6 @@ const Tickets:React.FC<FlatListProps> = ()=> {
     const [checked, setChecked] = useState(false);
     const [profileRead, setProfileRead] = useState(true);
     const [readContent, setReadContent] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     
   const batchAction = [
@@ -56,26 +52,6 @@ const Tickets:React.FC<FlatListProps> = ()=> {
   }, []);
   
    const onChange= () => setChecked(!checked);
-  
-  
-  const onChangeSearch = (text: React.SetStateAction<string>)=>{
-    setSearchQuery(text);
-
-    if (text.trim() === "") {
-      setFilteredData(ticketData); // Reset to original data if search is cleared
-    } else {
-      const filtered = ticketData.filter((item) =>
-        item.name.toLowerCase().includes(text.toLowerCase()) // Case-insensitive search
-      );
-      setFilteredData(filtered);
-    }
-  }
-
-  
-  const handleIndexChange = (index: number) => {
-    console.log("BottomSheet Index Changed:", index);
-  };
-
 
     return (
         <KeyboardAvoidingView
@@ -83,55 +59,13 @@ const Tickets:React.FC<FlatListProps> = ()=> {
           style={styles.bottomSheetContent}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         >
-          <View style={{marginTop:40}}>
-            <View style={{borderWidth:1,height:40,}}>
-              <Text>Header</Text>
-            </View>
-        {/* ticket filter */}
-        <ScrollView
-         horizontal
-         showsHorizontalScrollIndicator={false}
-          style={{ marginTop: 25, height: 35, }}
-          ref={scrollRef}
-          contentOffset={{ x: 0, y: 0 }} 
-          >
-            {FilterData.map((item)=>(
-              <TouchableOpacity style={[styles.filterContainer,{backgroundColor:filterChose === item.id ? '#fff': '#rgba(255,255,255,0.4)'},{marginLeft:item.id === 1 ? 20:0}]} onPress={ ()=> handleFilterClick(item.id) }>
-                <Image style={{width:17,height:17,objectFit:'contain',tintColor: filterChose === item.id ? '#3366cc':'#fff'}} source={item.filterImage}/>
-                <Text
-                  style={[{paddingLeft:5,color:filterChose === item.id ?'#3366cc':'#fff',}]}
-                >
-                  {item.FilterName}
-                </Text>
-                
-              </TouchableOpacity>
-        ))}
 
-        </ScrollView>
-          </View>
-      
+         {/* ticket/header component*/}
+          <Header/>
         <CustomBottomSheet snapPoints={['80%', '100%','150%']} initialIndex={0}>
           <View style={{marginHorizontal:20, minHeight: windowHeight + 500}}>
-            <View style={{}}>
-              <TextInput
-                style={styles.bottomSheetSearchInput}
-                placeholder="Ticket Search"
-                value={searchQuery}
-                onChangeText={onChangeSearch}
-                autoFocus
-                placeholderTextColor="#999"
-              />
-              <TouchableOpacity 
-                onPress={() => setSearchQuery("")}
-                style={styles.searchIcon}
-              >
-                <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
-              </TouchableOpacity>
-            </View>
-
-            {/* ticket List */}
+            {/* ticket List component*/}
           <Index props={handlePresentModalPress}/>
-          {/* ************************************************* */}
         </View>
         </CustomBottomSheet> 
 
@@ -142,8 +76,8 @@ const Tickets:React.FC<FlatListProps> = ()=> {
           bottomSheetRef={bottomSheetModalRef}
           showHandleIndicator={false}
         >
+          {/* component */}
             <TicketDetails/>
-            {/* <Text>jscbhsaj</Text> */}
         </CustomBottomsheetModel>
 
          {/* fixed create button */}
@@ -157,7 +91,6 @@ const Tickets:React.FC<FlatListProps> = ()=> {
           )}
         /> 
         </KeyboardAvoidingView> 
-      
     );
   }
   const styles = StyleSheet.create({
@@ -240,24 +173,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
         fontSize: 14,
         textAlign: 'center', 
       },
-      bottomSheetSearchInput: {
-        height: 40,
-        backgroundColor: '#F9F9F9',
-        borderWidth: 1,
-        borderColor: '#EAEAEA',
-        borderRadius: 30,
-        paddingHorizontal: 10,
-        paddingLeft: 40,
-        fontSize: 16,
-      },
-      searchIcon: {
-        position: 'absolute',
-        left: 10,
-        top: 10,
-      },
-      searchResults: {
-        flex: 1,
-      },
+      
       searchItem: {
         flexDirection: 'row',
         alignItems: 'center',

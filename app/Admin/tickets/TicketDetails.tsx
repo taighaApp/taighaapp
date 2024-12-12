@@ -2,8 +2,8 @@ import { View, Text, Image, Dimensions, TouchableOpacity, StyleSheet } from 'rea
 import React, { Children, useRef, useState } from 'react'
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import CustomAccordion from '@/components/common/Accordion/CustomAccordion';
 import CustomAccordionArrow from '@/components/common/Accordion/CustomAccordionArrow';
+import CustomAccordion from '@/components/common/Accordion/CustomAccordion';
 
 const {width,height} = Dimensions.get('window');
 
