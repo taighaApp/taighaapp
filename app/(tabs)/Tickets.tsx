@@ -5,16 +5,13 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FAB, Searchbar } from 'react-native-paper';
 import CustomBottomSheet from '@/components/common/CustomBottomSheet';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ScrollView, Swipeable } from 'react-native-gesture-handler';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
-import Accordion from '@/components/common/Accordion/CustomAccordion';
 import Index from '../Admin/tickets/Index';
 import TicketDetails from '../Admin/tickets/TicketDetails';
+import Header from '../Admin/tickets/Header';
 const {width,height: windowHeight} = Dimensions.get('window');
-
-
 interface FlatListProps {
   id: number;
   name: string;
@@ -35,7 +32,6 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
     const [checked, setChecked] = useState(false);
     const [profileRead, setProfileRead] = useState(true);
     const [readContent, setReadContent] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     
   const batchAction = [
@@ -57,43 +53,19 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
   }, []);
   
    const onChange= () => setChecked(!checked);
-  
-  
-  const onChangeSearch = (text: React.SetStateAction<string>)=>{
-    setSearchQuery(text);
-  }
-
-  
     return (
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.bottomSheetContent}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
         >
-          <Text>test</Text>
-      
+
+         {/* ticket/header component*/}
+          <Header/>
         <CustomBottomSheet snapPoints={['80%', '100%','150%']} initialIndex={0}>
           <View style={{marginHorizontal:20, minHeight: windowHeight + 500}}>
-            <View style={{}}>
-              <TextInput
-                style={styles.bottomSheetSearchInput}
-                placeholder="Ticket Search"
-                value={searchQuery}
-                onChangeText={onChangeSearch}
-                autoFocus
-                placeholderTextColor="#999"
-              />
-              <TouchableOpacity 
-                onPress={() => setSearchQuery('')}
-                style={styles.searchIcon}
-              >
-                <Icon name={searchQuery ? 'close' : 'search'} size={24} color="#666" />
-              </TouchableOpacity>
-            </View>
-
-            {/* ticket List */}
+            {/* ticket List component*/}
           <Index props={handlePresentModalPress}/>
-          {/* ************************************************* */}
         </View>
         </CustomBottomSheet> 
 
@@ -104,8 +76,8 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
           bottomSheetRef={bottomSheetModalRef}
           showHandleIndicator={false}
         >
+          {/* component */}
             <TicketDetails/>
-            {/* <Text>jscbhsaj</Text> */}
         </CustomBottomsheetModel>
 
          {/* fixed create button */}
@@ -119,7 +91,6 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
           )}
         /> 
         </KeyboardAvoidingView> 
-      
     );
   }
   const styles = StyleSheet.create({
@@ -202,24 +173,7 @@ const Tickets:React.FC<FlatListProps> = ({route}:any)=> {
         fontSize: 14,
         textAlign: 'center', 
       },
-      bottomSheetSearchInput: {
-        height: 40,
-        backgroundColor: '#F9F9F9',
-        borderWidth: 1,
-        borderColor: '#EAEAEA',
-        borderRadius: 30,
-        paddingHorizontal: 10,
-        paddingLeft: 40,
-        fontSize: 16,
-      },
-      searchIcon: {
-        position: 'absolute',
-        left: 10,
-        top: 10,
-      },
-      searchResults: {
-        flex: 1,
-      },
+      
       searchItem: {
         flexDirection: 'row',
         alignItems: 'center',
