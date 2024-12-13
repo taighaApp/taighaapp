@@ -25,7 +25,7 @@ const Header = () => {
         {
           id:1,
           FilterName:"Showstopper",
-          filterImage: require('../../../assets/images/admin/images//tickets/up-arrow-com.png'),
+          filterImage: require('../../../assets/images/admin/images/tickets/up-arrow-com.png'),
         },
         {
           id:2,
