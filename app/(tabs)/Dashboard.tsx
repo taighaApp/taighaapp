@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, TouchableOpacity, Pressable,SafeAreaView ,ImageBackground,Dimensions,Image,TextInput} from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Pressable,SafeAreaView ,ImageBackground,Dimensions,Image,TextInput,Platform} from 'react-native';
 import React, { useCallback, useRef ,useEffect} from 'react';
 import { Link, useRouter } from 'expo-router';
 import CustomBottomsheetModel from '@/components/common/CustomBottomsheetModel';
@@ -80,26 +80,40 @@ const activities = [
       id: '1',
       date: 'May 11, 2024',
       time: '10:30 PM',
-      content:
-        'C22541 : Customer : 10600 Wilshire Blvd, Los Angel - Test please ignore: Sale Pe - Ticket feedback mail was sent by Krishna Regupathy for Anu Customer.',
-      icon: '📩',
+      content: (
+        <Text>
+          Customer : 1455 NW Overton St. - Property was created by 
+          <Text style={{ fontWeight: "bold" }}> Prasanth Raju </Text>.
+        </Text>
+      ),
+        image: require("../../assets/images/dashboard/ticket_icon.png"),
     },
     {
       id: '2',
       date: 'May 04, 2024',
       time: '09:12 PM',
-      content:
-        'C : Customer - 111 Somerset Rd, Singapore 238 : Test mail kindly ignore - Mail was created by Dinesh to Test Customer.',
-      icon: '✉️',
+      content: (
+        <Text>
+          C : Customer - 111 Somerset Rd, Singapore 238 : Test mail kindly ignore - Mail was created by 
+          <Text style={{ fontWeight: "bold" }}> Dinesh </Text>
+          to Test Customer.
+        </Text>
+      ),
+        image: require("../../assets/images/dashboard/mail_icon.png"),
     },
     {
       id: '3',
-      date: 'May 04, 2024',
+      date: 'May 04, 2024', 
       time: '09:11 PM',
-      content:
-        'Customer : 1455 NW Overton St. - Property was created by Prasanth Raju.',
-      icon: '👤',
+      content: (
+        <Text>
+          Customer : 1455 NW Overton St. - Property was created by 
+          <Text style={{ fontWeight: "bold" }}> Prasanth Raju </Text>.
+        </Text>
+      ),
+        image: require("../../assets/images/dashboard/about_icon.png"),
     },
+    
   ];
 
 
@@ -119,42 +133,42 @@ const Dashboard = () => {
           colors={["#854BD0CC", "#3366CC"]}
           locations={[0, 0.5]}
           start={{ x: -0.3, y: 0.9}}
-          end={{ x: 1, y: 0.5 }}
+          end={{ x: 2.2, y: 0.5 }}
           style={styles.container}
         >
           {/* Search and Filter Section */}
           <SafeAreaView style={styles.headerContainer}>
 
-      <View style={styles.searchContainer}>
+        <View style={styles.searchContainer}>
+          <View>
+            <TouchableOpacity style={styles.menuButton}>
+              <Ionicons name="menu" size={30} color="#FFFF" />
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginHorizontal:13,}}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Global Search"
+              placeholderTextColor="#999"/>
+          <TouchableOpacity style={styles.clearIconContainer}>
+            <Ionicons name="search" size={20} color="#8C8C8C" style={{paddingTop:5}} />
+          </TouchableOpacity>
+
+          </View>
         <View>
-          <TouchableOpacity style={styles.menuButton}>
-            <Ionicons name="menu" size={30} color="#FFFF" />
+        <TouchableOpacity style={styles.filterButton}>
+              <Image
+                source={require('../../assets/images/dashboard/header_plus.png')}
+                style={{
+                  width: 30,
+                  height: 30,
+                  tintColor: '#fff',
+                }}
+              />
           </TouchableOpacity>
         </View>
-        <View style={{ marginHorizontal:13,}}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Global Search"
-            placeholderTextColor="#999"/>
-        <TouchableOpacity style={styles.clearIconContainer}>
-          <Ionicons name="search" size={20} color="#8C8C8C" style={{paddingTop:5}} />
-        </TouchableOpacity>
-
+        
         </View>
-       <View>
-       <TouchableOpacity style={styles.filterButton}>
-            <Image
-              source={require('../../assets/images/dashboard/header_plus.png')}
-              style={{
-                width: 30,
-                height: 30,
-                tintColor: '#fff',
-              }}
-            />
-        </TouchableOpacity>
-       </View>
-       
-       </View>
 
        <View style={styles.profileContainer}>
           {/* Greeting Text */}
@@ -329,21 +343,34 @@ const Dashboard = () => {
       {/*  */}
 
         {/* Recent Activities Section */}
+        <View style={{paddingHorizontal:20}}>
+        <Text style={styles.recentHeader}>Recent Activities</Text>
         <View style={styles.recentActivities}>
-                <Text style={styles.recentHeader}>Recent Activities</Text>
-                {activities.map((activity) => (
-                <View key={activity.id} style={styles.activityItem}>
-                    <View style={styles.iconContainer}>
-                    <Text style={styles.activityIcon}>{activity.icon}</Text>
-                    </View>
-                    <View style={styles.activityContent}>
-                    <Text style={styles.activityDate}>{activity.date}</Text>
-                    <Text style={styles.activityTime}>{activity.time}</Text>
-                    <Text style={styles.activityDescription}>{activity.content}</Text>
-                    </View>
+          {activities.map((activity, index) => (
+            <View key={activity.id} style={styles.activityItem}>
+
+              {/* Icon with Dotted Line */}
+              <View style={styles.iconWithLine}>
+                <View style={styles.imageContainer}>
+                  <Image source={activity.image} style={styles.activityImage} />
                 </View>
-                ))}
+                {/* Dotted Line */}
+                {index < activities.length - 1 && <View style={styles.dottedLine} />}
+              </View>
+
+              {/* Content */}
+              <View style={styles.activityContent}>
+                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: 15 }}>
+                  <Text style={styles.activityDate}>{activity.date}</Text>
+                  <Text style={styles.activityTime}>{activity.time}</Text>
+                </View>
+                <Text style={styles.activityDescription}>{activity.content}</Text>
+              </View>
             </View>
+          ))}
+        </View>
+        </View>
+
             {/* </ScrollView> */}
     </View>
         </CustomBottomSheet> 
@@ -408,6 +435,7 @@ const styles = StyleSheet.create({
     fontWeight: 'semibold',
     color: '#00',
     marginBottom: 16,
+    fontFamily:'inter',
   },
   horizontalScroll: {
     marginBottom: 20,
@@ -436,6 +464,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop:13,
     marginLeft:10,
+    fontFamily:'Rubik',
 
   },
   cardNumber: {
@@ -443,6 +472,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     marginLeft:10,
+    fontFamily:'Rubik',
 
   },
   ticketsSection: {
@@ -478,11 +508,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight:'medium',
     color: '#AEAEAE',
+    fontFamily:'Rubik',
+
   },
   ticketNumber: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
+    fontFamily:'Rubik',
+
   },
   bottomSection: {
     flexDirection: 'row',
@@ -532,8 +566,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 5,
     // borderRadius:50,    
-    marginTop: 8,
-    width: '100%',
+    marginTop: Platform.OS === "android" ? 8 : 15,    width: '100%',
     borderBottomLeftRadius:100,
     borderBottomRightRadius:100,
     // margin:'auto',
@@ -548,6 +581,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:20,
     display:'flex',
     flexDirection:'row',
+    marginBottom:20,
   },
   piechartCard:{
     width:165,
@@ -572,13 +606,14 @@ const styles = StyleSheet.create({
     fontSize:12,
     fontWeight:'medium',
     color:'4C4C4C',
-    alignItems:'flex-end',
+    alignItems:'center',
+    fontFamily:'Rubik',
   },
   recentActivities: {
     marginTop: 20,
     padding: 16,
     backgroundColor: '#FFFFFF',
-    borderRadius: 10,
+    borderRadius: 20,
     elevation: 3,
     shadowColor: '#000',
     shadowOpacity: 0.1,
@@ -588,35 +623,65 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#000',
-    marginBottom: 16,
+    marginBottom: 10,
+    fontFamily:'inter',
   },
   activityItem: {
     flexDirection: 'row',
     marginBottom: 16,
-    alignItems: 'flex-start',
   },
-  iconContainer: {
+  iconWithLine: {
+    alignItems: "center",
+  },
+  dottedLine: {
+    flex: 1,
+    borderStyle: "dashed",
+    borderWidth: 1,
+    borderColor: "#000000",
+    marginTop: 5, 
+    marginRight:11,
+  },
+  imageContainer: {
     marginRight: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor:'#3366CC',
+    width: 40,
+    height: 40,
+    borderRadius:50,
+    borderWidth:3,
+    borderColor:'#e0e7f7',
   },
-  activityIcon: {
-    fontSize: 24,
+  activityImage: {
+    width: 20,
+    height: 20,
+    color:'#fff',
   },
   activityContent: {
     flex: 1,
+    marginTop:10,    
   },
   activityDate: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
     color: '#333',
+    fontFamily:'Rubik',
+
   },
   activityTime: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#888',
     marginBottom: 4,
+    fontFamily:'Rubik',
+    fontWeight: '600',
+
   },
   activityDescription: {
     fontSize: 14,
-    color: '#555',
+    color: '#000000',
+    fontFamily:'Rubik',
+    lineHeight:20,
+    letterSpacing:1,
   },
   // 
   cardContainer: {
@@ -649,12 +714,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: '#36CFC9',
+    fontFamily:'Rubik',
   },
   subtitle: {
     fontSize: 14,
     color: '#8c8c8c',
     marginTop: 8,
     textAlign: 'center',
+    fontFamily:'Rubik',
+
   },
   taskCount: {
     fontSize: 20,
@@ -662,6 +730,8 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 4,
     textAlign: 'center',
+    fontFamily:'Rubik',
+
   },
   headerContainer: {
     // backgroundColor: '#fff',
@@ -683,7 +753,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     borderRadius: 8,
-    backgroundColor: '#3366CC',
     borderWidth:.5,
     borderColor:'#EAEAEA',
   },
@@ -730,6 +799,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     letterSpacing: 1.5,
+    fontFamily:'Rubik',
   },
   profileImage: {
     width: 62,
