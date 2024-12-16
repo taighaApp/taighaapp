@@ -14,6 +14,7 @@ import * as echarts from 'echarts/core';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
+const {width,height: windowHeight} = Dimensions.get('window');
 
 // Ticket counts
 const openTickets = 150;
@@ -187,9 +188,13 @@ const Dashboard = () => {
 
         </SafeAreaView>
 
-        <CustomBottomSheet initialIndex={2}>
+        <CustomBottomSheet
+          initialIndex={0}
+          snapPoints={['75%', '100%', '150%']}
+          showHandleIndicator={false}
+        >
           
-        <View >
+        <View style={{ minHeight: windowHeight}}>
         {/* <ScrollView> */}
 
       {/* Horizontal Scroll Section for Cards */}
@@ -335,8 +340,13 @@ const Dashboard = () => {
         
         <TouchableOpacity>
         <View style={styles.cardContainer}> 
-        <Image source={require('../../assets/images/dashboard/customer_service.png')}  style={styles.customerService}/>
-        <Text style={styles.customerContent}>Open New {'\n'}Support Ticket</Text>
+            <Image source={require('../../assets/images/dashboard/customer_service.png')}  style={styles.customerService}/>
+            <View>
+            {/* <Text style={styles.customerContent}>Open New</Text>
+            <Text style={styles.customerContentone}>Support Ticket</Text> */}
+            <Text style={styles.customertext}>Open New</Text>
+            <Text style={styles.taskticket}>Support Ticket</Text>
+            </View>
         </View>
         </TouchableOpacity>
       </View>
@@ -432,10 +442,9 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 16,
-    fontWeight: 'semibold',
     color: '#00',
     marginBottom: 16,
-    fontFamily:'inter',
+    fontFamily:'interBold',
   },
   horizontalScroll: {
     marginBottom: 20,
@@ -513,7 +522,6 @@ const styles = StyleSheet.create({
   },
   ticketNumber: {
     fontSize: 24,
-    fontWeight: 'bold',
     color: '#333',
     fontFamily:'Rubik',
 
@@ -602,15 +610,16 @@ const styles = StyleSheet.create({
     marginBottom:12,
     justifyContent:'center',
   },
-  customerContent:{
-    fontSize:12,
-    fontWeight:'medium',
-    color:'4C4C4C',
-    alignItems:'center',
-    fontFamily:'Rubik',
-  },
+  // customerContent:{
+  //   fontSize:12,
+  //   color:'#4C4C4C',
+  //   fontFamily:'rubikBold',
+  //   borderWidth:1,
+  //   alignItems:'center',
+  // },
   recentActivities: {
     marginTop: 20,
+    marginBottom:30,
     padding: 16,
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
@@ -623,7 +632,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#000',
-    marginBottom: 10,
+    // marginBottom: 10,
     fontFamily:'inter',
   },
   activityItem: {
@@ -679,7 +688,7 @@ const styles = StyleSheet.create({
   activityDescription: {
     fontSize: 14,
     color: '#000000',
-    fontFamily:'Rubik',
+    fontFamily:'rubik',
     lineHeight:20,
     letterSpacing:1,
   },
@@ -689,8 +698,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 16,
     alignItems: 'center',
-    marginRight:20,
-    width:165,
+    justifyContent:'center',
+    marginRight:30,
+    width:170,
     height:205,
     elevation: 1, // Add subtle shadow
     shadowColor: '#000',
@@ -712,9 +722,8 @@ const styles = StyleSheet.create({
   },
   percentageText: {
     fontSize: 15,
-    fontWeight: 'bold',
     color: '#36CFC9',
-    fontFamily:'Rubik',
+    fontFamily:'rubikBold',
   },
   subtitle: {
     fontSize: 14,
@@ -722,17 +731,30 @@ const styles = StyleSheet.create({
     marginTop: 8,
     textAlign: 'center',
     fontFamily:'Rubik',
-
   },
   taskCount: {
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#000',
     marginTop: 4,
     textAlign: 'center',
-    fontFamily:'Rubik',
-
+    fontFamily:'rubik',
   },
+  customertext:{
+    fontSize: 12,
+    color: '#4C4C4C',
+    marginTop: 8,
+    textAlign: 'center',
+    fontFamily:'rubikBold',
+  },
+  taskticket:{
+    fontSize: 12,
+    color: '#4C4C4C',
+    marginTop: 4,
+    textAlign: 'center',
+    fontFamily:'rubikBold',
+  },
+  
   headerContainer: {
     // backgroundColor: '#fff',
     // paddingTop: 40,
