@@ -62,7 +62,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
          {/* ticket/header component*/}
           <Header/>
         <CustomBottomSheet snapPoints={['80%', '100%','150%']} initialIndex={0}>
-          <View style={{marginHorizontal:20, minHeight: windowHeight + 500}}>
+          <View style={{marginHorizontal:20, minHeight: windowHeight}}>
             {/* ticket List component*/}
           <Index props={handlePresentModalPress}/>
         </View>

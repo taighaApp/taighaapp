@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from "react";
 import { StyleSheet, Dimensions, Platform, ScrollView, View } from "react-native";
-import BottomSheet, { BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetModal, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
 
 const { height: windowHeight } = Dimensions.get("window");
 // Type for the props, which includes `children`
@@ -9,10 +9,15 @@ interface CustomBottomSheetProps {
   initialIndex?: number;
   snapPoints?: (string | number)[];
   onIndexChange?: (index: number) => void; 
+  showHandleIndicator?:boolean;
+
 }
 
-const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, initialIndex = 0, onIndexChange, snapPoints = ['25%', '50%', windowHeight+300], }) => {
+
+
+const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, initialIndex = 0, onIndexChange, snapPoints = ['25%', '50%', windowHeight+300],showHandleIndicator }) => {
   // hooks
+  
   const sheetRef = useRef<BottomSheet>(null);
    // Handler for detecting index changes
    const handleSheetChange = (index: number) => {
@@ -37,7 +42,8 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({ children, initial
         keyboardBehavior={Platform.OS === 'ios' ? 'extend' : 'interactive'}
         keyboardBlurBehavior="restore"
         detached={true}
-        handleIndicatorStyle={{backgroundColor:'#E2E2E2'}}
+        // handleIndicatorStyle={{backgroundColor:'#E2E2E2'}}
+        handleIndicatorStyle={showHandleIndicator ? { backgroundColor: '#E2E2E2' } : { display:'none' }} // Conditional styling
       >
       <BottomSheetScrollView style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}
@@ -56,9 +62,20 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     backgroundColor: 'white',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
     overflow: 'hidden',
+    borderWidth: 0,
+borderTopLeftRadius:15,
+borderTopRightRadius: 15,
+shadowColor: "#000",
+shadowOffset: {
+width: 0,
+height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
   },
   scrollView: {
     flex: 1,
