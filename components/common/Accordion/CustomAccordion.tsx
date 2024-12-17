@@ -36,8 +36,6 @@ const CustomAccordion: React.FC<AccordionProps> = ({ title, children, titleStyle
 const styles = StyleSheet.create({
     accordion: {
       backgroundColor: "#fff",
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
       borderColor: "#EAEAEA",
     },
     title: {

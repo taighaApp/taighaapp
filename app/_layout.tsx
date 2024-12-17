@@ -1,7 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -12,7 +12,6 @@ import Tabs from './(tabs)/_layout';
 import Signup from './Signup';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Index from './index';
 import DrawerLayout from './drawer/_layout';
 import Home from './Home';
 import Seller from './drawer/Seller';
@@ -52,6 +51,8 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
     <BottomSheetModalProvider>
+    {/* <FunctionContext> */}
+
     <Stack.Navigator
     initialRouteName="Home"
     screenOptions={{ headerShown: false }}
@@ -62,6 +63,7 @@ export default function RootLayout() {
     <Stack.Screen name="Signup" component={Signup} />
     <Stack.Screen name="Drawer" component={DrawerLayout} /> 
     </Stack.Navigator>
+    {/* </FunctionContext> */}
     </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );

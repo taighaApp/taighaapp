@@ -113,7 +113,7 @@ const handleSubmit = () => {
           scrollEventThrottle={16}
           onScroll={handleScroll}
         >
-          <View style={{height:SCREEN_HEIGHT-672}}>
+          <View style={{height: Platform.OS == 'ios' ? SCREEN_HEIGHT-683: SCREEN_HEIGHT-672}}>
             <Animated.Image
               style={[styles.heroImage, { transform: [{ scale: animatedScale }] }]}
               source={require('../assets/images/login-logo.png')}
@@ -127,8 +127,8 @@ const handleSubmit = () => {
             </View>
           </View>
            
-            <View style={{flex:1,minHeight:SCREEN_HEIGHT-290,width:'100%',backgroundColor:'#fff',marginTop:109}}>
-              <View style={styles.inputSection}>
+          <View style={{flex:1,minHeight:SCREEN_HEIGHT-290,width:'100%',backgroundColor:'#fff',marginTop:109}}>
+          <View style={styles.inputSection}>
                 <View style={styles.inputContainer}>
                     <FloatingLabelInput
                       label="Website"
@@ -256,7 +256,8 @@ const styles = StyleSheet.create({
     },
   inputSection:{
     marginHorizontal: 20,
-    marginVertical: 19,
+    marginVertical: 40,
+    // borderWidth:1,
 },
 inputContainer:{
   marginBottom:20,

@@ -129,7 +129,6 @@ const Dashboard = () => {
 }, []);
  
   return (
-    
         <LinearGradient
           colors={["#854BD0CC", "#3366CC"]}
           locations={[0, 0.5]}
@@ -386,8 +385,6 @@ const Dashboard = () => {
         </CustomBottomSheet> 
        {/* fixed create button */}
         </LinearGradient>
-
-
     
   );
 };
@@ -436,9 +433,6 @@ const styles = StyleSheet.create({
   // },
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: 'red',
   },
   headerText: {
     fontSize: 16,
@@ -626,7 +620,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 1 },
   },
   recentHeader: {
     fontSize: 16,
@@ -675,7 +669,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
     fontFamily:'Rubik',
-
   },
   activityTime: {
     fontSize: 13,
@@ -683,7 +676,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     fontFamily:'Rubik',
     fontWeight: '600',
-
   },
   activityDescription: {
     fontSize: 14,
@@ -830,9 +822,6 @@ const styles = StyleSheet.create({
     borderRadius: 31, 
     borderColor: '#fff',
   },
-
-
-
 });
 
 export default Dashboard;
