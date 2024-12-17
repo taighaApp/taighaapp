@@ -221,9 +221,9 @@ export default function Index( { props }:any) {
             keyExtractor={(item) => item.id.toString()} // Convert the id to string
             renderItem={({ item }) => (
             <Swipeable
-            ref={(ref) => {
+              ref={(ref) => {
                 if (ref) swipeRefs.current[item.id] = ref;
-            }} // Save ref for each item
+              }} // Save ref for each item
             renderLeftActions={renderLeftActions} // Right swipe action
             renderRightActions={renderRightActions} // Right swipe action
             onSwipeableLeftOpen={() => handleSwipeLeft(item)} // Triggered when swiped right
@@ -232,8 +232,8 @@ export default function Index( { props }:any) {
             <TouchableOpacity onPress={props}>
                 <View key={item.id} style={{marginTop:20,}}>
                 <View style={{flexDirection:'row',margin:'auto',}}>
-                <View style={{width:50,height:50,backgroundColor:'red',borderRadius:50,}}>
-                    <Image  style={{width:'100%',height:'100%',backgroundColor:'red',borderRadius:50,}} source={item.profileImage}/>
+                <View style={{width:50,height:50,borderRadius:50,}}>
+                    <Image style={{width:'100%',height:'100%',borderRadius:50,}} source={item.profileImage}/>
                 </View>
 
                 <View style={{flexDirection:'column',justifyContent:'space-between',width: width-110,marginLeft:15,}}>

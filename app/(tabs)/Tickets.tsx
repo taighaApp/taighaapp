@@ -32,6 +32,17 @@ const Tickets:React.FC<FlatListProps> = ()=> {
     const [profileRead, setProfileRead] = useState(true);
     const [readContent, setReadContent] = useState(true);
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const firstSheetRef = useRef<BottomSheetModal>(null);
+    const secondSheetRef = useRef<BottomSheetModal>(null);
+
+    const openFirstSheet = () => {
+      firstSheetRef.current?.present();
+    };
+  
+    const openSecondSheet = () => {
+      secondSheetRef.current?.present();
+    };
+
     
   const batchAction = [
     {id:1,batchActionValue:'Favorite'},
@@ -64,7 +75,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
         <CustomBottomSheet snapPoints={['80%', '100%','150%']} initialIndex={0}>
           <View style={{marginHorizontal:20, minHeight: windowHeight}}>
             {/* ticket List component*/}
-          <Index props={handlePresentModalPress}/>
+          <Index props={openFirstSheet}/>
         </View>
         </CustomBottomSheet> 
 
@@ -72,7 +83,7 @@ const Tickets:React.FC<FlatListProps> = ()=> {
         <CustomBottomsheetModel
           snapPoints={['80%', '100%','150%']} 
           initialIndex={0}
-          bottomSheetRef={bottomSheetModalRef}
+          bottomSheetRef={firstSheetRef}
           showHandleIndicator={false}
         >
           {/* component */}

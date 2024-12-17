@@ -7,12 +7,11 @@ import RootLayout from './_layout';
 export default function index() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <NavigationContainer>
-          <RootLayout />
-        </NavigationContainer>
-      </BottomSheetModalProvider>
+      <NavigationContainer>
+          <BottomSheetModalProvider>
+            <RootLayout />
+          </BottomSheetModalProvider>
+      </NavigationContainer>
     </GestureHandlerRootView>
   );
 }
-

@@ -62,20 +62,13 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     backgroundColor: 'white',
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     overflow: 'hidden',
-    borderWidth: 0,
-borderTopLeftRadius:15,
-borderTopRightRadius: 15,
-shadowColor: "#000",
-shadowOffset: {
-width: 0,
-height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
-elevation: 5,
+    elevation: 100,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 10 },
   },
   scrollView: {
     flex: 1,
@@ -85,5 +78,4 @@ elevation: 5,
   },
 });
 export default CustomBottomSheet;
-
 

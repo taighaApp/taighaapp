@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { Children, useState } from 'react'
 import { List } from 'react-native-paper';
 
@@ -7,11 +7,16 @@ interface AccordionProps {
   children: React.ReactNode;
   titleStyle?: object;
   style?: object;
+  leftImageSource?: any;
+  leftIcon?: string; 
+  rightImageSource?: any;
+  rightIcon?: string; 
 }
 
-const CustomAccordionArrow: React.FC<AccordionProps> = ({ title, children, titleStyle, style }) => {
+const CustomAccordionArrow: React.FC<AccordionProps> = ({ title, children, titleStyle, style, leftImageSource, leftIcon, rightImageSource, rightIcon }) => {
   const [expanded, setExpanded] = useState(true);
   const handlePress = () => setExpanded(!expanded);
+
 
   return (
       <List.Accordion
@@ -28,16 +33,26 @@ const CustomAccordionArrow: React.FC<AccordionProps> = ({ title, children, title
             color="#3366cc"
           />
         )}
+        left={(props) =>
+          leftImageSource ? (
+            <Image
+              source={leftImageSource}
+              style={{ width: 24, height: 24, marginRight: 8 }}
+              resizeMode="contain"
+            />
+          ) : leftIcon ? (
+            <List.Icon {...props} icon={leftIcon} />
+          ) : null
+        }
       >
         {children}
       </List.Accordion>
+
   )
 }
 const styles = StyleSheet.create({
     accordion: {
       backgroundColor: "#fff",
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
       borderColor: "#EAEAEA",
     },
     title: {
