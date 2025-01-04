@@ -1,7 +1,6 @@
 import { View, Image, StyleSheet, Text, FlatList, Dimensions, Pressable, Button } from 'react-native'
 import React, { useState } from 'react'
 import Carousel from 'react-native-reanimated-carousel';
-import Checkbox from 'expo-checkbox';
 import HomeAccessories from './HomeAccessories';
 
 const { width } = Dimensions.get('window'); // Get the device's screen width

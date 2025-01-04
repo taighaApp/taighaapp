@@ -3,7 +3,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Tabs from '../(tabs)/_layout';
-import DashboardScreen from '../Admin/Dashboard';
+// import DashboardScreen from '../Admin/Dashboard';
 import Seller from './Seller';
 import Buyer from './Buyer';
 import Investors from './Investors';
@@ -20,6 +20,7 @@ import Terms from './Terms';
 import CustomDrawer from './CustomDrawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
+import Dashboard from './MainDashboard';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,7 +38,7 @@ const DrawerLayout = () => {
         }}
         >
             <Drawer.Screen name="Tabs" component={Tabs} />
-            <Drawer.Screen name="Dashboard" component={DashboardScreen} />
+            {/* <Drawer.Screen name="Dashboard" component={Dashboard} /> */}
             <Drawer.Screen name="Seller" component={Seller} /> 
             <Drawer.Screen name="Buyer" component={Buyer} /> 
             <Drawer.Screen name="Investors" component={Investors} /> 

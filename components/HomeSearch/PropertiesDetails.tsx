@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
 import PropertiesAccessories from "./PropertiesAccessories";
 import HomeSearchMap from "./HomeSearchMap";
-import MapView, { Marker } from 'react-native-maps';
+// import MapView, { Marker } from 'react-native-maps';
 
 const { width } = Dimensions.get('window'); // Get screen width for slider
 
@@ -331,7 +331,7 @@ const renderSectionContent = (key: string) => {
                 </View>
 
                 {/* <Link href={'/HomeSearch'}> */}
-                  <View style={styles.MapContainer}>
+                  {/* <View style={styles.MapContainer}>
                     <MapView
                       style={styles.maps}
                       initialRegion={{
@@ -347,7 +347,7 @@ const renderSectionContent = (key: string) => {
                         description="This is a marker for Portland"
                       />
                     </MapView>
-                  </View>
+                  </View> */}
                 {/* </Link> */}
             </View>
             {/* here insert the homeaccessories component */}

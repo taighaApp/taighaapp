@@ -4,12 +4,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet";
 import Svg, { Circle, ClipPath, Defs, Path, Rect } from "react-native-svg";
 import { Link, router } from "expo-router";
-import Checkbox from "expo-checkbox";
-import { Dropdown } from "react-native-element-dropdown";
 import Buttons from "@/components/common/Buttons";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 import Media from "@/components/common/Media";
-import PropertyListView from "@/components/common/PropertyListView";
+import PropertyListView from "@/app/HomeSearch/PropertyListView";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 import { useNavigation } from '@react-navigation/native';
 type Errors = {
@@ -102,7 +100,6 @@ const handleSubmit = () => {
   // setPassword('');
 
   navigation.navigate('Drawer' as any ,{ screen: 'Tabs',params: {screen: 'Dashboard'}});
-
 };
 
 

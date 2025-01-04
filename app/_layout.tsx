@@ -1,7 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -16,13 +16,20 @@ import DrawerLayout from './drawer/_layout';
 import Home from './Home';
 import Seller from './drawer/Seller';
 import Dashboard from './(tabs)/Dashboard';
-
+import CustomSplashScreen from '@/components/common/CustomSplashScreen';
+import { GlobalProvider } from '@/hooks/context/GlobalContext';
+import AdminNavigator from './Admin/_layoyt';
+import Properties from './Admin/Properties/Properties';
+import PropertyCard from './HomeSearch/PropertyCardView';
+import PropertyListView from './HomeSearch/PropertyListView';
+import PropertyCardView from './HomeSearch/PropertyCardView';
 const Stack = createStackNavigator();
-
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [showSplash, setShowSplash] = useState(true);
+
   const [loaded] = useFonts({
     LatoRegular: require('../assets/fonts/Lato/Lato-Regular.ttf'),
     LatoSemiBold: require('../assets/fonts/Lato/Lato-SemiBold.ttf'),
@@ -38,32 +45,41 @@ export default function RootLayout() {
     rubikBold: require('../assets/fonts/Rubik/static/Rubik-Bold.ttf'),
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
+  useEffect( () => {
+    const timer = setTimeout(async () => {
+      setShowSplash(false);
+      await SplashScreen.hideAsync();
+      loaded;
+    }, 1000);
+    return () => clearTimeout(timer);
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+ 
+  if (showSplash) {
+    return <CustomSplashScreen />;
+ }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
     <BottomSheetModalProvider>
-    {/* <FunctionContext> */}
-
+    <GlobalProvider>
+    <StatusBar style="auto" />
     <Stack.Navigator
     initialRouteName="Home"
     screenOptions={{ headerShown: false }}
   >
-    <Stack.Screen name="Home" component={Home} />
-    <Stack.Screen name="Login" component={Login} />
-    <Stack.Screen name="/(tabs)" component={Tabs} />
-    <Stack.Screen name="Signup" component={Signup} />
-    <Stack.Screen name="Drawer" component={DrawerLayout} /> 
+    <Stack.Screen name="Home" component={ Home } />
+    <Stack.Screen name="Login" component={ Login } />
+    <Stack.Screen name="/(tabs)" component={ Tabs } />
+    <Stack.Screen name="Signup" component={ Signup } />
+    <Stack.Screen name="Admin" component={ AdminNavigator } />
+    <Stack.Screen name="PropertyCardView" component={ PropertyCardView }/>
+    <Stack.Screen name="PropertyListView" component={ PropertyListView }/>
+    <Stack.Screen name="Properties" component={ Properties }/>
+    <Stack.Screen name="Drawer" component={ DrawerLayout } /> 
+
     </Stack.Navigator>
-    {/* </FunctionContext> */}
+    </GlobalProvider>
     </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
