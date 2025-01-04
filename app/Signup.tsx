@@ -4,13 +4,12 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet";
 import Svg, { Circle, ClipPath, Defs, Path, Rect } from "react-native-svg";
 import { Link, router } from "expo-router";
-import Checkbox from "expo-checkbox";
-import { Dropdown } from "react-native-element-dropdown";
 import Buttons from "@/components/common/Buttons";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 import Media from "@/components/common/Media";
-import PropertyListView from "@/components/common/PropertyListView";
+import PropertyListView from "@/app/HomeSearch/PropertyListView";
 import ImageCarousel from "@/components/common/imageCarousel";
+import { Checkbox } from "react-native-paper";
 // import ImageCarousel from "@/components/common/imageCarousel";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -298,7 +297,7 @@ const handleChange = (field: keyof FormFields, value: string) => {
                   {errors.website && <Text style={styles.error}>{errors.password}</Text>}
               </View>
             
-              <View style={styles.lastDropdownWrapper}>
+              {/* <View style={styles.lastDropdownWrapper}>
                 <Text style={[styles.dropdownLabel, isFocus && { color: '#3366cc', fontSize: 17 }]}>Interested In</Text>
                 <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: '#3366cc' }]}
@@ -321,9 +320,9 @@ const handleChange = (field: keyof FormFields, value: string) => {
                     setIsFocus(false);
                   } } />
                   {errors.website && <Text style={styles.error}>{errors.interestedIn}</Text>}
-              </View>
+              </View> */}
               
-              <View style={styles.lastDropdownWrapper}>
+              {/* <View style={styles.lastDropdownWrapper}>
                 <Text style={[styles.dropdownLabel, isFocus && { color: '#3366cc', fontSize: 17 }]}>Timeframe</Text>
                 <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: '#3366cc' }]}
@@ -346,9 +345,9 @@ const handleChange = (field: keyof FormFields, value: string) => {
                     setIsFocus(false);
                   } } />
                   {errors.website && <Text style={styles.error}>{errors.timeframe}</Text>}
-              </View>
+              </View> */}
               
-              <View style={styles.lastDropdownWrapper}>
+              {/* <View style={styles.lastDropdownWrapper}>
                 <Text style={[styles.dropdownLabel, isFocus && { color: '#3366cc', fontSize: 17 }]}>How did you Hear about us?</Text>
                 <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: '#3366cc' }]}
@@ -371,7 +370,7 @@ const handleChange = (field: keyof FormFields, value: string) => {
                     setIsFocus(false);
                   } } />
                   {errors.website && <Text style={styles.error}>{errors.HowdidyouHearaboutus}</Text>}
-              </View>
+              </View> */}
               
               <View style={styles.inputContainer}>
                 <FloatingLabelInput
@@ -411,7 +410,7 @@ const handleChange = (field: keyof FormFields, value: string) => {
               </View>
             
               <View style={styles.permissionWrapper}>
-                <Pressable style={styles.checkboxWrapper} onPress={toggleCheckbox}>
+                {/* <Pressable style={styles.checkboxWrapper} onPress={toggleCheckbox}>
                   <Checkbox 
                   style={styles.checkbox}
                   value={isChecked} 
@@ -420,9 +419,11 @@ const handleChange = (field: keyof FormFields, value: string) => {
                     <Text style={styles.acceptText}>By clicking Accept to continue, I confirm that i have read the Terms of Service and Privacy Policy</Text>
                 </Pressable>
                 <Pressable style={[styles.checkboxWrapper,{marginBottom:0 }]} onPress={toggleCheckbox}>
-                    <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked} />
+                    <Checkbox
+                     style={styles.checkbox}
+                      value={isChecked} onValueChange={setChecked} />
                     <Text style={styles.acceptText}>Accept to receive email and text message communication from krishnarealty. You can opt-out from text messages by replying "STOP" to a message. Also, you can opt-in by sending "START" to a text message. Msg & Data rates may apply.</Text>
-                </Pressable>
+                </Pressable> */}
               </View>
 
               <Buttons

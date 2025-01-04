@@ -1,42 +1,40 @@
 
 import React, { useEffect, useRef,useState } from 'react';
 import { View, Image, Text, StyleSheet, Animated } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
 
-
-export default function CustomSplashScreen() {
+export default function   () {
   const [isLoading, setIsLoading] = useState(true);
   const animationProgress = useRef(new Animated.Value(1)).current;
   
     useEffect(() => {
-      setTimeout(() => {
+      SplashScreen.preventAutoHideAsync();
+      
+      const timer = setTimeout(() => {
       Animated.timing(animationProgress, {
         toValue: 0,
         duration: 500,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start(() => {
-        setIsLoading(true);
+        setIsLoading(false);
+        SplashScreen.hideAsync();
      });
     },1000)
-    }, [animationProgress]);
-  
-    const interpolatedProgress = animationProgress.interpolate({
-      inputRange: [0, 3],
-      outputRange: ['0%', '3%'],
-    });
+    return () => clearTimeout(timer);
+    }, []);
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/images/Aguado.gif')}
-          style={styles.gif}
-          resizeMode="contain"
-        />
-        <Text style={styles.logoText}>A True All-In-One Real Estate Platform</Text>
-      </View>
-    );
-  }
-
+    if (isLoading) {
+      return (
+        <View style={styles.container}>
+          <Image
+            source={require('../../assets/images/Aguado.gif')}
+            style={styles.gif}
+            resizeMode="contain"
+          />
+          <Text style={styles.logoText}>A True All-In-One Real Estate Platform</Text>
+        </View>
+      );
+    }
   }
 
   const styles = StyleSheet.create({

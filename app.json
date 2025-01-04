@@ -1,30 +1,25 @@
 {
   "expo": {
-    "name": "textApp",
-    "slug": "textApp",
+    "name": "taighaapp",
+    "slug": "taighaapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "resizeMode": "contain",
-    "scheme": "myapp",
+  "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "android": {
-        "fadeOutDuration": 1000
-      },
-      "ios": {
-        "fadeOutDuration": 1000
-      }
-    },
+    "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.psdinesh.taighaapp",  
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.psdinesh.taighaapp",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.psdinesh.textApp"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -33,7 +28,15 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-splash-screen",{
+          "image": "./assets/images/Aguado.gif",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -56,9 +59,8 @@
     },
     "extra": {
       "eas": {
-        "projectId": "6a84efd4-d91c-4fff-bd6f-47407a8ce209"
+        "projectId": "21c6e192-192e-474c-a882-e4b18f08094a"
       }
-    },
-    "newArchEnabled": true
+    }
   }
 }

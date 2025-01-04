@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import PropertyListView from '@/components/common/PropertyListView'
+// import MapView, { Marker } from 'react-native-maps';
+import PropertyListView from '@/app/HomeSearch/PropertyListView'
 import MapCard from './MapCard';
 
 const { width, height } = Dimensions.get('window');
@@ -144,7 +144,7 @@ const properties = [
 
   return (
     <View style={styles.container}>
-      <MapView
+      {/* <MapView
         style={styles.map}
         region={{
           latitude: properties[0]?.latitude || 45.5152,
@@ -175,7 +175,7 @@ const properties = [
             </View>
           </Marker>
         ))}
-      </MapView>
+      </MapView> */}
       
       {selectedProperty && (        
         <View style={styles.propertyListWrapper}>

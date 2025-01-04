@@ -1,11 +1,25 @@
-import { View, Text, StyleSheet, Image, Dimensions, Button } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from 'react-native'
+import React, { useRef, useState } from 'react'
+import BottomSheet from '@gorhom/bottom-sheet';
+import { NavigationProp, useNavigationState, useRoute } from '@react-navigation/native';
+import CustomBottomSheet from '@/components/common/CustomBottomSheet';
+import { router, usePathname } from 'expo-router';
 const {width,height}= Dimensions.get('window');
-const ReplyCard = () => {
+import { useNavigation } from '@react-navigation/native';
 
-    const handleReplyClick = ()=>{
-        alert('Reply Click');
-    }
+
+const ReplyCard = () => {
+    const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+    const firstBottomSheetRef = useRef<BottomSheet>(null);
+    const secondBottomSheetRef = useRef<BottomSheet>(null);
+    const ThirdBottomSheetRef = useRef<BottomSheet>(null);
+    const navigation = useNavigation();
+
+    const pathname = usePathname(); 
+
+    const Viewmore = () => {
+        navigation.navigate('Admin' as any ,{ screen: 'tickets',params: {screen: 'ViewMore'}});
+    };
 
   return (
     <View style={styles.mailContainer}>
@@ -34,8 +48,23 @@ const ReplyCard = () => {
                 Per your maintenance information for this property, we have contacted & provided pre-approved repairs up to $280.00 for parts and labor for a vendor. 
                 </Text>
             </View>
-            <Button title='View More / Reply' onPress={ handleReplyClick }/>
-        </View>
+                <TouchableOpacity style={{backgroundColor:'#3366cc',borderRadius:8,alignItems:'center',marginTop:15,height:35,margin:'auto',justifyContent:'center',paddingHorizontal:15,}} onPress={Viewmore}>
+                    <Text style={{color:'#ffffff',fontFamily:'rubikBold',fontSize:14,}}>View More / Reply </Text>
+                </TouchableOpacity>
+            </View>
+            {isBottomSheetVisible && ( 
+            <CustomBottomSheet
+                ref={firstBottomSheetRef}
+                initialIndex={0}
+                snapPoints={['75%', '100%', '150%']}
+                showHandleIndicator={false}
+                borderRadius={30} 
+                style={{}}            
+            >
+                <Text>psd</Text>
+            </CustomBottomSheet>
+             )} 
+
     </View>
   )
 }

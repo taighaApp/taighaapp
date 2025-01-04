@@ -1,9 +1,8 @@
 import { View, Image, StyleSheet, Text, FlatList, Dimensions, Pressable, Button } from 'react-native'
 import React, { useState } from 'react'
 import Carousel from 'react-native-reanimated-carousel';
-import Checkbox from 'expo-checkbox';
-import Buttons from './Buttons';
-import HomeAccessories from '../HomeSearch/HomeAccessories';
+import Buttons from '../../components/common/Buttons';
+import HomeAccessories from '../../components/HomeSearch/HomeAccessories';
 const { width } = Dimensions.get('window');
 const PropertyListView = ({route}:any) => {
   const [activeIndex, setActiveIndex] = useState(0);

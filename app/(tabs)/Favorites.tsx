@@ -1,22 +1,12 @@
-import HomeSearchCardViews from "@/components/HomeSearch/HomeSearchCardViews";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+
 import { useRef, useState } from "react";
+import { View, Text } from "react-native";
 
-
-
-
-function FavoritesScreen({route}:any) {
-    // console.log(route);
-    
-    const [checked, setChecked] = useState('option1'); // Default selected value
-    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  
-    const handlePress =()=>{
-      bottomSheetModalRef.current?.present();
-    }
+function FavoritesScreen() {
     return (
-      
-      <HomeSearchCardViews route={route}/>
+      <View>
+        <Text></Text>
+      </View>
     );
   }
 
