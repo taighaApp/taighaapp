@@ -12,8 +12,8 @@ import {
   TextInput,
   Platform,
 } from "react-native";
-import React, { useCallback, useRef, useEffect } from "react";
-import { Link, usePathname, useRouter } from "expo-router";
+import React, { useCallback, useRef, useEffect, useState } from "react";
+import { Link, router, usePathname, useRouter } from "expo-router";
 import CustomBottomsheetModel from "@/components/common/CustomBottomsheetModel";
 import { FAB } from "react-native-paper";
 import CustomBottomSheet from "@/components/common/CustomBottomSheet";
@@ -28,8 +28,10 @@ import Svg, {
 } from "react-native-svg";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 const { width, height: windowHeight } = Dimensions.get("window");
+import { PieChart } from "react-native-gifted-charts";
+import DonutChart from "@/components/Admin/DonutChart/DonutChart";
 
 // Ticket counts
 const openTickets = 150;
@@ -140,14 +142,29 @@ const activities = [
 ];
 
 const Dashboard = () => {
+  const route = useRoute();
+
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const router = useRouter();
   const navigation = useNavigation();
 
   const handlepress = useCallback(() => {
     bottomSheetModalRef.current?.present();
     console.log("Bottom sheet opened");
   }, []);
+
+  const handelDocumentsOpen = () => {
+    router.push("/Admin/Mails/Mails");
+    // alert('open')
+    // router.push('/Admin/Tasks')
+    // navigation.navigate('Admin' as any ,{ screen: 'Documents',params: {screen: 'Documents'}});
+  };
+  const handelMailsOpen = () => {
+    router.push("/Admin/Mails/Mails");
+    // alert('open')
+    // router.push('/Admin/Tasks')
+    // navigation.navigate('Admin' as any ,{ screen: 'Mails',params: {screen: 'Mails'}});
+  };
+
 
   return (
     <LinearGradient
@@ -246,9 +263,13 @@ const Dashboard = () => {
                 </ImageBackground>
               </View>
             </TouchableOpacity>
- 
+
             {/* Documents Card */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.push("Documents", { screen: "Documents" })
+              }
+            >
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_document_image.png")}
@@ -261,7 +282,9 @@ const Dashboard = () => {
             </TouchableOpacity>
 
             {/* Mails Card */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.push("Mails", { screen: "Mails" })}
+            >
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_mails_image.png")}
@@ -274,7 +297,9 @@ const Dashboard = () => {
             </TouchableOpacity>
 
             {/* Mails Card */}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.push("Tasks", { screen: "Tasks" })}
+            >
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_task_image.png")}
@@ -380,90 +405,8 @@ const Dashboard = () => {
             {/* Full Card Underline */}
           </View>
 
-          <View>
-            <View
-              style={{
-                width: 115,
-                height: 115,
-                borderColor: "green",
-                borderWidth: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 100,
-              }}
-            >
-              <View
-                style={{
-                  width: 105,
-                  height: 105,
-                  borderColor: "green",
-                  borderWidth: 1,
-                  backgroundColor: "green",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 50,
-                  transform: [{ rotateZ: "0deg" }],
-                }}
-              >
-                <View
-                  style={{
-                    width: 68,
-                    height: 68,
-                    borderColor: "green",
-                    // borderWidth:1,
-                    backgroundColor: "#EDF9F8",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 50,
-                  }}
-                >
-                  <View
-                    style={{
-                      width: 55,
-                      height: 55,
-                      borderRadius: 50,
-                      borderColor: "green",
-                      // borderWidth:1,
-                      backgroundColor: "#ffffff",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text style={{}}>0%</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-
           {/* support content */}
-          <View style={styles.piechartcontainer}>
-            <View style={styles.cardContainer}>
-              <View style={styles.chartContainer}>
-                {/* <SvgComponent option={option} /> */}
-                <View style={styles.textContainer}>
-                  <Text style={styles.percentageText}>{`${percentage}%`}</Text>
-                </View>
-              </View>
-              <Text style={styles.subtitle}>Task Completed</Text>
-              <Text style={styles.taskCount}>150</Text>
-            </View>
-
-            <TouchableOpacity>
-              <View style={styles.cardContainer}>
-                <Image
-                  source={require("../../assets/images/dashboard/customer_service.png")}
-                  style={styles.customerService}
-                />
-                <View>
-                  {/* <Text style={styles.customerContent}>Open New</Text>
-            <Text style={styles.customerContentone}>Support Ticket</Text> */}
-                  <Text style={styles.customertext}>Open New</Text>
-                  <Text style={styles.taskticket}>Support Ticket</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
+         <DonutChart/>
           {/*  */}
 
           {/* Recent Activities Section */}
@@ -702,12 +645,6 @@ const styles = StyleSheet.create({
   underlineSegment: {
     height: "100%",
   },
-  piechartcontainer: {
-    paddingHorizontal: 20,
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: 20,
-  },
   piechartCard: {
     width: 165,
     height: 205,
@@ -721,12 +658,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 9 },
   },
-  customerService: {
-    width: 110,
-    height: 110,
-    marginBottom: 12,
-    justifyContent: "center",
-  },
+
   // customerContent:{
   //   fontSize:12,
   //   color:'#4C4C4C',
@@ -840,36 +772,6 @@ const styles = StyleSheet.create({
     color: "#36CFC9",
     fontFamily: "rubikBold",
   },
-  subtitle: {
-    fontSize: 14,
-    color: "#8c8c8c",
-    marginTop: 8,
-    textAlign: "center",
-    fontFamily: "Rubik",
-  },
-  taskCount: {
-    fontSize: 20,
-    // fontWeight: 'bold',
-    color: "#000",
-    marginTop: 4,
-    textAlign: "center",
-    fontFamily: "rubik",
-  },
-  customertext: {
-    fontSize: 12,
-    color: "#4C4C4C",
-    marginTop: 8,
-    textAlign: "center",
-    fontFamily: "rubikBold",
-  },
-  taskticket: {
-    fontSize: 12,
-    color: "#4C4C4C",
-    marginTop: 4,
-    textAlign: "center",
-    fontFamily: "rubikBold",
-  },
-
   headerContainer: {
     // backgroundColor: '#fff',
     // paddingTop: 40,

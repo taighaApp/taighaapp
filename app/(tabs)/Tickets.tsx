@@ -21,7 +21,7 @@ import { FAB, Searchbar } from "react-native-paper";
 import CustomBottomSheet from "@/components/common/CustomBottomSheet";
 import { ScrollView, Swipeable } from "react-native-gesture-handler";
 import CustomBottomsheetModel from "@/components/common/CustomBottomsheetModel";
-import Header from "@/app/Admin/tickets/Header";
+import Header from "@/components/Admin/Header";
 import TicketDetails from "@/app/Admin/tickets/TicketDetails";
 import { useGlobalContext } from "@/hooks/context/GlobalContext";
 import Icon from 'react-native-vector-icons/MaterialIcons';

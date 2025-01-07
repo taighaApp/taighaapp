@@ -25,7 +25,7 @@ export default function Header() {
     { name: 'House', icon: require('../../assets/images/homesearch/icon/house.png') },
     { name: 'Townhomes', icon: require('../../assets/images/homesearch/icon/townhomes.png') },
     { name: 'Condos', icon: require('../../assets/images/homesearch/icon/Condos.png') },
-    { name: 'Multi-family', icon: require('../../assets/images/homesearch/icon/multi-family.png') },
+    { name: 'Multi-family', icon: require('../../assets/images/homesearch/icon/multi-family-block.png') },
     { name: 'Lots/Land', icon: require('../../assets/images/homesearch/icon/land.png') },
   ];
 

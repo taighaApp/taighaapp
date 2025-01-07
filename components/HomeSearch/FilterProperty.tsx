@@ -151,7 +151,7 @@ const FilterProperty = () => {
     { 
       id: 4, 
       label: 'Multi-family', 
-      image: require('../../assets/images/homesearch/icon/multi-family.png'),
+      image: require('../../assets/images/homesearch/icon/multi-family-block.png'),
       selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
     },
     { 
@@ -163,7 +163,7 @@ const FilterProperty = () => {
     { 
       id: 6, 
       label: 'Commercial', 
-      image: require('../../assets/images/homesearch/icon/Commercial.png'),
+      image: require('../../assets/images/homesearch/icon/commercial-block.png'),
       selectedImage: require('../../assets/images/homesearch/icon/house-white.png') 
     },
   ];
