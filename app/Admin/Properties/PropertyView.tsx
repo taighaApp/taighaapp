@@ -8,6 +8,8 @@ import {
   Platform,
   UIManager,
   ScrollView,
+  Modal,
+  FlatList,
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import BottomSheetModal from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal";
@@ -84,6 +86,20 @@ export default function PropertyView({ property }: PropertyProps) {
     Utilityinfo: [],
   });
   const [value, setValue] = useState(Formdata.PropertyType); // Initial value from Formdata
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("Select an option");
+
+  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const handleSelect = (value: any) => {
+    setSelectedValue(value);
+    toggleModal();
+  };
   const navigation = useNavigation();
 
   if (Platform.OS === "android") {
@@ -193,34 +209,75 @@ export default function PropertyView({ property }: PropertyProps) {
                   </View>
                   {/* Property Nick name & Property Type */}
                   <View style={styles.unit_intrested}>
-                    <FloatingLabelInput
-                      label="Property Nick Name"
-                      value={Formdata.PropertyNikcName}
-                      staticLabel
-                      customLabelStyles={{
-                        colorFocused: "#000000",
-                        colorBlurred: "#000000", // Color when input is not focused
-                        fontSizeFocused: 14,
-                      }}
-                      containerStyles={styles.containerStylesRight}
-                      onChangeText={(text) =>
-                        handleValueChange("PropertyNikcName", text)
-                      }
-                    />
-                    <FloatingLabelInput
-                      label="Property Type"
-                      value={Formdata.PropertyNikcName}
-                      staticLabel
-                      customLabelStyles={{
-                        colorFocused: "#000000",
-                        colorBlurred: "#000000", // Color when input is not focused
-                        fontSizeFocused: 14,
-                      }}
-                      containerStyles={styles.containerStylesRight}
-                      onChangeText={(text) =>
-                        handleValueChange("PropertyType", text)
-                      }
-                    />
+                    <View style={{width:'50%'}}>
+                      <FloatingLabelInput
+                        label="Property Nick Name"
+                        value={Formdata.PropertyNikcName}
+                        staticLabel
+                        customLabelStyles={{
+                          colorFocused: "#000000",
+                          colorBlurred: "#000000", // Color when input is not focused
+                          fontSizeFocused: 14,
+                        }}
+                        containerStyles={styles.containerStylesRight}
+                        onChangeText={(text) =>
+                          handleValueChange("PropertyNikcName", text)
+                        }
+                      />
+                    </View>
+
+                    <View style={{width:'50%'}}>
+                      <FloatingLabelInput
+                        label="Property Type"
+                        value={Formdata.PropertyNikcName}
+                        staticLabel
+                        customLabelStyles={{
+                          colorFocused: "#000000",
+                          colorBlurred: "#000000", // Color when input is not focused
+                          fontSizeFocused: 14,
+                        }}
+                        containerStyles={styles.containerStylesRight}
+                        onChangeText={(text) =>
+                          handleValueChange("PropertyType", text)
+                        }
+                        onPress={toggleModal}
+                        editable={false}
+                      />
+
+                      <Modal
+                        visible={isModalVisible}
+                        transparent
+                        animationType="slide"
+                        onRequestClose={toggleModal}
+                      >
+                        <View style={styles.modalContainer}>
+                          <View style={styles.modalContent}>
+                            <Text style={styles.modalTitle}>
+                              Select an Option
+                            </Text>
+                            
+                            <TouchableOpacity
+                              style={styles.closeButton}
+                              onPress={toggleModal}
+                            >
+                              <Text style={styles.closeButtonText}>Close</Text>
+                            </TouchableOpacity>
+                            <FlatList
+                              data={options}
+                              keyExtractor={(item, index) => index.toString()}
+                              renderItem={({ item }) => (
+                                <TouchableOpacity
+                                  style={styles.option}
+                                  onPress={() => handleSelect(item)}
+                                >
+                                  <Text style={styles.optionText}>{item}</Text>
+                                </TouchableOpacity>
+                              )}
+                            />
+                          </View>
+                        </View>
+                      </Modal>
+                    </View>
                   </View>
                   {/* HOA Provider and HOA Name */}
                   <View style={styles.unit_intrested}>
@@ -415,5 +472,53 @@ const styles = StyleSheet.create({
   },
 
   // Dropdown style
-
+  selector: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: "#fff",
+    width: "80%",
+  },
+  selectorText: {
+    fontSize: 16,
+    color: "#333",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: "80%",
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 16,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  option: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  optionText: {
+    fontSize: 16,
+    color: "#333",
+  },
+  closeButton: {
+    marginTop: 16,
+    alignItems: "center",
+    backgroundColor: "#007BFF",
+    padding: 12,
+    borderRadius: 8,
+  },
+  closeButtonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
 });

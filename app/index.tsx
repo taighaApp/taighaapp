@@ -4,7 +4,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import RootLayout from './_layout';
 
-export default function index() {
+const index:React.FC =() => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
@@ -15,3 +15,4 @@ export default function index() {
     </GestureHandlerRootView>
   );
 }
+export default  index;

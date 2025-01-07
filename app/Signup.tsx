@@ -7,7 +7,6 @@ import { Link, router } from "expo-router";
 import Buttons from "@/components/common/Buttons";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 import Media from "@/components/common/Media";
-import PropertyListView from "@/app/HomeSearch/PropertyListView";
 import ImageCarousel from "@/components/common/imageCarousel";
 import { Checkbox } from "react-native-paper";
 // import ImageCarousel from "@/components/common/imageCarousel";

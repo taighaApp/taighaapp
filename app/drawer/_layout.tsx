@@ -21,6 +21,8 @@ import CustomDrawer from './CustomDrawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import Dashboard from './MainDashboard';
+import RootLayout from '../_layout';
+import Tasks from '../Admin/Tasks/Tasks';
 
 const Drawer = createDrawerNavigator();
 

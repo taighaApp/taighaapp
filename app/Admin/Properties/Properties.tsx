@@ -1,6 +1,6 @@
 import { View, StyleSheet, Dimensions } from "react-native";
 import CustomBottomSheet from "@/components/common/CustomBottomSheet";
-import Header from "../tickets/Header";
+import Header from "../../../components/Admin/Header";
 import Index from "./Index";
 import { LinearGradient } from "expo-linear-gradient";
 const { height: windowHeight } = Dimensions.get("window");

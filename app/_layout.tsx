@@ -20,9 +20,9 @@ import CustomSplashScreen from '@/components/common/CustomSplashScreen';
 import { GlobalProvider } from '@/hooks/context/GlobalContext';
 import AdminNavigator from './Admin/_layoyt';
 import Properties from './Admin/Properties/Properties';
-import PropertyCard from './HomeSearch/PropertyCardView';
-import PropertyListView from './HomeSearch/PropertyListView';
-import PropertyCardView from './HomeSearch/PropertyCardView';
+import Documents from './Admin/Documents/Documents';
+import Tasks from './Admin/Tasks/Tasks';
+
 const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
@@ -73,9 +73,9 @@ export default function RootLayout() {
     <Stack.Screen name="/(tabs)" component={ Tabs } />
     <Stack.Screen name="Signup" component={ Signup } />
     <Stack.Screen name="Admin" component={ AdminNavigator } />
-    <Stack.Screen name="PropertyCardView" component={ PropertyCardView }/>
-    <Stack.Screen name="PropertyListView" component={ PropertyListView }/>
     <Stack.Screen name="Properties" component={ Properties }/>
+    <Stack.Screen name="Documents" component={ Documents }/>
+    <Stack.Screen name="Tasks" component={ Tasks }/>
     <Stack.Screen name="Drawer" component={ DrawerLayout } /> 
 
     </Stack.Navigator>
