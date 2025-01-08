@@ -186,6 +186,8 @@ export default function Index() {
             : styles.propertyCard
         }
         onPress={() => openModal(item.id)}
+        activeOpacity={0.9}
+        // onPress={() => console.log("Touchable Pressed")}
       >
         <View style={styles.cardtop}>
           <Image
@@ -256,16 +258,17 @@ export default function Index() {
           </ScrollView>
         </View>
         {ModalOpen === item.id && (
-          <TouchableOpacity style={styles.ModalContainer} onPress={closeModal}>
+          <TouchableOpacity style={styles.ModalContainer} 
+          onPress={closeModal} activeOpacity={0.9}>
             <View style={styles.Modal}>
-              <TouchableOpacity style={styles.ModalNote} onPress={() => {}}>
+              <TouchableOpacity style={styles.ModalNote} onPress={() => {}} activeOpacity={0.9}>
                 <Image
                   source={require("../../../assets/images/admin/images/properties/Note.png")}
                   style={{ width: 21, height: 21 }}
                 />
                 <Text style={styles.addnote}>Add Note</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.ModalEdit}>
+              <TouchableOpacity style={styles.ModalEdit} activeOpacity={0.9}>
                 <Image
                   source={require("../../../assets/images/admin/images/properties/Edit-white.png")}
                   style={{ width: 26, height: 26 }}
@@ -275,6 +278,7 @@ export default function Index() {
               <TouchableOpacity
                 style={styles.ModalView}
                 onPress={() => handleView(item)}
+                activeOpacity={0.9}
               >
                 <Image
                   source={require("../../../assets/images/admin/images/properties/Eye.png")}
@@ -307,8 +311,8 @@ export default function Index() {
           placeholderTextColor="#999"
         />
         <TouchableOpacity
-          //   onPress={() => setSearchQuery("")}
           style={styles.searchIcon}
+          activeOpacity={0.9}
         >
           <Icon
             // name={searchQuery ? "close" : "search"}
@@ -394,7 +398,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     paddingLeft: 5,
     marginRight: 5,
-    minWidth:'42.5%'
+    minWidth: "42.5%",
   },
   propertyActivityByCard: {
     // width: 134,
@@ -406,7 +410,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginRight: 5,
     paddingLeft: 5,
-    minWidth:'35%'
+    minWidth: "35%",
   },
   propertyAtivityAtValue: {
     fontFamily: "rubikLight",
@@ -465,7 +469,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginRight: 5,
     paddingLeft: 5,
-    minWidth:'25%'
+    minWidth: "25%",
   },
   cardtop: {
     flex: 1,
@@ -560,7 +564,7 @@ const styles = StyleSheet.create({
     borderColor: "#EAEAEA",
     flex: 1,
     position: "relative",
-    marginBottom:0,
+    marginBottom: 0,
   },
   menuButton: {
     position: "absolute",
