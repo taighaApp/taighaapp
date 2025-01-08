@@ -10,7 +10,6 @@ import {
   ScrollView,
   Modal,
   FlatList,
-  Image,
 } from "react-native";
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -78,68 +77,20 @@ export default function PropertyView({ property }: PropertyProps) {
     MailboxNumber: "",
     Utilityinfo: [],
   });
-  const [IntrestedInModalVisible, setIntrestedInModalVisible] = useState(false);
+  const [value, setValue] = useState(Formdata.PropertyType); // Initial value from Formdata
+  const [selectedLanguage, setSelectedLanguage] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
-  const isEditable = Platform.OS === "android";
-  const PropertyTypes = [
-    "Commercial",
-    "Condo",
-    "Detached Single Family",
-    "Lots/Land",
-    "Multi family/Apartment Complex",
-    "Attached Single Family/Townhome",
-    "Other",
-  ];
-  const IntrestedIn = [
-    "Buyer",
-    "Buyer Lead",
-    "Homeowner",
-    "Past Customer",
-    "Seller",
-    "Seller Lead",
-    "Past Seller",
-    "Past Buyer",
-    "Past Homeowner",
-    "Buyer(WA)",
-    "Buyer Lead(WA)",
-    "Commercial Buyer",
-    "Commercial Buyer Lead",
-    "Commercial Leasee",
-    "Commercial Leasee Lead",
-    "Rental Owner",
-    "Rental Owner Lead",
-    "Rental Owner(WA)",
-    "Rental Owner Lead(WA)",
-    "Seller(WA)",
-    "Seller Lead(WA)",
-    "Tenant",
-    "Past rental owner",
-    "Tenant Lead",
-    "Test Customer",
-    "Test lead",
-    "Other Lead",
-    "Other Customer",
-  ];
+  const [selectedValue, setSelectedValue] = useState("Select an option");
 
-  const PrepertyTypeToggleModal = () => {
+  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+
+  const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const IntrestedInToggleModal = () => {
-    setIntrestedInModalVisible(!IntrestedInModalVisible);
-  };
-
-  const handleChanges = (inputfield: any, value: any, selector = false) => {
-    setFormdata((prevValue) => ({
-      ...prevValue,
-      [inputfield]: value,
-    }));
-    if (selector && inputfield == "PropertyType") {
-      PrepertyTypeToggleModal();
-    }
-    if (selector && inputfield == "IntrestedIn") {
-      IntrestedInToggleModal();
-    }
+  const handleSelect = (value: any) => {
+    setSelectedValue(value);
+    toggleModal();
   };
   const navigation = useNavigation();
 
@@ -306,101 +257,75 @@ export default function PropertyView({ property }: PropertyProps) {
                   </View>
                   {/* Property Nick name & Property Type */}
                   <View style={styles.unit_intrested}>
-                    <FloatingLabelInput
-                      label="Property Nick Name"
-                      value={Formdata.PropertyNikcName}
-                      staticLabel
-                      customLabelStyles={{
-                        colorFocused: "#000000",
-                        colorBlurred: "#000000", // Color when input is not focused
-                        fontSizeFocused: 14,
-                      }}
-                      containerStyles={styles.containerStylesRight}
-                      onChangeText={(text) =>
-                        handleChanges("PropertyNikcName", text)
-                      }
-                    />
+                    <View style={{width:'50%'}}>
+                      <FloatingLabelInput
+                        label="Property Nick Name"
+                        value={Formdata.PropertyNikcName}
+                        staticLabel
+                        customLabelStyles={{
+                          colorFocused: "#000000",
+                          colorBlurred: "#000000", // Color when input is not focused
+                          fontSizeFocused: 14,
+                        }}
+                        containerStyles={styles.containerStylesRight}
+                        onChangeText={(text) =>
+                          handleValueChange("PropertyNikcName", text)
+                        }
+                      />
+                    </View>
 
-                    <TouchableOpacity
-                      style={{ minWidth: "47.3%", margin: 0 }}
-                      onPress={PrepertyTypeToggleModal}
-                      activeOpacity={0.9}
-                    >
-                      <View pointerEvents="none">
-                        <FloatingLabelInput
-                          label="Property Type"
-                          value={Formdata.PropertyType}
-                          staticLabel
-                          customLabelStyles={{
-                            colorFocused: "#000000",
-                            colorBlurred: "#000000", // Color when input is not focused
-                            fontSizeFocused: 14,
-                          }}
-                          editable={isEditable}
-                          rightComponent={
-                            <TouchableOpacity>
-                              <Entypo name="chevron-down" size={24} color="grey" style={{paddingRight:'7%', paddingBottom:'1%'}} />
-                            </TouchableOpacity>
-                          }
-                        />
-                      </View>
-                    </TouchableOpacity>
+                    <View style={{width:'50%'}}>
+                      <FloatingLabelInput
+                        label="Property Type"
+                        value={Formdata.PropertyNikcName}
+                        staticLabel
+                        customLabelStyles={{
+                          colorFocused: "#000000",
+                          colorBlurred: "#000000", // Color when input is not focused
+                          fontSizeFocused: 14,
+                        }}
+                        containerStyles={styles.containerStylesRight}
+                        onChangeText={(text) =>
+                          handleValueChange("PropertyType", text)
+                        }
+                        onPress={toggleModal}
+                        editable={false}
+                      />
 
-                    <Modal
-                      visible={isModalVisible}
-                      transparent
-                      animationType="fade"
-                      onRequestClose={PrepertyTypeToggleModal} // Required for Android
-                    >
-                      <TouchableOpacity
-                        style={styles.modalContainer}
-                        onPress={PrepertyTypeToggleModal}
-                        activeOpacity={0.9}
+                      <Modal
+                        visible={isModalVisible}
+                        transparent
+                        animationType="slide"
+                        onRequestClose={toggleModal}
                       >
-                        <View style={styles.propertyModalContent}>
-                          <View style={styles.modelHeader}>
+                        <View style={styles.modalContainer}>
+                          <View style={styles.modalContent}>
                             <Text style={styles.modalTitle}>
-                              Select Property Type
+                              Select an Option
                             </Text>
+                            
                             <TouchableOpacity
                               style={styles.closeButton}
-                              onPress={PrepertyTypeToggleModal}
-                            ></TouchableOpacity>
-                          </View>
-                          <FlatList
-                            data={PropertyTypes}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => (
-                              <TouchableOpacity
-                                style={[
-                                  styles.option,
-                                  Formdata.PropertyType === item && {
-                                    backgroundColor: "#3366CC",
-                                  }, // Apply red color if selected
-                                ]}
-                                onPress={() => {
-                                  handleChanges("PropertyType", item, true);
-                                  PrepertyTypeToggleModal(); // Close modal on selection
-                                }}
-                              >
-                                <Text
-                                  style={[
-                                    styles.optionText,
-
-                                    Formdata.PropertyType === item && {
-                                      color: "#FFFFFF",
-                                    },
-                                  ]}
+                              onPress={toggleModal}
+                            >
+                              <Text style={styles.closeButtonText}>Close</Text>
+                            </TouchableOpacity>
+                            <FlatList
+                              data={options}
+                              keyExtractor={(item, index) => index.toString()}
+                              renderItem={({ item }) => (
+                                <TouchableOpacity
+                                  style={styles.option}
+                                  onPress={() => handleSelect(item)}
                                 >
-                                  {item}
-                                </Text>
-                              </TouchableOpacity>
-                            )}
-                            keyboardShouldPersistTaps="handled" // Ensures touches are handled properly
-                          />
+                                  <Text style={styles.optionText}>{item}</Text>
+                                </TouchableOpacity>
+                              )}
+                            />
+                          </View>
                         </View>
-                      </TouchableOpacity>
-                    </Modal>
+                      </Modal>
+                    </View>
                   </View>
                   {/* HOA Provider and HOA Name */}
                   <View style={styles.unit_intrested}>
@@ -605,86 +530,36 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    // maxHeight:'60%'
   },
   modalContent: {
     width: "80%",
     backgroundColor: "#fff",
     borderRadius: 8,
     padding: 16,
-    paddingLeft: 0,
-    paddingRight: 0,
-    maxHeight: "50%",
-  },
-
-  propertyModalContent: {
-    width: "80%",
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 16,
-    // paddingLeft:0,
-    // paddingRight:0,
-    maxHeight: "50%",
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 700,
+    fontWeight: "bold",
     marginBottom: 16,
-    color: "#3366CC",
   },
   option: {
     padding: 12,
-    borderRadius: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
   },
   optionText: {
     fontSize: 16,
     color: "#333",
   },
-  modelHeader: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   closeButton: {
-    width: "10%",
-    alignItems: "flex-end",
-  },
-  closeButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-  },
-  bottomcloseButton: {
     marginTop: 16,
     alignItems: "center",
-    backgroundColor: "#3366CC",
+    backgroundColor: "#007BFF",
     padding: 12,
     borderRadius: 8,
-    width: "80%",
   },
-  modalTitleContainer: {
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "grey",
+  closeButtonText: {
+    color: "#fff",
+    fontSize: 16,
   },
-
-  // inputStyles: {
-  //   color: "#6E6E6E",
-  //   paddingHorizontal: 10,
-  // },
-  // labelStyles: {
-  //   backgroundColor: "#fff",
-  //   paddingHorizontal: 5,
-  //   fontSize: 13,
-  //   lineHeight: 22,
-  //   letterSpacing: 0.2,
-  //   marginLeft: -10,
-  //   fontWeight: 600,
-  // },
-  // containerStyles: {
-  //   borderWidth: 1,
-  //   backgroundColor: "#fff",
-  //   borderColor: "#AFAFAF",
-  //   borderRadius: 5,
-  //   height: 47,
-  // },
 });

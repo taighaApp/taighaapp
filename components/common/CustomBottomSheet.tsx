@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomSheet: {
-    backgroundColor: 'white',
+    backgroundColor: '#fffff',
     overflow: 'hidden',
     elevation: 100,
     shadowColor: '#000',

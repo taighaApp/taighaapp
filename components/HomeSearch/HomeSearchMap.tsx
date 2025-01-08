@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
 // import MapView, { Marker } from 'react-native-maps';
-import PropertyListView from '@/app/HomeSearch/PropertyListView'
 import MapCard from './MapCard';
 
 const { width, height } = Dimensions.get('window');

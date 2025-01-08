@@ -24,7 +24,7 @@ const CustomBottomsheetModel: React.FC<Props> = ({ children, bottomSheetRef, ini
           if (index >= 0 && index < snapPoints.length) {
             console.log(`Sheet changed to index: ${index}`);
           }else{
-            bottomSheetRef.current?.snapToIndex(2);
+            bottomSheetRef.current?.snapToIndex(1);
           }
         },
         [snapPoints, bottomSheetRef]

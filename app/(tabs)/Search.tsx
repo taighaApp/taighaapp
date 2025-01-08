@@ -3,15 +3,19 @@ import React from 'react'
 import HomeSearchMap from '@/components/HomeSearch/HomeSearchMap';
 import Buttons from '@/components/common/Buttons';
 import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 
 function Search({route}:any) {
+    const navigation = useNavigation();
+  
   const handlecardView = ()=>{
-    router.navigate('/Login');
+    // navigation.push("Properties", { screen: "Index" })
+    navigation.navigate('Admin' as any ,{ screen: 'Search',params: {screen: 'PropertyCardView'}});
   }
 
   const handleListView = ()=>{
-    router.push('/HomeSearch/PropertyListView');
-  }
+    navigation.navigate('Admin' as any ,{ screen: 'Search',params: {screen: 'PropertyListView'}});
+  } 
 
     return (
       <View style={styles.screenContainer}>

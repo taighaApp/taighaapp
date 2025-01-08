@@ -1,8 +1,7 @@
 import { View, Image, StyleSheet, Text, FlatList, Dimensions, Pressable, Button } from 'react-native'
 import React, { useState } from 'react'
 import Carousel from 'react-native-reanimated-carousel';
-import Buttons from '../../components/common/Buttons';
-import HomeAccessories from '../../components/HomeSearch/HomeAccessories';
+import HomeAccessories from '@/components/HomeSearch/HomeAccessories';
 const { width } = Dimensions.get('window');
 const PropertyListView = ({route}:any) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -10,9 +9,9 @@ const PropertyListView = ({route}:any) => {
   const [isActive, setActive] =  useState(false);
   const toggleCheckbox = () => setChecked(!isChecked);
   const data = [
-    { id: '1', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '2', image: require('../../assets/images/dummyCardImage.png') },
-    { id: '3', image: require('../../assets/images/dummyCardImage.png') },
+    { id: '1', image: require('../../../assets/images/dummyCardImage.png') },
+    { id: '2', image: require('../../../assets/images/dummyCardImage.png') },
+    { id: '3', image: require('../../../assets/images/dummyCardImage.png') },
   ];
   const onScroll = (event: { nativeEvent: { contentOffset: { x: number; }; }; }) => {
     const slideIndex = Math.round(event.nativeEvent.contentOffset.x / width);
@@ -55,7 +54,7 @@ const listViewData = [
               aria-checked={isChecked}
               style={styles.checkbox}
               onPress={toggleCheckbox}>
-              {isChecked && <Image style={{width:15,height:15}} source={require('../../assets/images/homesearch/icon/checked-box.png')}/>}
+              {isChecked && <Image style={{width:15,height:15}} source={require('../../../assets/images/homesearch/icon/checked-box.png')}/>}
             </Pressable>
                 {isActive ?
                 <Pressable style={styles.activeButton} onPress={active}>
@@ -99,7 +98,7 @@ const listViewData = [
               </View>
               <View style={styles.mapMediaContainer}>
                 <Pressable style={styles.mapMediaWrapper}>
-                    <Image style={styles.mapMedia} source={require('../../assets/images/homesearch/icon/favorite.png')}/>
+                    <Image style={styles.mapMedia} source={require('../../../assets/images/homesearch/icon/favorite.png')}/>
                 </Pressable>
               </View>
            </View>
