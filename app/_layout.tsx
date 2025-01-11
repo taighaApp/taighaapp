@@ -22,6 +22,7 @@ import AdminNavigator from './Admin/_layoyt';
 import Properties from './Admin/Properties/Properties';
 import Documents from './Admin/Documents/Documents';
 import Tasks from './Admin/Tasks/Tasks';
+import Mails from './Admin/Mails/Mails';
 
 const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -77,6 +78,8 @@ export default function RootLayout() {
     <Stack.Screen name="Documents" component={ Documents }/>
     <Stack.Screen name="Tasks" component={ Tasks }/>
     <Stack.Screen name="Drawer" component={ DrawerLayout } /> 
+    <Stack.Screen name="Mails" component={ Mails } /> 
+
 
     </Stack.Navigator>
     </GlobalProvider>

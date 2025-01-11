@@ -23,6 +23,7 @@ import { Dimensions } from 'react-native';
 import Dashboard from './MainDashboard';
 import RootLayout from '../_layout';
 import Tasks from '../Admin/Tasks/Tasks';
+import MainDashboard from '../drawer/MainDashboard'
 
 const Drawer = createDrawerNavigator();
 
@@ -35,12 +36,12 @@ const DrawerLayout = () => {
             drawerStyle: { width: 320, padding:0, margin:0},
             drawerType: 'front', // Change this to 'front', 'back', or 'permanent'
             drawerActiveTintColor: '#e91e63',
-            swipeEdgeWidth: Dimensions.get('window').width,
+            // swipeEnabled: false, // Disables swipe gesture globally
             headerShown: false,
         }}
         >
             <Drawer.Screen name="Tabs" component={Tabs} />
-            {/* <Drawer.Screen name="Dashboard" component={Dashboard} /> */}
+            <Drawer.Screen name="Dashboard" component={MainDashboard} />
             <Drawer.Screen name="Seller" component={Seller} /> 
             <Drawer.Screen name="Buyer" component={Buyer} /> 
             <Drawer.Screen name="Investors" component={Investors} /> 

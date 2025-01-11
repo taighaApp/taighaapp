@@ -143,7 +143,7 @@ const activities = [
 
 const Dashboard = () => {
   const route = useRoute();
-
+  const [Search, setSearch] = useState("");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const navigation = useNavigation();
 
@@ -151,6 +151,30 @@ const Dashboard = () => {
     bottomSheetModalRef.current?.present();
     console.log("Bottom sheet opened");
   }, []);
+  // const [county, setCounty] = useState("");
+
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await api.get(
+  //         `home/search/by/term?term=${Search}&zip-search=`
+  //       );
+  //       const fetchedCounty =
+  //         response.data.data.addresses[0]?.County || "Not Found";
+  //       setCounty(fetchedCounty);
+  //     } catch (error) {
+  //       console.error("Error fetching users:", error);
+  //       setCounty("Error fetching data");
+  //     } finally {
+  //       console.log("API fetch completed");
+  //     }
+  //   };
+  //   const timeout = setTimeout(() => {
+  //     fetchUsers();
+  //   }, 500); // 500ms delay
+
+  //   return () => clearTimeout(timeout); // Cleanup timeout on component unmount or `Search` change
+  // }, [Search]);
 
   const handelDocumentsOpen = () => {
     router.push("/Admin/Mails/Mails");
@@ -164,7 +188,6 @@ const Dashboard = () => {
     // router.push('/Admin/Tasks')
     // navigation.navigate('Admin' as any ,{ screen: 'Mails',params: {screen: 'Mails'}});
   };
-
 
   return (
     <LinearGradient
@@ -187,6 +210,10 @@ const Dashboard = () => {
               style={styles.searchInput}
               placeholder="Global Search"
               placeholderTextColor="#999"
+              value={Search}
+              onChangeText={(text) => {
+                setSearch(text);
+              }}
             />
             <TouchableOpacity style={styles.clearIconContainer}>
               <Ionicons
@@ -210,6 +237,10 @@ const Dashboard = () => {
             </TouchableOpacity>
           </View>
         </View>
+        {/* <View style={styles.container}>
+          <Text style={styles.label}>County:</Text>
+          <Text style={styles.value}>{county}</Text>
+        </View> */}
 
         <View style={styles.profileContainer}>
           {/* Greeting Text */}
@@ -250,9 +281,7 @@ const Dashboard = () => {
             style={styles.horizontalScroll}
           >
             {/* Properties Card */}
-            <TouchableOpacity
-              onPress={() => navigation.push("Properties", { screen: "Index" })}
-            >
+            <TouchableOpacity onPress={() => navigation.push("Properties")}>
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_properties_image.png")}
@@ -265,11 +294,7 @@ const Dashboard = () => {
             </TouchableOpacity>
 
             {/* Documents Card */}
-            <TouchableOpacity
-              onPress={() =>
-                navigation.push("Documents", { screen: "Documents" })
-              }
-            >
+            <TouchableOpacity onPress={() => navigation.push("Documents")}>
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_document_image.png")}
@@ -282,9 +307,7 @@ const Dashboard = () => {
             </TouchableOpacity>
 
             {/* Mails Card */}
-            <TouchableOpacity
-              onPress={() => navigation.push("Mails", { screen: "Mails" })}
-            >
+            <TouchableOpacity onPress={() => navigation.push("Mails")}>
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_mails_image.png")}
@@ -297,9 +320,7 @@ const Dashboard = () => {
             </TouchableOpacity>
 
             {/* Mails Card */}
-            <TouchableOpacity
-              onPress={() => navigation.push("Tasks", { screen: "Tasks" })}
-            >
+            <TouchableOpacity onPress={() => navigation.push("Tasks")}>
               <View style={styles.card}>
                 <ImageBackground
                   source={require("../../assets/images/dashboard/dashboard_task_image.png")}
@@ -311,7 +332,6 @@ const Dashboard = () => {
               </View>
             </TouchableOpacity>
           </ScrollView>
-
           <View style={styles.supportTickets}>
             <Text style={styles.headerText}>Support Tickets (219)</Text>
 
